@@ -1,0 +1,36 @@
+/* Navigation */
+.navi {
+	padding: 2px 4px;
+}
+
+.navi.x-item-selected {
+	background-color: #DFE8F6;
+	font-weight: bold;
+}
+
+.navi.item-navi-over {
+	background-color: #eee;
+}
+
+.appHeader .x-panel-body {
+	background-color: lightGoldenrodYellow;
+}
+
+h3.header {
+	padding: 5px 10px 5px 10px;
+	font-size: 18px;
+	color: black;
+	height: 70px;
+}
+
+.icon-add {
+    background-image: url(add.png) !important;
+}
+
+.icon-delete {
+    background-image: url(delete.png) !important;
+}
+
+.icon-info {
+    background-image: url(information.png) !important;
+}
