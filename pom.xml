@@ -11,6 +11,7 @@
 
 		<hibernate.version>3.6.5.Final</hibernate.version>
 		<hibernatevalidator.version>4.2.0.Final</hibernatevalidator.version>
+		
 		<querydsl.version>2.2.0.beta5</querydsl.version>
 		<aspectj.version>1.6.11</aspectj.version>
 
@@ -94,6 +95,14 @@
 			</exclusions>
 		</dependency>
 
+<!-- 
+		<dependency>
+		     <groupId>org.hibernate</groupId>
+		     <artifactId>hibernate-search</artifactId>
+		     <version>3.4.0.Final</version>
+		 </dependency>
+ -->
+ 
 		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
