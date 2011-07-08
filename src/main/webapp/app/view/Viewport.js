@@ -14,7 +14,7 @@ Ext.define('Simple.view.Viewport', {
 		this.items = [ {
 			region : 'north',
 			html : '<h3 class="header">e4ds-template: Simple project with ExtJs4 and ExtDirectSpring</h3>',
-			height : 70,
+			height : 40,
 			cls : 'appHeader',
 			split : false
 		}, {

@@ -13,7 +13,7 @@ public class PollService {
 	
 	private DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm:ss");
 	
-	@ExtDirectMethod(value=ExtDirectMethodType.POLL, event = "chartdata")
+	@ExtDirectMethod(value=ExtDirectMethodType.POLL, event = "chartdata")	
 	public Poll getPollData() {		
 		return new Poll(fmt.print(new DateTime()), (int)(Math.random()*1000));
 	}
