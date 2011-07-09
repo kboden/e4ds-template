@@ -4,26 +4,44 @@ import javax.sql.DataSource;
 
 import liquibase.integration.spring.SpringLiquibase;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactory;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import com.jolbox.bonecp.BoneCPDataSource;
+
 @Configuration
 @EnableTransactionManagement
 public class DataConfig {
-
-	@Bean(destroyMethod = "shutdown")
+	
+	@Autowired
+	private Environment environment;
+	
+	@Bean(destroyMethod = "close")
 	public DataSource dataSource() {
-		EmbeddedDatabaseFactory factory = new EmbeddedDatabaseFactory();
-		factory.setDatabaseName("e4ds");
-		factory.setDatabaseType(EmbeddedDatabaseType.H2);
-		return factory.getDatabase();
+
+		BoneCPDataSource ds = new BoneCPDataSource();  
+		ds.setDriverClass(environment.getProperty("database.driver"));
+		ds.setJdbcUrl(environment.getProperty("database.url"));
+		ds.setUsername(environment.getProperty("database.username"));
+		ds.setPassword(environment.getProperty("database.password"));
+
+		ds.setIdleConnectionTestPeriodInMinutes(240);
+		ds.setIdleMaxAgeInMinutes(60);
+		ds.setMaxConnectionsPerPartition(5);
+		ds.setMinConnectionsPerPartition(1);
+		ds.setPartitionCount(3);
+		ds.setAcquireIncrement(5);
+		ds.setStatementsCacheSize(200);
+		ds.setReleaseHelperThreads(1);
+
+		return ds;
 	}
 
 	@Bean
@@ -53,81 +71,4 @@ public class DataConfig {
 		return bean;
 	}
 
-	//	@Inject
-	//	private DataSource dataSource;
-	//	
-	//	/**
-	//	 * Allows repositories to access RDBMS data using the JDBC API.
-	//	 */
-	//	@Bean
-	//	public JdbcTemplate jdbcTemplate() {
-	//		return new JdbcTemplate(dataSource);
-	//	}
-	//	
-	//	/**
-	//	 * Allows transactions to be managed against the RDBMS using the JDBC API.
-	//	 */
-	//	@Bean
-	//	public PlatformTransactionManager transactionManager() {
-	//		return new DataSourceTransactionManager(dataSource);
-	//	}
-	//
-	//	/**
-	//	 * Embedded Data configuration.
-	//	 * @author Keith Donald
-	//	 */
-	//	@Configuration
-	//	@Profile("embedded")
-	//	static class Embedded {
-	//
-	//		@Inject
-	//		private Environment environment;
-	//
-	//		@Inject
-	//		private TextEncryptor textEncryptor;
-	//
-	//		@Bean(destroyMethod="shutdown")
-	//		public DataSource dataSource() {
-	//			EmbeddedDatabaseFactory factory = new EmbeddedDatabaseFactory();
-	//			factory.setDatabaseName("greenhouse");
-	//			factory.setDatabaseType(EmbeddedDatabaseType.H2);
-	//			return populateDatabase(factory.getDatabase());		
-	//		}
-	//
-	//		// internal helpers
-	//		
-	//		private EmbeddedDatabase populateDatabase(EmbeddedDatabase database) {
-	//			new DatabaseUpgrader(database, environment, textEncryptor) {
-	//				protected void addInstallChanges(DatabaseChangeSet changeSet) {
-	//					changeSet.add(SqlDatabaseChange.inResource(new ClassPathResource("test-data.sql", getClass())));
-	//				}
-	//			}.run();
-	//			return database;
-	//		}
-	//
-	//	}
-	//	
-	//	/**
-	//	 * Standard Data configuration.
-	//	 * @author Keith Donald
-	//	 */
-	//	@Configuration
-	//	@Profile("standard")
-	//	static class Standard {
-	//
-	//		@Inject
-	//		private Environment environment;
-	//
-	//		@Inject
-	//		private TextEncryptor textEncryptor;
-	//
-	//		@Bean(destroyMethod="dispose")
-	//		public DataSource dataSource() {
-	//			JdbcConnectionPool dataSource = JdbcConnectionPool.create(environment.getProperty("database.url"),
-	//					environment.getProperty("database.username"), environment.getProperty("database.password"));
-	//			new DatabaseUpgrader(dataSource, environment, textEncryptor).run();
-	//			return dataSource;
-	//		}
-	//		
-	//	}
 }

@@ -75,13 +75,13 @@
 		<addPrimaryKey columnNames="event_id, mapped_key" constraintName="PK_log_event_prop" tableName="logging_event_property" />
 	</changeSet>
 
-	<changeSet author="e5ds" id="6">
+	<changeSet author="dev" id="6">
 		<addForeignKeyConstraint baseColumnNames="event_id" baseTableName="logging_event_exception" constraintName="FK_log_event_ex_event"
 			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="event_id"
 			referencedTableName="logging_event" />
 	</changeSet>
 
-	<changeSet author="e6ds" id="7">
+	<changeSet author="dev" id="7">
 		<addForeignKeyConstraint baseColumnNames="event_id" baseTableName="logging_event_property" constraintName="FK_log_event_prop_event"
 			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="event_id"
 			referencedTableName="logging_event" />

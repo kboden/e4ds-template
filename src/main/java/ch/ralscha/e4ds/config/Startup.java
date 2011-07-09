@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import ch.qos.logback.classic.Level;
@@ -21,11 +22,17 @@ import ch.qos.logback.core.util.StatusPrinter;
 public class Startup {
 
 	@Autowired
+	private Environment environment;
+	
+	@Autowired
 	private DataSource dataSource;
 	
 	@PostConstruct
 	public void setupLog() {
 
+		System.out.println("ASIMPLETEST: " + environment.getProperty("aSimpleTest"));
+		System.out.println("USER       : " + environment.getProperty("user"));
+		
 		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
 		lc.reset();
 
