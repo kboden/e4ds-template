@@ -42,7 +42,7 @@ public class UserService {
 		}
 		
 		Sort sort = new Sort(orders);		
-		Page<User> page = userRepository.findAll(new PageRequest(request.getPage(), request.getLimit(), sort));		
+		Page<User> page = userRepository.findAll(new PageRequest(request.getPage()-1, request.getLimit(), sort));		
 		return new ExtDirectStoreResponse<User>((int)page.getTotalElements(), page.getContent());
 	}
 	
@@ -66,7 +66,8 @@ public class UserService {
 		for (User modifiedUser : modifiedUsers) {
 			User dbUser = userRepository.findOne(modifiedUser.getId());
 			if (dbUser != null) {
-				dbUser.updateValues(modifiedUser);
+				dbUser.update(modifiedUser);
+				updatedRecords.add(dbUser);
 			}
 		}
 		return updatedRecords;

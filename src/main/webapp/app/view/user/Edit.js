@@ -14,28 +14,28 @@ Ext.define('Simple.view.user.Edit', {
 			border : false,
 			style : 'background-color: #fff;',
 			defaults : {
-				width: 400
+				width : 400
 			},
 			items : [ {
 				xtype : 'textfield',
-				name : 'firstName',
-				fieldLabel : 'First Name',
-				allowBlank: false
+				name : 'userName',
+				fieldLabel : 'Username'
 			}, {
 				xtype : 'textfield',
-				name : 'lastName',
+				name : 'firstName',
+				fieldLabel : 'First Name',
+				allowBlank : false
+			}, {
+				xtype : 'textfield',
+				name : 'name',
 				fieldLabel : 'Last Name',
-				allowBlank: false
+				allowBlank : false
 			}, {
 				xtype : 'textfield',
 				name : 'email',
 				fieldLabel : 'Email',
-				vtype: 'email',
-				allowBlank: false
-			}, {
-				xtype : 'textfield',
-				name : 'city',
-				fieldLabel : 'City'
+				vtype : 'email',
+				allowBlank : false
 			} ]
 		} ];
 

@@ -1,8 +1,8 @@
 Ext.define('Simple.store.Navigation', {
 	extend: 'Ext.data.ArrayStore',
-	fields: ['id', 'name'],
+	fields: ['id', 'name', 'view'],
 	data: [
-		[1, 'User Management'],
-		[2, 'Polling Chart']
+		[1, 'Users', 'userlist'],
+		[2, 'Polling Chart', 'pollchart']
 	]
 });

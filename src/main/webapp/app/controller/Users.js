@@ -18,22 +18,34 @@ Ext.define('Simple.controller.Users', {
 	init : function() {
 		this.control({
 			'userlist' : {
-				itemdblclick : this.editUser,
-				itemclick : this.enableDelete
+				itemdblclick : this.editUserFromDblClick,
+				itemclick : this.enableActions,
+				beforeactivate : this.onBeforeActivate,
 			},
 			'useredit button[action=save]' : {
 				click : this.updateUser
 			},
 			'userlist button[action=add]': {
 				click: this.createUser
-			},			
+			},	
+			'userlist button[action=edit]': {
+				click: this.editUserFromButton
+			},				
 			'userlist button[action=delete]' : {
 				click : this.deleteUser
 			}
 		});
 	},
 
-	editUser : function(grid, record) {
+	editUserFromDblClick : function(grid, record) {
+		this.editUser(record);
+	},
+	
+	editUserFromButton : function() {
+		this.editUser(this.getUserList().getSelectionModel().getSelection()[0]);
+	},
+	
+	editUser : function(record) {
 		var view = Ext.widget('useredit');
 		view.down('form').loadRecord(record);
 	},
@@ -49,11 +61,14 @@ Ext.define('Simple.controller.Users', {
 			this.getUsersStore().remove(record);
 			this.doGridRefresh();
 			this.toggleDeleteButton(false);
+			this.toogleEditButton(false);
 		}
 	},
+		
 
-	enableDelete : function(button, record) {
+	enableActions : function(button, record) {
 		this.toggleDeleteButton(true);
+		this.toggleEditButton(true);
 	},
 
 	toggleDeleteButton : function(enable) {
@@ -64,6 +79,15 @@ Ext.define('Simple.controller.Users', {
 			button.disable();
 		}
 	},
+	
+	toggleEditButton : function(enable) {
+		var button = this.getUserList().down('button[action=edit]');
+		if (enable) {
+			button.enable();
+		} else {
+			button.disable();
+		}
+	},	
 	
 	updateUser : function(button) {
 		var form = this.getUserEditForm();
@@ -80,6 +104,10 @@ Ext.define('Simple.controller.Users', {
 			}
 			this.getUserEditWindow().close();
 		}				
+	},
+	
+	onBeforeActivate : function() {
+		this.doGridRefresh();
 	},
 	
 	doGridRefresh : function() {

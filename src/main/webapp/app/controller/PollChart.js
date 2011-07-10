@@ -35,7 +35,7 @@ Ext.define('Simple.controller.PollChart', {
 		var model = this.getPollChartModel();
 
 		this.provider = Ext.direct.Manager.getProvider('chartdatapoller');
-		this.provider.addListener('data', function(provider, event) {			
+		this.provider.addListener('data', function(provider, event) {		
 			if (store.getCount() > 20) {
 				store.removeAt(0);
 			}
@@ -71,7 +71,6 @@ Ext.define('Simple.controller.PollChart', {
 
 	onDestroy : function() {
 		this.provider.disconnect();
-		Ext.direct.Manager.removeProvider(this.provider);
 	}
 
 });

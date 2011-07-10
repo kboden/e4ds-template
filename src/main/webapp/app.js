@@ -13,8 +13,9 @@ Ext.require('Ext.direct.*', function() {
 		url : Ext.app.POLLING_URLS.chartdata,
 	});
 	Ext.direct.Manager.addProvider(Ext.app.REMOTING_API, poller);
-	poller.disconnect();
+	Ext.direct.Manager.getProvider('chartdatapoller').disconnect();
 });
+
 
 Ext.application({
 	name : 'Simple',

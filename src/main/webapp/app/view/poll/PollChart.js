@@ -5,15 +5,8 @@ Ext.define('Simple.view.poll.PollChart', {
 	title : 'Polling Chart',
 
 	layout : 'fit',
-
-	dockedItems : [ {
-		xtype : 'toolbar',
-		items : [ {
-			text : 'Stop',
-			action : 'control'
-		} ]
-	} ],
-
+	closable : true,
+	
 	initComponent : function() {
 		
 		var store = Ext.StoreManager.get('PollChart');
@@ -24,6 +17,14 @@ Ext.define('Simple.view.poll.PollChart', {
 				]);
 			}
 		}
+		
+		this.dockedItems = [ {
+			xtype : 'toolbar',
+			items : [ {
+				text : 'Stop',
+				action : 'control'
+			} ]
+		} ];
 		
 		this.items = [ {
 			xtype : 'chart',

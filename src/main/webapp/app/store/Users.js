@@ -6,7 +6,7 @@ Ext.define('Simple.store.Users', {
     pageSize : 30,
     autoSync : true,
     sorters: [ {
-        property: 'lastName',
+        property: 'name',
         direction: 'ASC'
     }]
 });

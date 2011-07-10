@@ -19,10 +19,7 @@ Ext.define('Simple.view.Viewport', {
 			split : false
 		}, {
 			region : 'center',
-			xtype : 'tabpanel',
-			items : [ {
-				xtype : 'userlist'
-			} ]
+			xtype : 'tabpanel'
 		}, {
 			region : 'west',
 			width : 180,

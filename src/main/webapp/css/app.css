@@ -27,6 +27,10 @@ h3.header {
     background-image: url(add.png) !important;
 }
 
+.icon-edit {
+    background-image: url(edit.png) !important;
+}
+
 .icon-delete {
     background-image: url(delete.png) !important;
 }

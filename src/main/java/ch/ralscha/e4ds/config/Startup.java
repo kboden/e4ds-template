@@ -3,8 +3,8 @@ package ch.ralscha.e4ds.config;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +17,7 @@ import ch.ralscha.e4ds.repository.UserRepository;
 import com.google.common.collect.Sets;
 
 @Component
-public class Startup implements ApplicationListener<ApplicationEvent> {
+public class Startup implements ApplicationListener<ContextRefreshedEvent> {
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -31,7 +31,7 @@ public class Startup implements ApplicationListener<ApplicationEvent> {
 	
 	@Override
 	@Transactional
-	public void onApplicationEvent(ApplicationEvent event) {				
+	public void onApplicationEvent(ContextRefreshedEvent event) {			
 		if (userRepository.count() == 0) {
 			//admin user
 			User adminUser = new User();
@@ -106,10 +106,5 @@ public class Startup implements ApplicationListener<ApplicationEvent> {
 			userRepository.save(normalUser);
 		}
 	}
-	
-
-
-
-
 
 }

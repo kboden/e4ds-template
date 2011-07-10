@@ -2,12 +2,10 @@ Ext.define('Simple.controller.Navigation', {
 	extend: 'Ext.app.Controller',
 
 	stores: ['Navigation'],
-
 	views: ['navigation.SideBar', 'user.List', 'poll.PollChart'],
-
+	
 	refs: [
 		{ref: 'tabpanel', selector: 'viewport tabpanel'},
-		{ref: 'navigation', selector: 'sidebar'},
 		{ref: 'navigationData', selector: 'sidebar dataview'}
 	],
 
@@ -23,34 +21,23 @@ Ext.define('Simple.controller.Navigation', {
 		});
 	},
 
-	onLaunch: function(app) {
-		var nav = this.getNavigationData(),
-			viewport = Ext.ComponentQuery.query('viewport')[0],
-			centerView = viewport.getLayout().regions.center;
-		this.tabPanel = centerView;
-		nav.getSelectionModel().select(0);
-	},
-
 	onSideBarItemClick: function(view, record, item, index, event) {
-		if (index == 1 && !this.chartTab) {
-			 this.chartTab = this.tabPanel.add({
-				xtype: 'pollchart'
-			 });
+		var view = record.data.view;
+		var tab = this.getTabpanel().child(view);
+		if (!tab) {
+			this.getTabpanel().add({xtype: record.data.view, navigationId: record.data.id});	
+			tab = this.getTabpanel().child(view);
 		}
-		this.tabPanel.setActiveTab(index);
-		this.activeTab = index;
-
+		this.getTabpanel().setActiveTab(tab);
     },
 
 	syncNavigation: function() {
-		if (this.activeTab !== undefined) {
-			this.activeTab = this.tabPanel.activeTab.xtype == 'userlist' ? 0 : 1;
-			var nav = this.getNavigationData(),
-				index = nav.getSelectionModel().getSelection()[0].index;
+		var activeTabId = this.getTabpanel().getActiveTab().navigationId;
+		var currentNavigationId = this.getNavigationData().getSelectionModel().getSelection()[0].data.id;
 
-			if (this.activeTab !== index) {
-				nav.getSelectionModel().select(this.activeTab);
-			}
+		if (activeTabId !== currentNavigationId) {
+			var record = this.getNavigationStore().find('id', activeTabId);
+			this.getNavigationData().getSelectionModel().select(record);
 		}
 	},
 
