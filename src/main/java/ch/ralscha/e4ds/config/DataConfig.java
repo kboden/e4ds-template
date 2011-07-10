@@ -4,20 +4,32 @@ import javax.sql.DataSource;
 
 import liquibase.integration.spring.SpringLiquibase;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.support.TransactionTemplate;
+
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.PatternLayout;
+import ch.qos.logback.classic.db.DBAppender;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.ConsoleAppender;
+import ch.qos.logback.core.db.DataSourceConnectionSource;
+import ch.qos.logback.core.util.StatusPrinter;
 
 import com.jolbox.bonecp.BoneCPDataSource;
 
 @Configuration
 @EnableTransactionManagement
+@ImportResource("classpath:spring/data.xml")
 public class DataConfig {
 	
 	@Autowired
@@ -40,8 +52,44 @@ public class DataConfig {
 		ds.setAcquireIncrement(5);
 		ds.setStatementsCacheSize(200);
 		ds.setReleaseHelperThreads(1);
-
+		
+		setupLog(ds);
 		return ds;
+	}
+	
+	private void setupLog(DataSource dataSource) {
+
+		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+		lc.reset();
+
+		PatternLayout patternLayout = new PatternLayout();
+		patternLayout.setContext(lc);
+		patternLayout.setPattern("%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n");
+		patternLayout.start();
+
+		ConsoleAppender<ILoggingEvent> appender = new ConsoleAppender<ILoggingEvent>();
+		appender.setContext(lc);
+		appender.setLayout(patternLayout);		
+		appender.start();
+		
+		DataSourceConnectionSource source = new DataSourceConnectionSource();
+		source.setContext(lc);
+		source.setDataSource(dataSource);
+		source.start();
+		
+		DBAppender dbAppender = new DBAppender();
+		dbAppender.setContext(lc);
+		dbAppender.setConnectionSource(source);
+		dbAppender.start();
+		
+		Logger rootLogger = lc.getLogger("root");
+		rootLogger.setLevel(Level.INFO);
+		rootLogger.addAppender(appender);
+		rootLogger.addAppender(dbAppender);
+		lc.start();
+
+		StatusPrinter.printInCaseOfErrorsOrWarnings(lc);
+
 	}
 
 	@Bean
@@ -56,11 +104,6 @@ public class DataConfig {
 	@Bean
 	public PlatformTransactionManager transactionManager() {		
 		return new JpaTransactionManager(entityManagerFactory().getObject());
-	}
-	
-	@Bean
-	public TransactionTemplate readWriteTransactionTemplate() {
-		return new TransactionTemplate(transactionManager());
 	}
 	
 	@Bean

@@ -4,7 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class LoggingEventPropertyId {
+public class LoggingEventPropertyId implements java.io.Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "event_id", nullable = false)
 	private long eventId;

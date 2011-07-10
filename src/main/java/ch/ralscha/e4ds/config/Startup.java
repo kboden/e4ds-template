@@ -1,69 +1,115 @@
 package ch.ralscha.e4ds.config;
 
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
+import java.util.Date;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.PatternLayout;
-import ch.qos.logback.classic.db.DBAppender;
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.ConsoleAppender;
-import ch.qos.logback.core.db.DataSourceConnectionSource;
-import ch.qos.logback.core.util.StatusPrinter;
+import ch.ralscha.e4ds.entity.Role;
+import ch.ralscha.e4ds.entity.User;
+import ch.ralscha.e4ds.repository.RoleRepository;
+import ch.ralscha.e4ds.repository.UserRepository;
+
+import com.google.common.collect.Sets;
 
 @Component
-public class Startup {
-
-	@Autowired
-	private Environment environment;
+public class Startup implements ApplicationListener<ApplicationEvent> {
 	
 	@Autowired
-	private DataSource dataSource;
+	private UserRepository userRepository;
+
+	@Autowired
+	private RoleRepository roleRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
-	@PostConstruct
-	public void setupLog() {
-
-		System.out.println("ASIMPLETEST: " + environment.getProperty("aSimpleTest"));
-		System.out.println("USER       : " + environment.getProperty("user"));
+	
+	@Override
+	@Transactional
+	public void onApplicationEvent(ApplicationEvent event) {				
+		if (userRepository.count() == 0) {
+			//admin user
+			User adminUser = new User();
+			adminUser.setUserName("admin");
+			adminUser.setEmail("test@test.ch");
+			adminUser.setFirstName("admin");
+			adminUser.setName("admin");
+			System.out.println(passwordEncoder.encode("admin"));
+			adminUser.setPasswordHash(passwordEncoder.encode("admin"));
+			adminUser.setEnabled(true);
+			adminUser.setLocale("en_US");
+			adminUser.setCreateDate(new Date());
 		
-		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-		lc.reset();
-
-		PatternLayout patternLayout = new PatternLayout();
-		patternLayout.setContext(lc);
-		patternLayout.setPattern("%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n");
-		patternLayout.start();
-
-		ConsoleAppender<ILoggingEvent> appender = new ConsoleAppender<ILoggingEvent>();
-		appender.setContext(lc);
-		appender.setLayout(patternLayout);		
-		appender.start();
+			Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+			adminUser.setRoles(Sets.newHashSet(adminRole));
 		
-		DataSourceConnectionSource source = new DataSourceConnectionSource();
-		source.setContext(lc);
-		source.setDataSource(dataSource);
-		source.start();
+			userRepository.save(adminUser);
 		
-		DBAppender dbAppender = new DBAppender();
-		dbAppender.setContext(lc);
-		dbAppender.setConnectionSource(source);
-		dbAppender.start();
+			//normal user
+			User normalUser = new User();
+			normalUser.setUserName("user");
+			normalUser.setEmail("user@test.ch");
+			normalUser.setFirstName("user");
+			normalUser.setName("user");
+			
+			normalUser.setPasswordHash(passwordEncoder.encode("user"));
+			normalUser.setEnabled(true);
+			normalUser.setLocale("de_CH");
+			normalUser.setCreateDate(new Date());
 		
-		Logger rootLogger = lc.getLogger("root");
-		rootLogger.setLevel(Level.INFO);
-		rootLogger.addAppender(appender);
-		rootLogger.addAppender(dbAppender);
-		lc.start();
+			Role userRole = roleRepository.findByName("ROLE_USER");
+			normalUser.setRoles(Sets.newHashSet(userRole));
+		
+			userRepository.save(normalUser);
+		}			
+	}	
+	
+	void setupDatabase() {
+		if (userRepository.count() == 0) {
+			//admin user
+			User adminUser = new User();
+			adminUser.setUserName("admin");
+			adminUser.setEmail("test@test.ch");
+			adminUser.setFirstName("admin");
+			adminUser.setName("admin");
+			System.out.println(passwordEncoder.encode("admin"));
+			adminUser.setPasswordHash(passwordEncoder.encode("admin"));
+			adminUser.setEnabled(true);
+			adminUser.setLocale("en_US");
+			adminUser.setCreateDate(new Date());
 
-		StatusPrinter.printInCaseOfErrorsOrWarnings(lc);
+			Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+			adminUser.setRoles(Sets.newHashSet(adminRole));
 
+			userRepository.save(adminUser);
+
+			//normal user
+			User normalUser = new User();
+			normalUser.setUserName("user");
+			normalUser.setEmail("user@test.ch");
+			normalUser.setFirstName("user");
+			normalUser.setName("user");
+			
+			normalUser.setPasswordHash(passwordEncoder.encode("user"));
+			normalUser.setEnabled(true);
+			normalUser.setLocale("de_CH");
+			normalUser.setCreateDate(new Date());
+
+			Role userRole = roleRepository.findByName("ROLE_USER");
+			normalUser.setRoles(Sets.newHashSet(userRole));
+
+			userRepository.save(normalUser);
+		}
 	}
+	
+
+
+
+
 
 }

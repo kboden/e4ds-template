@@ -2,8 +2,16 @@ package ch.ralscha.e4ds.service;
 
 import java.util.List;
 
+import liquibase.changelog.visitor.ChangeSetVisitor.Direction;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
+import ch.ralscha.e4ds.entity.User;
+import ch.ralscha.e4ds.repository.UserRepository;
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethodType;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
@@ -14,10 +22,18 @@ import com.google.common.collect.Lists;
 @Service
 public class UserService {
 		
+	@Autowired
+	private UserRepository userRepository;
+	
 	@ExtDirectMethod(ExtDirectMethodType.STORE_READ)
 	public ExtDirectStoreResponse<User> load(ExtDirectStoreReadRequest request) {
-		List<User> users = Lists.newArrayList();
-		return new ExtDirectStoreResponse<User>(users);
+
+		
+		//todo
+		//Sort sort = new Sort(Order.create(Direction.FORWARD, request.getSorters()));
+		
+		Page<User> page = userRepository.findAll(new PageRequest(request.getPage(), request.getLimit()));		
+		return new ExtDirectStoreResponse<User>((int)page.getTotalElements(), page.getContent());
 	}
 	
 	

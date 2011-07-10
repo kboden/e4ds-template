@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 @Table(name = "`User`")
@@ -28,18 +27,18 @@ public class User extends AbstractPersistable<Long> {
 	@Column(unique = true)
 	private String userName;
 
-	@Length(max = 200)
+	@Length(max = 254)
 	private String name;
 
-	@Length(max = 200)
+	@Length(max = 254)
 	private String firstName;
 
 	@Email
-	@Length(max = 255)
+	@Length(max = 254)
 	@NotNull
 	private String email;
 
-	@Length(max = 60)
+	@Length(max = 80)
 	private String passwordHash;
 
 	@Length(max = 8)
@@ -53,7 +52,6 @@ public class User extends AbstractPersistable<Long> {
 	@ManyToMany
 	@JoinTable(name = "UserRoles", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
 	private Set<Role> roles;
-
 
 	public String getUserName() {
 		return userName;

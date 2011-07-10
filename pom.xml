@@ -8,6 +8,7 @@
 
 	<properties>
 		<spring.version>3.1.0.BUILD-SNAPSHOT</spring.version>
+		<spring.security.version>3.1.0.CI-SNAPSHOT</spring.security.version>
 
 		<hibernate.version>3.6.5.Final</hibernate.version>
 		<hibernatevalidator.version>4.2.0.Final</hibernatevalidator.version>
@@ -75,6 +76,24 @@
 			<groupId>cglib</groupId>
 			<artifactId>cglib-nodep</artifactId>
 			<version>2.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
 		</dependency>
 
 		<dependency>
@@ -323,30 +342,6 @@
 					</libs>
 				</configuration>
 
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.2</version>
-				<executions>
-				 <execution>
-				   <phase>generate-sources</phase>
-				   <goals><goal>unpack</goal></goals>
-				 </execution>
-				</executions>
-				<configuration>
-				  <artifactItems>
-	                 <artifactItem>
-						<groupId>org.springframework.data</groupId>
-						<artifactId>spring-data-jpa</artifactId>
-						<type>jar</type>
-						<classifier>sources</classifier>
-						<version>1.0.0.RC1</version>
-	                   <overWrite>false</overWrite>
-	                   <outputDirectory>${project.build.directory}/spring-data-jpa</outputDirectory>
-	                 </artifactItem>				  
-				  </artifactItems>
-				</configuration>
 			</plugin>
 
 			<plugin>
