@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
@@ -47,6 +48,7 @@ public class User extends AbstractPersistable<Long> {
 	private boolean enabled;
 
 	@Temporal(TemporalType.DATE)
+	@JsonIgnore
 	private Date createDate;
 
 	@ManyToMany
@@ -85,6 +87,7 @@ public class User extends AbstractPersistable<Long> {
 		this.email = email;
 	}
 
+	@JsonIgnore
 	public String getPasswordHash() {
 		return passwordHash;
 	}
@@ -123,6 +126,11 @@ public class User extends AbstractPersistable<Long> {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public void updateValues(User modifiedUser) {
+		//todo
+		
 	}
 
 }
