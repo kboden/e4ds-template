@@ -12,20 +12,19 @@ Ext.define('Simple.controller.Navigation', {
 	init: function() {
 		this.control({
 			'sidebar dataview': {
-				 itemclick: this.onSideBarItemClick
+				itemclick: this.onSideBarItemClick
 			 },
 			'tabpanel': {
 				tabchange: this.syncNavigation
 			}
-
 		});
 	},
 
 	onSideBarItemClick: function(view, record, item, index, event) {
 		var view = record.data.view;
 		var tab = this.getTabpanel().child(view);
-		if (!tab) {
-			this.getTabpanel().add({xtype: record.data.view, navigationId: record.data.id});	
+		if (!tab) {		
+			this.getTabpanel().add({xtype: record.data.view, navigationId: record.data.id});
 			tab = this.getTabpanel().child(view);
 		}
 		this.getTabpanel().setActiveTab(tab);

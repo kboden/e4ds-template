@@ -106,8 +106,10 @@ Ext.define('Simple.controller.Users', {
 		}				
 	},
 	
-	onBeforeActivate : function() {
-		this.doGridRefresh();
+	onBeforeActivate : function(cmp, options) {
+		if (options) {
+			this.doGridRefresh();
+		}
 	},
 	
 	doGridRefresh : function() {

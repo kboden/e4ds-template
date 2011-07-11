@@ -6,14 +6,12 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import com.google.common.collect.Sets;
 
@@ -61,13 +59,10 @@ public class LoggingEvent {
 	@Column(name = "event_id", unique = true, nullable = false)
 	private Long eventId;
 	
-	@OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL, orphanRemoval = true)
-	@LazyCollection(LazyCollectionOption.EXTRA)
+	@OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	private Set<LoggingEventException> loggingEventException = Sets.newHashSet();
 	
-	@OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL, orphanRemoval = true)
-	@LazyCollection(LazyCollectionOption.EXTRA)
-	
+	@OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	private Set<LoggingEventProperty> loggingEventProperty = Sets.newHashSet();
 
 	public BigDecimal getTimestmp() {

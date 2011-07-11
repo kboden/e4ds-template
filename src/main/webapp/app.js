@@ -20,6 +20,6 @@ Ext.require('Ext.direct.*', function() {
 Ext.application({
 	name : 'Simple',
 	appFolder : 'app',
-	controllers : [ 'Users', 'Navigation', 'PollChart' ],
+	controllers : [ 'Users', 'Navigation', 'PollChart', 'LoggingEvents' ],
 	autoCreateViewport : true
 });

@@ -3,6 +3,7 @@ Ext.define('Simple.store.Navigation', {
 	fields: ['id', 'name', 'view'],
 	data: [
 		[1, 'Users', 'userlist'],
-		[2, 'Polling Chart', 'pollchart']
+		[2, 'Polling Chart', 'pollchart'],
+		[3, 'Log Events', 'loggingeventlist']
 	]
 });
