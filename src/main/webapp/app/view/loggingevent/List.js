@@ -5,7 +5,8 @@ Ext.define('Simple.view.loggingevent.List', {
 
 	title : 'Log Events',
 	closable : true,
-
+	requires : ['Ext.ux.RowExpander'],
+	
 	columns : [ {
 		header : 'Timestamp',
 		dataIndex : 'dateTime',
@@ -31,6 +32,13 @@ Ext.define('Simple.view.loggingevent.List', {
 		width : 70
 	}],
 
+	plugins: [{
+        ptype: 'rowexpander',
+        rowBodyTpl : [
+            '<p>{stacktrace}</p>'
+        ]
+    }],
+	
 	initComponent : function() {
 
 		this.dockedItems = [ {

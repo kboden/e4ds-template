@@ -1,13 +1,19 @@
 package ch.ralscha.e4ds.service;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.joda.time.DateTime;
 
 import ch.ralscha.e4ds.entity.LoggingEvent;
+import ch.ralscha.e4ds.entity.LoggingEventException;
 import ch.ralscha.e4ds.entity.LoggingEventProperty;
 import ch.ralscha.e4ds.util.DateTimeSerializer;
+
+import com.google.common.collect.Lists;
 
 public class LoggingEventDto {
 	private DateTime dateTime;
@@ -16,6 +22,7 @@ public class LoggingEventDto {
 	private String callerClass;
 	private String callerLine;
 	private String ip;
+	private String stacktrace;
 
 	public LoggingEventDto(LoggingEvent event) {
 
@@ -33,6 +40,31 @@ public class LoggingEventDto {
 				break;
 			}
 		}
+		
+		StringBuilder sb = new StringBuilder();
+
+		List<LoggingEventException> exceptionList;
+
+		Set<LoggingEventException> exceptions = event.getLoggingEventException();
+		if (exceptions != null) {
+			exceptionList = Lists.newArrayList(exceptions);
+			Collections.sort(exceptionList, new Comparator<LoggingEventException>() {
+
+				@Override
+				public int compare(LoggingEventException o1, LoggingEventException o2) {
+					return o1.getId().getI() - o2.getId().getI();
+				}
+			});
+		} else {
+			exceptionList = Collections.emptyList();
+		}
+
+		for (LoggingEventException line : exceptionList) {
+			sb.append(line.getTraceLine());
+			sb.append("<br />");
+		}
+
+		this.stacktrace = sb.toString();
 
 	}
 
@@ -59,6 +91,14 @@ public class LoggingEventDto {
 
 	public String getIp() {
 		return ip;
+	}
+
+	public String getStacktrace() {
+		return stacktrace;
+	}
+
+	public void setStacktrace(String stacktrace) {
+		this.stacktrace = stacktrace;
 	}
 
 }
