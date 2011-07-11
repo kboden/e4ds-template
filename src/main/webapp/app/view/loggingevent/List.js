@@ -35,7 +35,12 @@ Ext.define('E4ds.view.loggingevent.List', {
 	plugins: [{
         ptype: 'rowexpander',
         rowBodyTpl : [
-            '<p>{stacktrace}</p>'
+            '<tpl if="stacktrace">',          
+            '<p>{stacktrace}</p>',
+            '</tpl>',
+            '<tpl if="!stacktrace">',          
+            '<p>{message}</p>',
+            '</tpl>'            
         ]
     }],
 	

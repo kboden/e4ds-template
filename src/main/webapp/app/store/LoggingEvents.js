@@ -3,5 +3,9 @@ Ext.define('E4ds.store.LoggingEvents', {
     model: 'E4ds.model.LoggingEvent',
     autoLoad: false,
     remoteSort: true,
-    pageSize : 30
+    pageSize : 30,
+    sorters: [ {
+        property: 'dateTime',
+        direction: 'DESC'
+    }]    
 });
