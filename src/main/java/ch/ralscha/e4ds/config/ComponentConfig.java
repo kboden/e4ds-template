@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 
 
 @Configuration
-@ComponentScan(basePackages={"ch.ralscha.extdirectspring", "ch.ralscha.e4ds.service"}, excludeFilters={ @Filter(Configuration.class)})
+@ComponentScan(basePackages={"ch.ralscha.extdirectspring", "ch.ralscha.e4ds"}, excludeFilters={ @Filter(Configuration.class)})
 @PropertySource("default.properties")
 public class ComponentConfig {
 	//nothing here
