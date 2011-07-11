@@ -1,4 +1,4 @@
-Ext.define('Simple.controller.LoggingEvents', {
+Ext.define('E4ds.controller.LoggingEvents', {
 	extend : 'Ext.app.Controller',
 
 	views : [ 'loggingevent.List' ],

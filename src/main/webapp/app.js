@@ -19,7 +19,7 @@ Ext.require('Ext.direct.*', function() {
 
 
 Ext.application({
-	name : 'Simple',
+	name : 'E4ds',
 	appFolder : 'app',
 	controllers : [ 'Users', 'Navigation', 'PollChart', 'LoggingEvents' ],
 	autoCreateViewport : true

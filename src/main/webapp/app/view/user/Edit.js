@@ -1,4 +1,4 @@
-Ext.define('Simple.view.user.Edit', {
+Ext.define('E4ds.view.user.Edit', {
 	extend : 'Ext.window.Window',
 	alias : 'widget.useredit',
 

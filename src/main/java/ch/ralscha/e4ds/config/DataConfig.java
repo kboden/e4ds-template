@@ -86,7 +86,7 @@ public class DataConfig {
 		dbAppender.start();
 		
 		Logger rootLogger = lc.getLogger("root");
-		rootLogger.setLevel(Level.ERROR);
+		rootLogger.setLevel(Level.INFO);
 		rootLogger.addAppender(appender);
 		rootLogger.addAppender(dbAppender);
 		lc.start();

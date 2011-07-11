@@ -1,4 +1,4 @@
-Ext.define('Simple.model.User', {
+Ext.define('E4ds.model.User', {
 	extend : 'Ext.data.Model',
 	fields : [ 'id', 'userName', 'name', 'firstName', 'email'],
 

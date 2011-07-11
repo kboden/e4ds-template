@@ -1,6 +1,6 @@
-Ext.define('Simple.store.Users', {
+Ext.define('E4ds.store.Users', {
     extend: 'Ext.data.Store',
-    model: 'Simple.model.User',
+    model: 'E4ds.model.User',
     autoLoad: false,
     remoteSort: true,
     pageSize : 30,

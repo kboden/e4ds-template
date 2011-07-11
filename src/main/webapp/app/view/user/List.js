@@ -1,4 +1,4 @@
-Ext.define('Simple.view.user.List', {
+Ext.define('E4ds.view.user.List', {
 	extend : 'Ext.grid.Panel',
 	alias : 'widget.userlist',
 	store : 'Users',

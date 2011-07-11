@@ -1,4 +1,4 @@
-Ext.define('Simple.controller.PollChart', {
+Ext.define('E4ds.controller.PollChart', {
 	extend : 'Ext.app.Controller',
 
 	stores : [ 'PollChart' ],

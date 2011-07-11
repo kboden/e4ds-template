@@ -1,4 +1,4 @@
-Ext.define('Simple.controller.Users', {
+Ext.define('E4ds.controller.Users', {
 	extend : 'Ext.app.Controller',
 
 	views : [ 'user.List', 'user.Edit' ],

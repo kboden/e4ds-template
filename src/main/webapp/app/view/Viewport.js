@@ -1,4 +1,4 @@
-Ext.define('Simple.view.Viewport', {
+Ext.define('E4ds.view.Viewport', {
 	extend : 'Ext.Viewport',
 	id : 'viewport',
 
@@ -13,7 +13,7 @@ Ext.define('Simple.view.Viewport', {
 	initComponent : function() {
 		this.items = [ {
 			region : 'north',
-			html : '<h3 class="header">e4ds-template: Simple project with ExtJs4 and ExtDirectSpring</h3>',
+			html : '<h3 class="header">e4ds-template: Sample project with ExtJs4 and ExtDirectSpring</h3>',
 			height : 40,
 			cls : 'appHeader',
 			split : false

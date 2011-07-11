@@ -1,4 +1,4 @@
-Ext.define('Simple.view.navigation.SideBar', {
+Ext.define('E4ds.view.navigation.SideBar', {
 	alias : 'widget.sidebar',
 	extend : 'Ext.panel.Panel',
 

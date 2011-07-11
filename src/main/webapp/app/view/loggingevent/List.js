@@ -1,4 +1,4 @@
-Ext.define('Simple.view.loggingevent.List', {
+Ext.define('E4ds.view.loggingevent.List', {
 	extend : 'Ext.grid.Panel',
 	alias : 'widget.loggingeventlist',
 	store : 'LoggingEvents',

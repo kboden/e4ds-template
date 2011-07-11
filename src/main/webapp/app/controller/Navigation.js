@@ -1,4 +1,4 @@
-Ext.define('Simple.controller.Navigation', {
+Ext.define('E4ds.controller.Navigation', {
 	extend: 'Ext.app.Controller',
 
 	stores: ['Navigation'],

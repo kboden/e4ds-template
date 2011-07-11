@@ -1,5 +1,5 @@
-Ext.define('Simple.store.PollChart', {
+Ext.define('E4ds.store.PollChart', {
 	extend: 'Ext.data.ArrayStore',
-	model: 'Simple.model.PollChart'
+	model: 'E4ds.model.PollChart'
 
 });

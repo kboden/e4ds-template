@@ -1,6 +1,6 @@
-Ext.define('Simple.store.LoggingEvents', {
+Ext.define('E4ds.store.LoggingEvents', {
     extend: 'Ext.data.Store',
-    model: 'Simple.model.LoggingEvent',
+    model: 'E4ds.model.LoggingEvent',
     autoLoad: false,
     remoteSort: true,
     pageSize : 30

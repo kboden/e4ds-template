@@ -1,4 +1,4 @@
-Ext.define('Simple.model.LoggingEvent', {
+Ext.define('E4ds.model.LoggingEvent', {
 	extend : 'Ext.data.Model',
 	fields : [ 'dateTime', 'message', 'level', 'callerClass', 'callerLine', 'ip', 'stacktrace'],
 
