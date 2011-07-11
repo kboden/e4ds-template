@@ -52,9 +52,11 @@ Ext.define('Simple.controller.PollChart', {
 	controlPolling : function(button, event) {
 		if (button.getText() == 'Start') {
 			button.setText('Stop');
+			button.setIconCls('icon-stop');
 			this.provider.connect();
 		} else {
 			button.setText('Start');
+			button.setIconCls('icon-start');
 			this.provider.disconnect();
 		}
 	},

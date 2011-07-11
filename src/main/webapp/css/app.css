@@ -35,6 +35,10 @@ h3.header {
     background-image: url(delete.png) !important;
 }
 
-.icon-info {
-    background-image: url(information.png) !important;
+.icon-start {
+    background-image: url(start.png) !important;
+}
+
+.icon-stop {
+    background-image: url(stop.png) !important;
 }

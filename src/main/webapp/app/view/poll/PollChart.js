@@ -22,6 +22,7 @@ Ext.define('Simple.view.poll.PollChart', {
 			xtype : 'toolbar',
 			items : [ {
 				text : 'Stop',
+				iconCls : 'icon-stop',
 				action : 'control'
 			} ]
 		} ];

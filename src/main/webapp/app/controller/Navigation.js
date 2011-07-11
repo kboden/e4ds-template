@@ -2,7 +2,7 @@ Ext.define('Simple.controller.Navigation', {
 	extend: 'Ext.app.Controller',
 
 	stores: ['Navigation'],
-	views: ['navigation.SideBar', 'user.List', 'poll.PollChart'],
+	views: ['navigation.SideBar'],
 	
 	refs: [
 		{ref: 'tabpanel', selector: 'viewport tabpanel'},
