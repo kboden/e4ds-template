@@ -7,6 +7,8 @@ Ext.define('E4ds.view.poll.PollChart', {
 	layout : 'fit',
 	closable : true,
 	
+	requires:['Ext.chart.*'],
+	
 	initComponent : function() {
 		
 		var store = Ext.StoreManager.get('PollChart');

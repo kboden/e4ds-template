@@ -1,10 +1,9 @@
-//Uncomment this line if you use ext-debug.js in index.html
-//Ext.Loader.setPath('Ext', 'http://www.ralscha.ch/ext-4.0.2a/src');
-
+//Start: This is needed if you use ext-all-debug.js
 Ext.Loader.setConfig({
 	enabled : true
 });
 Ext.Loader.setPath('Ext.ux', 'http://www.ralscha.ch/ext-4.0.2a/examples/ux');
+//End
 
 Ext.require('Ext.direct.*', function() {
 	var poller = new Ext.direct.PollingProvider({
@@ -16,7 +15,6 @@ Ext.require('Ext.direct.*', function() {
 	Ext.direct.Manager.addProvider(Ext.app.REMOTING_API, poller);
 	Ext.direct.Manager.getProvider('chartdatapoller').disconnect();
 });
-
 
 Ext.application({
 	name : 'E4ds',

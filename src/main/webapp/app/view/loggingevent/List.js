@@ -32,17 +32,17 @@ Ext.define('E4ds.view.loggingevent.List', {
 		width : 70
 	}],
 
-	plugins: [{
-        ptype: 'rowexpander',
-        rowBodyTpl : [
-            '<tpl if="stacktrace">',          
-            '<p>{stacktrace}</p>',
-            '</tpl>',
-            '<tpl if="!stacktrace">',          
-            '<p>{message}</p>',
-            '</tpl>'            
-        ]
-    }],
+	plugins : {
+	        ptype: 'rowexpander',
+	        rowBodyTpl : [
+	            '<tpl if="stacktrace">',          
+	            '<p>{stacktrace}</p>',
+	            '</tpl>',
+	            '<tpl if="!stacktrace">',          
+	            '<p>{message}</p>',
+	            '</tpl>'            
+	        ]
+	    },
 	
 	initComponent : function() {
 
@@ -56,6 +56,8 @@ Ext.define('E4ds.view.loggingevent.List', {
 		} ];
 
 		this.callParent(arguments);
+		
+
 	}
 
 });
