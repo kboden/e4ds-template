@@ -6,6 +6,8 @@ Ext.define('E4ds.view.navigation.SideBar', {
 	collapsible : true,
 	animCollapse : true,
 	layout : 'fit',
+	minWidth : 100,
+	maxWidth : 200,
 
 	initComponent : function() {
 		this.items = [ {
