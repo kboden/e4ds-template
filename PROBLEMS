@@ -1,0 +1,2 @@
+beforeactivate is called twice after calling this.getTabpanel().add(...) in E4ds.controller.Navigation
+for example: E4ds.controller.LoggingEvents
