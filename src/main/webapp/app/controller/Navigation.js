@@ -24,8 +24,7 @@ Ext.define('E4ds.controller.Navigation', {
 		var view = record.data.view;
 		var tab = this.getTabpanel().child(view);
 		if (!tab) {		
-			this.getTabpanel().add({xtype: record.data.view, navigationId: record.data.id});
-			tab = this.getTabpanel().child(view);
+			tab = this.getTabpanel().add({xtype: record.data.view, navigationId: record.data.id});
 		}
 		this.getTabpanel().setActiveTab(tab);
     },

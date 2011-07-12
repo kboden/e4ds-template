@@ -5,45 +5,49 @@ Ext.define('E4ds.view.loggingevent.List', {
 
 	title : 'Log Events',
 	closable : true,
-	requires : ['Ext.ux.RowExpander'],
-	
-	columns : [ {
-		header : 'Timestamp',
-		dataIndex : 'dateTime',
-		width : 200
-	}, {
-		header : 'Level',
-		dataIndex : 'level',
-		width : 70
-	}, {
-		header : 'Message',
-		dataIndex : 'message',
-		flex : 1
-	}, {
-		header : 'Caller Class',
-		dataIndex : 'callerClass',
-		sortable : false,
-		flex : 1
-	}, {
-		header : 'Caller Line',
-		dataIndex : 'callerLine',
-		align: 'right',
-		sortable : false,
-		width : 70
-	}],
 
-	plugins : {
-	        ptype: 'rowexpander',
-	        rowBodyTpl : [
-	            '<tpl if="stacktrace">',          
-	            '<p>{stacktrace}</p>',
-	            '</tpl>',
-	            '<tpl if="!stacktrace">',          
-	            '<p>{message}</p>',
-	            '</tpl>'            
-	        ]
-	    },
-	
+	requires : [ 'Ext.ux.RowExpander' ],
+
+	constructor : function() {
+		
+		this.columns = [ {
+			header : 'Timestamp',
+			dataIndex : 'dateTime',
+			width : 200
+		}, {
+			header : 'Level',
+			dataIndex : 'level',
+			width : 70
+		}, {
+			header : 'Message',
+			dataIndex : 'message',
+			flex : 1
+		}, {
+			header : 'Caller Class',
+			dataIndex : 'callerClass',
+			sortable : false,
+			flex : 1
+		}, {
+			header : 'Caller Line',
+			dataIndex : 'callerLine',
+			align : 'right',
+			sortable : false,
+			width : 70
+		} ];
+		
+		this.plugins = [ {
+			ptype : 'rowexpander',
+			rowBodyTpl : [ '<tpl if="stacktrace">', 
+			               '<p>{stacktrace}</p>', 
+			               '</tpl>', 
+			               '<tpl if="!stacktrace">',
+					       '<p>{message}</p>', 
+					       '</tpl>' ]
+		} ];
+
+		this.callParent(arguments);
+	},
+
 	initComponent : function() {
 
 		this.dockedItems = [ {
@@ -56,7 +60,6 @@ Ext.define('E4ds.view.loggingevent.List', {
 		} ];
 
 		this.callParent(arguments);
-		
 
 	}
 
