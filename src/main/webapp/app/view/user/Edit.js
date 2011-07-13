@@ -12,8 +12,10 @@ Ext.define('E4ds.view.user.Edit', {
 	initComponent : function() {
 		this.items = [ {
 			xtype : 'form',
-			padding : '5 5 0 5',
-			border : false,
+			padding : 5,
+			bodyPadding: 10,
+	        bodyBorder: true,
+			
 			style : 'background-color: #fff;',
 			defaultType : 'textfield',
 			defaults : {
@@ -54,17 +56,20 @@ Ext.define('E4ds.view.user.Edit', {
 				xtype : 'checkboxfield',
 				inputValue : 'true',
 				uncheckedValue : 'false'
+			} ],
+			
+			buttons : [ {
+				xtype: 'button',
+				text : 'Save',
+				disabled: true,
+				formBind: true
+			}, {
+				text : 'Cancel',
+				scope : this,
+				handler : this.close
 			} ]
 		} ];
 
-		this.buttons = [ {
-			text : 'Save',
-			action : 'save'
-		}, {
-			text : 'Cancel',
-			scope : this,
-			handler : this.close
-		} ];
 
 		this.callParent(arguments);
 	}
