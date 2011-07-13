@@ -13,7 +13,7 @@ Ext.define('E4ds.controller.Users', {
 	}, {
 		ref : 'userEditWindow',
 		selector : 'useredit'
-	}],
+	} ],
 
 	init : function() {
 		this.control({
@@ -25,12 +25,12 @@ Ext.define('E4ds.controller.Users', {
 			'useredit button[action=save]' : {
 				click : this.updateUser
 			},
-			'userlist button[action=add]': {
-				click: this.createUser
-			},	
-			'userlist button[action=edit]': {
-				click: this.editUserFromButton
-			},				
+			'userlist button[action=add]' : {
+				click : this.createUser
+			},
+			'userlist button[action=edit]' : {
+				click : this.editUserFromButton
+			},
 			'userlist button[action=delete]' : {
 				click : this.deleteUser
 			}
@@ -40,20 +40,20 @@ Ext.define('E4ds.controller.Users', {
 	editUserFromDblClick : function(grid, record) {
 		this.editUser(record);
 	},
-	
+
 	editUserFromButton : function() {
 		this.editUser(this.getUserList().getSelectionModel().getSelection()[0]);
 	},
-	
+
 	editUser : function(record) {
 		var view = Ext.widget('useredit');
 		view.down('form').loadRecord(record);
 	},
-	
+
 	createUser : function() {
 		Ext.widget('useredit');
 	},
-	
+
 	deleteUser : function(button) {
 		var record = this.getUserList().getSelectionModel().getSelection()[0];
 		if (record) {
@@ -64,7 +64,6 @@ Ext.define('E4ds.controller.Users', {
 			this.toogleEditButton(false);
 		}
 	},
-		
 
 	enableActions : function(button, record) {
 		this.toggleDeleteButton(true);
@@ -79,7 +78,7 @@ Ext.define('E4ds.controller.Users', {
 			button.disable();
 		}
 	},
-	
+
 	toggleEditButton : function(enable) {
 		var button = this.getUserList().down('button[action=edit]');
 		if (enable) {
@@ -87,16 +86,16 @@ Ext.define('E4ds.controller.Users', {
 		} else {
 			button.disable();
 		}
-	},	
-	
+	},
+
 	updateUser : function(button) {
-		var form = this.getUserEditForm();
-		var record = form.getRecord(); 
-		var values = form.getValues();
+		var form = this.getUserEditForm(), 
+		    record = form.getRecord(), 
+		    values = form.getValues();
 
 		if (form.getForm().isValid()) {
 			if (record) {
-				record.set(values);	
+				record.set(values);
 				this.getUsersStore().sync();
 			} else {
 				var newUser = this.getUserModel().create(values);
@@ -105,17 +104,17 @@ Ext.define('E4ds.controller.Users', {
 				this.doGridRefresh();
 			}
 			this.getUserEditWindow().close();
-		}				
+		}
 	},
-	
+
 	onBeforeActivate : function(cmp, options) {
 		if (options) {
 			this.doGridRefresh();
 		}
 	},
-	
+
 	doGridRefresh : function() {
 		this.getUserList().down('pagingtoolbar').doRefresh();
 	}
-	
+
 });
