@@ -19,7 +19,6 @@ Ext.define('E4ds.controller.LoggingEvents', {
 	},
 
 	onBeforeActivate : function(cmp, options) {
-		console.log('onBeforeActivate');
 		if (options) {
 			this.doGridRefresh();
 		}
