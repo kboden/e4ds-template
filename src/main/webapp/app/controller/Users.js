@@ -56,9 +56,9 @@ Ext.define('E4ds.controller.Users', {
 	
 	deleteUser : function(button) {
 		var record = this.getUserList().getSelectionModel().getSelection()[0];
-
 		if (record) {
 			this.getUsersStore().remove(record);
+			this.getUsersStore().sync();
 			this.doGridRefresh();
 			this.toggleDeleteButton(false);
 			this.toogleEditButton(false);
@@ -96,10 +96,12 @@ Ext.define('E4ds.controller.Users', {
 
 		if (form.getForm().isValid()) {
 			if (record) {
-				record.set(values);				
+				record.set(values);	
+				this.getUsersStore().sync();
 			} else {
 				var newUser = this.getUserModel().create(values);
 				this.getUsersStore().add(newUser);
+				this.getUsersStore().sync();
 				this.doGridRefresh();
 			}
 			this.getUserEditWindow().close();

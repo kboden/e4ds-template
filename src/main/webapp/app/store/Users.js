@@ -4,7 +4,7 @@ Ext.define('E4ds.store.Users', {
     autoLoad: false,
     remoteSort: true,
     pageSize : 30,
-    autoSync : true,
+    autoSync : false,
     sorters: [ {
         property: 'name',
         direction: 'ASC'

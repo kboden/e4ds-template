@@ -27,6 +27,16 @@ Ext.define('E4ds.view.user.List', {
 		header : 'Email',
 		dataIndex : 'email',
 		flex : 1
+	}, {
+		header : 'Enabled',
+		dataIndex : 'enabled',
+		width: 70,
+		renderer: function(value){
+	        if (value === true) {
+	            return 'yes';
+	        }
+	        return '';
+	    }
 	} ],
 
 	initComponent : function() {

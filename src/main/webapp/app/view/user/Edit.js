@@ -5,7 +5,9 @@ Ext.define('E4ds.view.user.Edit', {
 	title : 'Edit User',
 	layout : 'fit',
 	autoShow : true,
-	resizable : false,
+	resizable : true,
+	width : 400,
+	modal : true,
 
 	initComponent : function() {
 		this.items = [ {
@@ -13,29 +15,45 @@ Ext.define('E4ds.view.user.Edit', {
 			padding : '5 5 0 5',
 			border : false,
 			style : 'background-color: #fff;',
+			defaultType : 'textfield',
 			defaults : {
-				width : 400
+				anchor : '100%'
 			},
+			fieldDefaults : {
+				msgTarget : 'side'
+			},
+
 			items : [ {
-				xtype : 'textfield',
 				name : 'userName',
 				fieldLabel : 'Username'
 			}, {
-				xtype : 'textfield',
 				name : 'firstName',
 				fieldLabel : 'First Name',
 				allowBlank : false
 			}, {
-				xtype : 'textfield',
 				name : 'name',
 				fieldLabel : 'Last Name',
 				allowBlank : false
 			}, {
-				xtype : 'textfield',
 				name : 'email',
 				fieldLabel : 'Email',
 				vtype : 'email',
 				allowBlank : false
+			}, {
+				fieldLabel : 'Password',
+				name : 'passwordHash',
+				id : 'pass'
+			}, {
+				fieldLabel : 'Confirm Password',
+				name : 'password-confirm',
+				vtype : 'password',
+				initialPassField : 'pass'
+			}, {
+				fieldLabel : 'Enabled',
+				name : 'enabled',
+				xtype : 'checkboxfield',
+				inputValue : 'true',
+				uncheckedValue : 'false'
 			} ]
 		} ];
 

@@ -52,18 +52,18 @@ public class User extends AbstractPersistable<Long> {
 	@JsonIgnore
 	private Date createDate;
 
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "UserRoles", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
 	private Set<Role> roles;
 
-	
 	public void update(User modifiedUser) {
 		this.userName = modifiedUser.getUserName();
 		this.name = modifiedUser.getName();
 		this.firstName = modifiedUser.getFirstName();
-		this.email = modifiedUser.getEmail();		
+		this.email = modifiedUser.getEmail();
+		this.enabled = modifiedUser.isEnabled();
 	}
-	
+
 	public String getUserName() {
 		return userName;
 	}
@@ -136,7 +136,5 @@ public class User extends AbstractPersistable<Long> {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
-
 
 }

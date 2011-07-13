@@ -1,6 +1,7 @@
 Ext.define('E4ds.model.User', {
 	extend : 'Ext.data.Model',
-	fields : [ 'id', 'userName', 'name', 'firstName', 'email'],
+	fields : [ 'id', 'userName', 'name', 'firstName', 'email', 'passwordHash', 
+	           { name: 'enabled', type: 'bool' }],
 
 	proxy : {
 		type : 'direct',
