@@ -22,6 +22,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.domain.Persistable;
 
 /**
@@ -43,30 +44,26 @@ public abstract class AbstractPersistable<PK extends Serializable> implements Pe
 
 	@Override
 	public PK getId() {
-
 		return id;
 	}
 
 	protected void setId(final PK id) {
-
 		this.id = id;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isNew() {
-
 		return null == getId();
 	}
 
 	@Override
 	public String toString() {
-
 		return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-
 		if (null == obj) {
 			return false;
 		}
@@ -86,11 +83,8 @@ public abstract class AbstractPersistable<PK extends Serializable> implements Pe
 
 	@Override
 	public int hashCode() {
-
 		int hashCode = 17;
-
 		hashCode += null == getId() ? 0 : getId().hashCode() * 31;
-
 		return hashCode;
 	}
 }
