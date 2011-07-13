@@ -31,8 +31,8 @@ Ext.define('E4ds.controller.PollChart', {
 	},
 
 	onBeforeRender : function(cmp) {
-		var store = this.getPollChartStore();
-		var model = this.getPollChartModel();
+		var store = this.getPollChartStore(),
+		    model = this.getPollChartModel();
 
 		this.provider = Ext.direct.Manager.getProvider('chartdatapoller');
 		this.provider.addListener('data', function(provider, event) {		

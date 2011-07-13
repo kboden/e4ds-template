@@ -20,9 +20,9 @@ Ext.define('E4ds.controller.Navigation', {
 		});
 	},
 
-	onSideBarItemClick: function(view, record, item, index, event) {
-		var view = record.data.view;
-		var tab = this.getTabpanel().child(view);
+	onSideBarItemClick: function(dataview, record, item, index, event) {
+		var view = record.data.view,
+		    tab = this.getTabpanel().child(view);
 		if (!tab) {		
 			tab = this.getTabpanel().add({xtype: record.data.view, navigationId: record.data.id});
 		}
@@ -30,8 +30,8 @@ Ext.define('E4ds.controller.Navigation', {
     },
 
 	syncNavigation: function() {
-		var activeTabId = this.getTabpanel().getActiveTab().navigationId;
-		var currentNavigationId = this.getNavigationData().getSelectionModel().getSelection()[0].data.id;
+		var activeTabId = this.getTabpanel().getActiveTab().navigationId,
+		    currentNavigationId = this.getNavigationData().getSelectionModel().getSelection()[0].data.id;
 
 		if (activeTabId !== currentNavigationId) {
 			var record = this.getNavigationStore().find('id', activeTabId);
