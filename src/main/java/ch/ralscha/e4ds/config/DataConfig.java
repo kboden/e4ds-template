@@ -14,6 +14,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -111,6 +112,11 @@ public class DataConfig {
 		return new JpaTransactionManager(entityManagerFactory().getObject());
 	}
 
+	@Bean
+	public TransactionTemplate readWriteTransactionTemplate() {
+		return new TransactionTemplate(transactionManager());
+	}
+	
 	@Bean
 	public SpringLiquibase liquibaseBean() {
 		SpringLiquibase bean = new SpringLiquibase();
