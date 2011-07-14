@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ch.ralscha.e4ds.entity.Role;
 import ch.ralscha.e4ds.entity.User;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 
@@ -20,12 +21,14 @@ public class JpaUserDetails implements UserDetails {
 	private String password;
 	private String username;
 	private boolean enabled;
+	private String fullName;
 
 	public JpaUserDetails(User user) {
 		this.password = user.getPasswordHash();
 		this.username = user.getUserName();
 		this.enabled = user.isEnabled();
-
+		this.fullName = Joiner.on(" ").skipNulls().join(user.getFirstName(), user.getName());
+		
 		Builder<GrantedAuthority> builder = ImmutableSet.builder();
 		for (Role role : user.getRoles()) {
 			builder.add(new SimpleGrantedAuthority(role.getName()));
@@ -47,6 +50,10 @@ public class JpaUserDetails implements UserDetails {
 	@Override
 	public String getUsername() {
 		return username;
+	}
+
+	public String getFullName() {
+		return fullName;
 	}
 
 	@Override

@@ -10,7 +10,10 @@ Ext.define('E4ds.controller.Navigation', {
 	}, {
 		ref: 'navigationData',
 		selector: 'sidebar dataview'
-	} ],
+	}, {
+		ref: 'loggedOnLabel',
+		selector: 'viewport header label'
+	}],
 
 	init: function() {
 		this.control({
@@ -21,8 +24,13 @@ Ext.define('E4ds.controller.Navigation', {
 				tabchange: this.syncNavigation
 			}
 		});
+		securityService.getLoggedOnUser(this.showLoggedOnUser, this);
 	},
 
+	showLoggedOnUser: function(fullname) {
+		this.getLoggedOnLabel().setText('Logged on: ' + fullname);
+	},
+	
 	onSideBarItemClick: function(dataview, record, item, index, event) {
 		var view = record.data.view, tab = this.getTabpanel().child(view);
 		if (!tab) {

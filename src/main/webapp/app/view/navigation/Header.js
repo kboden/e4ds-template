@@ -16,7 +16,7 @@ Ext.define('E4ds.view.navigation.Header', {
 	}, {
 		xtype: 'label',
 		text: 'Logged on: ',
-		style: 'white-space: nowrap',
+		width: 200,
 		margins: {
 			top: 6,
 			right: 0,
