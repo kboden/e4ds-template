@@ -18,7 +18,6 @@ Ext.onReady(function() {
 		items: [ {
 			fieldLabel: 'Username',
 			name: 'j_username',
-			focus: true,
 			allowBlank: false
 		}, {
 			fieldLabel: 'Password',
@@ -26,6 +25,7 @@ Ext.onReady(function() {
 			inputType: 'password',
 			allowBlank: false
 		} ],
+
 		buttons: [ {
 			text: 'Login with user',
 			handler: function() {
@@ -58,5 +58,6 @@ Ext.onReady(function() {
 	});
 
 	login.show();
+	login.getForm().findField('j_username').focus();
 
 });
