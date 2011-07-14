@@ -13,32 +13,35 @@
 }
 
 .appHeader .x-panel-body {
-	background-color: lightGoldenrodYellow;
-}
-
-h3.header {
-	padding: 5px 10px 5px 10px;
-	font-size: 18px;
-	color: black;
-	height: 70px;
+	background-color: transparent;
+	background-image: url(windup_key.png);
+	background-repeat: no-repeat;
+	background-position: 2px 2px;
+	padding: 1px 0px 0px 30px;
+	border: none;
+	color: navy;
+	font-size: 22px;
+	font-weight: 200;
+	text-shadow: 0 1px 0 #fff;
+	white-space: nowrap;
 }
 
 .icon-add {
-    background-image: url(add.png) !important;
+	background-image: url(add.png) !important;
 }
 
 .icon-edit {
-    background-image: url(edit.png) !important;
+	background-image: url(edit.png) !important;
 }
 
 .icon-delete {
-    background-image: url(delete.png) !important;
+	background-image: url(delete.png) !important;
 }
 
 .icon-start {
-    background-image: url(start.png) !important;
+	background-image: url(start.png) !important;
 }
 
 .icon-stop {
-    background-image: url(stop.png) !important;
+	background-image: url(stop.png) !important;
 }

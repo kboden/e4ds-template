@@ -1,75 +1,74 @@
 Ext.define('E4ds.view.user.Edit', {
-	extend : 'Ext.window.Window',
-	alias : 'widget.useredit',
+	extend: 'Ext.window.Window',
+	alias: 'widget.useredit',
 
-	title : 'Edit User',
-	layout : 'fit',
-	autoShow : true,
-	resizable : true,
-	width : 400,
-	modal : true,
+	title: 'Edit User',
+	layout: 'fit',
+	autoShow: true,
+	resizable: true,
+	width: 400,
+	modal: true,
 
-	initComponent : function() {
+	initComponent: function() {
 		this.items = [ {
-			xtype : 'form',
-			padding : 5,
+			xtype: 'form',
+			padding: 5,
 			bodyPadding: 10,
-	        bodyBorder: true,
-			
-			style : 'background-color: #fff;',
-			defaultType : 'textfield',
-			defaults : {
-				anchor : '100%'
+			bodyBorder: true,
+
+			style: 'background-color: #fff;',
+			defaultType: 'textfield',
+			defaults: {
+				anchor: '100%'
 			},
-			fieldDefaults : {
-				msgTarget : 'side'
+			fieldDefaults: {
+				msgTarget: 'side'
 			},
 
-			items : [ {
-				name : 'userName',
-				fieldLabel : 'Username'
+			items: [ {
+				name: 'userName',
+				fieldLabel: 'Username'
 			}, {
-				name : 'firstName',
-				fieldLabel : 'First Name',
-				allowBlank : false
+				name: 'firstName',
+				fieldLabel: 'First Name',
+				allowBlank: false
 			}, {
-				name : 'name',
-				fieldLabel : 'Last Name',
-				allowBlank : false
+				name: 'name',
+				fieldLabel: 'Last Name',
+				allowBlank: false
 			}, {
-				name : 'email',
-				fieldLabel : 'Email',
-				vtype : 'email',
-				allowBlank : false
+				name: 'email',
+				fieldLabel: 'Email',
+				vtype: 'email',
+				allowBlank: false
 			}, {
-				fieldLabel : 'Password',
-				name : 'passwordHash',
-				id : 'pass'
+				fieldLabel: 'Password',
+				name: 'passwordHash',
+				id: 'pass'
 			}, {
-				fieldLabel : 'Confirm Password',
-				name : 'password-confirm',
-				vtype : 'password',
-				initialPassField : 'pass'
+				fieldLabel: 'Confirm Password',
+				name: 'password-confirm',
+				vtype: 'password',
+				initialPassField: 'pass'
 			}, {
-				fieldLabel : 'Enabled',
-				name : 'enabled',
-				xtype : 'checkboxfield',
-				inputValue : 'true',
-				uncheckedValue : 'false'
+				fieldLabel: 'Enabled',
+				name: 'enabled',
+				xtype: 'checkboxfield',
+				inputValue: 'true',
+				uncheckedValue: 'false'
 			} ],
-			
-			buttons : [ {
+
+			buttons: [ {
 				xtype: 'button',
-				text : 'Save',
+				text: 'Save',
 				disabled: true,
 				formBind: true
 			}, {
-				text : 'Cancel',
-				scope : this,
-				handler : this.close
+				text: 'Cancel',
+				scope: this,
+				handler: this.close
 			} ]
 		} ];
-
 
 		this.callParent(arguments);
 	}

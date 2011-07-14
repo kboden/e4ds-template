@@ -1,29 +1,28 @@
 Ext.define('E4ds.view.Viewport', {
-	extend : 'Ext.Viewport',
-	id : 'viewport',
+	extend: 'Ext.Viewport',
+	id: 'viewport',
 
-	layout : {
-		type : 'border',
-		padding : 5
+	layout: {
+		type: 'border',
+		padding: 5
 	},
-	defaults : {
-		split : true
+	defaults: {
+		split: true
 	},
 
-	initComponent : function() {
+	initComponent: function() {
 		this.items = [ {
-			region : 'north',
-			html : '<h3 class="header">e4ds-template: Sample project with ExtJs4 and ExtDirectSpring</h3>',
-			height : 40,
-			cls : 'appHeader',
-			split : false
+			region: 'north',
+			xtype: 'header',
+			split: false
 		}, {
-			region : 'center',
-			xtype : 'tabpanel'
+			region: 'center',
+			xtype: 'tabpanel',
+			plain: true
 		}, {
-			region : 'west',
-			width : 180,
-			xtype : 'sidebar'
+			region: 'west',
+			width: 180,
+			xtype: 'sidebar'
 		} ];
 
 		this.callParent(arguments);
