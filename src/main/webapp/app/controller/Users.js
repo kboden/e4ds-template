@@ -1,60 +1,60 @@
 Ext.define('E4ds.controller.Users', {
-	extend : 'Ext.app.Controller',
+	extend: 'Ext.app.Controller',
 
-	views : [ 'user.List', 'user.Edit' ],
-	stores : [ 'Users' ],
-	models : [ 'User' ],
-	refs : [ {
-		ref : 'userList',
-		selector : 'userlist'
+	views: [ 'user.List', 'user.Edit' ],
+	stores: [ 'Users' ],
+	models: [ 'User' ],
+	refs: [ {
+		ref: 'userList',
+		selector: 'userlist'
 	}, {
-		ref : 'userEditForm',
-		selector : 'useredit form'
+		ref: 'userEditForm',
+		selector: 'useredit form'
 	}, {
-		ref : 'userEditWindow',
-		selector : 'useredit'
+		ref: 'userEditWindow',
+		selector: 'useredit'
 	} ],
 
-	init : function() {
+	init: function() {
 		this.control({
-			'userlist' : {
-				itemdblclick : this.editUserFromDblClick,
-				itemclick : this.enableActions,
-				beforeactivate : this.onBeforeActivate,
+			'userlist': {
+				itemdblclick: this.editUserFromDblClick,
+				itemclick: this.enableActions,
+				beforeactivate: this.onBeforeActivate,
 			},
-			'useredit button[action=save]' : {
-				click : this.updateUser
+			'useredit button[action=save]': {
+				click: this.updateUser
 			},
-			'userlist button[action=add]' : {
-				click : this.createUser
+			'userlist button[action=add]': {
+				click: this.createUser
 			},
-			'userlist button[action=edit]' : {
-				click : this.editUserFromButton
+			'userlist button[action=edit]': {
+				click: this.editUserFromButton
 			},
-			'userlist button[action=delete]' : {
-				click : this.deleteUser
+			'userlist button[action=delete]': {
+				click: this.deleteUser
 			}
 		});
 	},
 
-	editUserFromDblClick : function(grid, record) {
+	editUserFromDblClick: function(grid, record) {
 		this.editUser(record);
 	},
 
-	editUserFromButton : function() {
+	editUserFromButton: function() {
 		this.editUser(this.getUserList().getSelectionModel().getSelection()[0]);
 	},
 
-	editUser : function(record) {
+	editUser: function(record) {
 		var view = Ext.widget('useredit');
 		view.down('form').loadRecord(record);
 	},
 
-	createUser : function() {
+	createUser: function() {
 		Ext.widget('useredit');
 	},
 
-	deleteUser : function(button) {
+	deleteUser: function(button) {
 		var record = this.getUserList().getSelectionModel().getSelection()[0];
 		if (record) {
 			this.getUsersStore().remove(record);
@@ -65,12 +65,12 @@ Ext.define('E4ds.controller.Users', {
 		}
 	},
 
-	enableActions : function(button, record) {
+	enableActions: function(button, record) {
 		this.toggleDeleteButton(true);
 		this.toggleEditButton(true);
 	},
 
-	toggleDeleteButton : function(enable) {
+	toggleDeleteButton: function(enable) {
 		var button = this.getUserList().down('button[action=delete]');
 		if (enable) {
 			button.enable();
@@ -79,7 +79,7 @@ Ext.define('E4ds.controller.Users', {
 		}
 	},
 
-	toggleEditButton : function(enable) {
+	toggleEditButton: function(enable) {
 		var button = this.getUserList().down('button[action=edit]');
 		if (enable) {
 			button.enable();
@@ -88,10 +88,8 @@ Ext.define('E4ds.controller.Users', {
 		}
 	},
 
-	updateUser : function(button) {
-		var form = this.getUserEditForm(), 
-		    record = form.getRecord(), 
-		    values = form.getValues();
+	updateUser: function(button) {
+		var form = this.getUserEditForm(), record = form.getRecord(), values = form.getValues();
 
 		if (form.getForm().isValid()) {
 			if (record) {
@@ -107,13 +105,13 @@ Ext.define('E4ds.controller.Users', {
 		}
 	},
 
-	onBeforeActivate : function(cmp, options) {
+	onBeforeActivate: function(cmp, options) {
 		if (options) {
 			this.doGridRefresh();
 		}
 	},
 
-	doGridRefresh : function() {
+	doGridRefresh: function() {
 		this.getUserList().down('pagingtoolbar').doRefresh();
 	}
 

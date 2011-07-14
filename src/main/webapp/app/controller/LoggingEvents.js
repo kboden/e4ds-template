@@ -1,30 +1,30 @@
 Ext.define('E4ds.controller.LoggingEvents', {
-	extend : 'Ext.app.Controller',
+	extend: 'Ext.app.Controller',
 
-	views : [ 'loggingevent.List' ],
-	stores : [ 'LoggingEvents' ],
-	models : [ 'LoggingEvent' ],
+	views: [ 'loggingevent.List' ],
+	stores: [ 'LoggingEvents' ],
+	models: [ 'LoggingEvent' ],
 
-	refs : [ {
-		ref : 'loggingeventList',
-		selector : 'loggingeventlist'
+	refs: [ {
+		ref: 'loggingeventList',
+		selector: 'loggingeventlist'
 	} ],
 
-	init : function() {
+	init: function() {
 		this.control({
-			'loggingeventlist' : {
-				beforeactivate : this.onBeforeActivate,
+			'loggingeventlist': {
+				beforeactivate: this.onBeforeActivate,
 			}
 		});
 	},
 
-	onBeforeActivate : function(cmp, options) {
+	onBeforeActivate: function(cmp, options) {
 		if (options) {
 			this.doGridRefresh();
 		}
 	},
 
-	doGridRefresh : function() {
+	doGridRefresh: function() {
 		this.getLoggingeventList().down('pagingtoolbar').doRefresh();
 	}
 

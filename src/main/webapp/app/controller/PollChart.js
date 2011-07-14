@@ -1,55 +1,54 @@
 Ext.define('E4ds.controller.PollChart', {
-	extend : 'Ext.app.Controller',
+	extend: 'Ext.app.Controller',
 
-	stores : [ 'PollChart' ],
-	models : [ 'PollChart' ],
-	views : [ 'poll.PollChart' ],
+	stores: [ 'PollChart' ],
+	models: [ 'PollChart' ],
+	views: [ 'poll.PollChart' ],
 
-	refs : [ {
-		ref : 'pollchart',
-		selector : 'pollchart'
+	refs: [ {
+		ref: 'pollchart',
+		selector: 'pollchart'
 	}, {
-		ref : 'pollchartCmp',
-		selector : 'pollchart chart'
+		ref: 'pollchartCmp',
+		selector: 'pollchart chart'
 	}, {
-		ref : 'controlButton',
-		selector : 'pollchart button[action=control]'
+		ref: 'controlButton',
+		selector: 'pollchart button[action=control]'
 	} ],
 
-	init : function() {
+	init: function() {
 		this.control({
-			'pollchart' : {
-				beforerender : this.onBeforeRender,
-				destroy : this.onDestroy,
-				beforeactivate : this.onBeforeActivate,
-				beforedeactivate : this.onBeforeDeActivate
+			'pollchart': {
+				beforerender: this.onBeforeRender,
+				destroy: this.onDestroy,
+				beforeactivate: this.onBeforeActivate,
+				beforedeactivate: this.onBeforeDeActivate
 			},
-			'pollchart button[action=control]' : {
-				click : this.controlPolling
+			'pollchart button[action=control]': {
+				click: this.controlPolling
 			}
 		});
 	},
 
-	onBeforeRender : function(cmp) {
-		var store = this.getPollChartStore(),
-		    model = this.getPollChartModel();
+	onBeforeRender: function(cmp) {
+		var store = this.getPollChartStore(), model = this.getPollChartModel();
 
 		this.provider = Ext.direct.Manager.getProvider('chartdatapoller');
-		this.provider.addListener('data', function(provider, event) {		
+		this.provider.addListener('data', function(provider, event) {
 			if (store.getCount() > 20) {
 				store.removeAt(0);
 			}
-			
+
 			var record = model.create({
-				time : event.data.date,
-				points : event.data.value
+				time: event.data.date,
+				points: event.data.value
 			});
-			
+
 			store.add(record);
 		});
 	},
 
-	controlPolling : function(button, event) {
+	controlPolling: function(button, event) {
 		if (button.getText() == 'Start') {
 			button.setText('Stop');
 			button.setIconCls('icon-stop');
@@ -61,17 +60,17 @@ Ext.define('E4ds.controller.PollChart', {
 		}
 	},
 
-	onBeforeActivate : function() {
+	onBeforeActivate: function() {
 		if (this.getControlButton().getText() != 'Start') {
 			this.provider.connect();
 		}
 	},
 
-	onBeforeDeActivate : function() {
+	onBeforeDeActivate: function() {
 		this.provider.disconnect();
 	},
 
-	onDestroy : function() {
+	onDestroy: function() {
 		this.provider.disconnect();
 	}
 
