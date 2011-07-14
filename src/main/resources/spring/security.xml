@@ -9,9 +9,10 @@
     <http pattern="/login.*" security="none" />
     <http pattern="/css/**" security="none" />
     
-	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/**" access="permitAll" />
+	<http use-expressions="true">
+		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<form-login default-target-url="/index.html" always-use-default-target="true" login-page="/login.html"/>
+		<logout />
 	</http>
  
 	<authentication-manager>
