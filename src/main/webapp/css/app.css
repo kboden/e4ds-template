@@ -1,17 +1,3 @@
-/* Navigation */
-.navi {
-	padding: 2px 4px;
-}
-
-.navi.x-item-selected {
-	background-color: #DFE8F6;
-	font-weight: bold;
-}
-
-.navi.item-navi-over {
-	background-color: #eee;
-}
-
 .appHeader .x-panel-body {
 	background-color: transparent;
 	background-image: url(windup_key.png);

@@ -8,17 +8,17 @@ Ext.define('E4ds.controller.Navigation', {
 		ref: 'tabpanel',
 		selector: 'viewport tabpanel'
 	}, {
-		ref: 'navigationData',
-		selector: 'sidebar dataview'
+		ref: 'navigationTree',
+		selector: 'sidebar treepanel'
 	}, {
 		ref: 'loggedOnLabel',
 		selector: 'viewport header label'
-	}],
+	} ],
 
 	init: function() {
 		this.control({
-			'sidebar dataview': {
-				itemclick: this.onSideBarItemClick
+			'sidebar treepanel': {
+				itemclick: this.onTreeItemClick
 			},
 			'tabpanel': {
 				tabchange: this.syncNavigation
@@ -30,25 +30,36 @@ Ext.define('E4ds.controller.Navigation', {
 	showLoggedOnUser: function(fullname) {
 		this.getLoggedOnLabel().setText('Logged on: ' + fullname);
 	},
+
+	getPath: function(node) {
+		return node.parentNode ? this.getPath(node.parentNode) + "/" + node.getId() : "/" + node.getId();
+	},
 	
-	onSideBarItemClick: function(dataview, record, item, index, event) {
-		var view = record.data.view, tab = this.getTabpanel().child(view);
-		if (!tab) {
-			tab = this.getTabpanel().add({
-				xtype: record.data.view,
-				navigationId: record.data.id
-			});
+	onTreeItemClick: function(treeview, record, item, index, event, options) {
+		var view = record.raw.view, tab = this.getTabpanel().child(view);
+		if (view) {
+			if (!tab) {
+				tab = this.getTabpanel().add({
+					xtype: view,
+					treePath: this.getPath(record),
+					navigationId: record.raw.id
+				});
+			}
+			this.getTabpanel().setActiveTab(tab);
 		}
-		this.getTabpanel().setActiveTab(tab);
 	},
 
 	syncNavigation: function() {
-		var activeTabId = this.getTabpanel().getActiveTab().navigationId, currentNavigationId = this
-				.getNavigationData().getSelectionModel().getSelection()[0].data.id;
+		var activeTab = this.getTabpanel().getActiveTab();
+		var selectionModel = this.getNavigationTree().getSelectionModel();
+		this.getNavigationTree().expandPath(activeTab.treePath);
+				
+		var activeTabId = activeTab.navigationId;
+		var selection = selectionModel.getLastSelected();
+		var currentId = selection && selection.raw.id;
 
-		if (activeTabId !== currentNavigationId) {
-			var record = this.getNavigationStore().find('id', activeTabId);
-			this.getNavigationData().getSelectionModel().select(record);
+		if (activeTabId !== currentId) {
+			selectionModel.select(this.getNavigationTree().getStore().getNodeById(activeTabId));
 		}
 	},
 

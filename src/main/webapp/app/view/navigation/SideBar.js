@@ -11,18 +11,10 @@ Ext.define('E4ds.view.navigation.SideBar', {
 
 	initComponent: function() {
 		this.items = [ {
-			xtype: 'dataview',
-			trackOver: true,
-			store: 'Navigation',
-			cls: 'feed-list',
-			itemSelector: '.navi',
-			overItemCls: 'item-navi-over',
-
-			selModel: {
-				deselectOnContainerClick: false
-			},
-
-			tpl: '<tpl for="."><div class="navi">{name}</div></tpl>'
+			xtype: 'treepanel',
+	        store: 'Navigation',
+	        rootVisible: false,
+	        animate: false
 		} ];
 
 		this.callParent(arguments);

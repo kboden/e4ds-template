@@ -16,11 +16,15 @@ Ext.define('E4ds.view.user.Edit', {
 			bodyPadding: 10,
 			bodyBorder: true,
 
-			style: 'background-color: #fff;',
 			defaultType: 'textfield',
 			defaults: {
 				anchor: '100%'
 			},
+			
+			bodyStyle: {
+			    background: 'transparent'
+			},
+			
 			fieldDefaults: {
 				msgTarget: 'side'
 			},
