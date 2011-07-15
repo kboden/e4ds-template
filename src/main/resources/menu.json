@@ -1,0 +1,16 @@
+{
+	"text":"root",
+	"children":[{
+	    "text":"Business",
+	    "children":[{
+	        "text": "Polling Chart", "view": "pollchart", "roles": ["ROLE_USER","ROLE_ADMIN"]
+	    }]},{
+	    "text":"Administration",
+	    "children":[{
+	    	"text": "Users", "view": "userlist", "roles": ["ROLE_ADMIN"]
+	    }]},{
+	    "text":"System",
+	    "children":[{
+	    	"text": "Log Events", "view": "loggingeventlist", "roles": ["ROLE_ADMIN"]
+	    }]}]
+}

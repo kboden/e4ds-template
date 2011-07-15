@@ -2,75 +2,64 @@ package ch.ralscha.e4ds.service;
 
 import static ch.ralscha.extdirectspring.annotation.ExtDirectMethodType.TREE_LOAD;
 
-import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
+import java.util.Set;
 
+import org.apache.commons.lang.mutable.MutableInt;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 @Service
 public class NavigationService {
 
+	private MenuNode root;
+	
+	public NavigationService() throws JsonParseException, JsonMappingException, IOException {
+		Resource menu = new ClassPathResource("/menu.json");
+		ObjectMapper mapper = new ObjectMapper();
+		root = mapper.readValue(menu.getInputStream(), MenuNode.class);		
+	}
+	
 	@ExtDirectMethod(TREE_LOAD)
-	public Node getNavigation() {
-
-		Node root = new Node(0, "root", null, false);
-
-		Node business = new Node(10, "Business", null, false);
-		business.setChildren(Lists.newArrayList(new Node(100, "Polling Chart", "pollchart", true)));
-
-		Node admin = new Node(20, "Administration", null, false);
-		admin.setChildren(Lists.newArrayList(new Node(200, "Users", "userlist", true)));
-
-		Node system = new Node(30, "System", null, false);
-		system.setChildren(Lists.newArrayList(new Node(300, "Log Events", "loggingeventlist", true)));
-
-		root.setChildren(Lists.newArrayList(business, admin, system));
-
-		return root;
+	public MenuNode getNavigation() {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+				
+		MenuNode copyOfRoot = new MenuNode(root, authentication.getAuthorities());
+		upateIdAndLeaf(new MutableInt(0), copyOfRoot);
+				
+		return copyOfRoot;
 	}
 
-	static class Node {
-		private int id;
-		private String text;
-		private String view;
-		private boolean leaf;
-		private List<Node> children = Collections.emptyList();
+	private void upateIdAndLeaf(MutableInt id, MenuNode parent) {
+		parent.setId(id.intValue());
+		id.add(1);
+		
+		parent.setLeaf(parent.getChildren().isEmpty());
 
-		public Node(int id, String text, String view, boolean leaf) {
-			this.id = id;
-			this.text = text;
-			this.view = view;
-			this.leaf = leaf;
-		}
-
-		public int getId() {
-			return id;
-		}
-
-		public String getText() {
-			return text;
-		}
-
-		public String getView() {
-			return view;
-		}
-
-		public boolean isLeaf() {
-			return leaf;
-		}
-
-		public List<Node> getChildren() {
-			return children;
-		}
-
-		public void setChildren(List<Node> children) {
-			this.children = children;
-		}
-
+		Set<MenuNode> removeChildren = Sets.newHashSet();
+		for (MenuNode child : parent.getChildren()) {
+			//Remove child if it has no children and it's not a leaf
+			if (child.getView() == null && child.getChildren().isEmpty()) {
+				removeChildren.add(child);
+			} else {
+				upateIdAndLeaf(id, child);
+			}
+		}	
+		
+		parent.getChildren().removeAll(removeChildren);
 	}
 
+
+	
 }
