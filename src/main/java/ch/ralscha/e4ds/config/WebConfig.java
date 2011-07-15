@@ -18,9 +18,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		messageSource.setBasename("classpath:messages");
 		messageSource.setFallbackToSystemLocale(false);
 
+		//todo
 		//do not use this in a productive environment
 		messageSource.setCacheSeconds(60);
 		return messageSource;
 	}
-
+	
 }
