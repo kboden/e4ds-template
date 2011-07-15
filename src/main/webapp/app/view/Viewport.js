@@ -13,7 +13,7 @@ Ext.define('E4ds.view.Viewport', {
 	initComponent: function() {
 		this.items = [ {
 			region: 'north',
-			xtype: 'header',
+			xtype: 'navigationheader',
 			split: false
 		}, {
 			region: 'center',

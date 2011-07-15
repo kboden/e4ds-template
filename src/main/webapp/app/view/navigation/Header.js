@@ -1,5 +1,5 @@
 Ext.define('E4ds.view.navigation.Header', {
-	alias: 'widget.header',
+	alias: 'widget.navigationheader',
 	extend: 'Ext.container.Container',
 	height: 35,
 	layout: {

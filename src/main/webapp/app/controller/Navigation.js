@@ -12,7 +12,7 @@ Ext.define('E4ds.controller.Navigation', {
 		selector: 'sidebar treepanel'
 	}, {
 		ref: 'loggedOnLabel',
-		selector: 'viewport header label'
+		selector: 'viewport navigationheader label'
 	} ],
 
 	init: function() {
