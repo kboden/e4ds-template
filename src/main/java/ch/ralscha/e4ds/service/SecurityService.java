@@ -11,6 +11,10 @@ public class SecurityService {
 	
 	@ExtDirectMethod
 	public String getLoggedOnUser() {
-		return ((JpaUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getFullName();
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof JpaUserDetails) {
+			return ((JpaUserDetails)principal).getFullName();
+		}
+		return principal.toString();
 	}
 }

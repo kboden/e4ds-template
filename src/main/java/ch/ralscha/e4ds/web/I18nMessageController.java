@@ -30,8 +30,14 @@ public class I18nMessageController {
 	@RequestMapping(value = "/i18n.js", method = RequestMethod.GET)
 	public void i18n(final HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
 		response.setContentType("application/x-javascript");
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		Locale locale = ((JpaUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getLocale();
+		Locale locale;
+		if (principal instanceof JpaUserDetails) {
+			locale = ((JpaUserDetails)principal).getLocale();
+		} else {
+			locale = Locale.ENGLISH;
+		}
 		ResourceBundle rb = ResourceBundle.getBundle("messages", locale); 
 		
 		Map<String,String> messages = Maps.newHashMap();
