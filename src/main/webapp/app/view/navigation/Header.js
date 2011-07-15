@@ -28,7 +28,7 @@ Ext.define('E4ds.view.navigation.Header', {
 		width: 20,
 	}, {
 		xtype: 'button',
-		text: 'Logout',
+		text: i18n.logout,
 		href: '/j_spring_security_logout',
 		target: '_self',
 		margins: {
