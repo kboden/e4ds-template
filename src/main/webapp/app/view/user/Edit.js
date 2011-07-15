@@ -65,6 +65,7 @@ Ext.define('E4ds.view.user.Edit', {
 			buttons: [ {
 				xtype: 'button',
 				text: 'Save',
+				action : 'save',
 				disabled: true,
 				formBind: true
 			}, {
