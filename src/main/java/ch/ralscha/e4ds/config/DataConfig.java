@@ -52,6 +52,9 @@ public class DataConfig {
 		ds.setAcquireIncrement(5);
 		ds.setStatementsCacheSize(200);
 		ds.setReleaseHelperThreads(1);
+		
+		//Debugging
+		//ds.setCloseConnectionWatch(true);
 
 		setupLog(ds);
 		return ds;
