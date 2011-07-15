@@ -9,6 +9,7 @@ Ext.define('E4ds.view.Viewport', {
 	defaults: {
 		split: true
 	},
+	
 
 	initComponent: function() {
 		this.items = [ {
@@ -18,6 +19,7 @@ Ext.define('E4ds.view.Viewport', {
 		}, {
 			region: 'center',
 			xtype: 'tabpanel',
+			plugins: [Ext.create('Ext.ux.TabReorderer'), Ext.create('Ext.ux.TabCloseMenu')],
 			plain: true
 		}, {
 			region: 'west',
