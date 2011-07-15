@@ -29,7 +29,7 @@ Ext.define('E4ds.view.navigation.Header', {
 	}, {
 		xtype: 'button',
 		text: i18n.logout,
-		href: '/j_spring_security_logout',
+		href: 'j_spring_security_logout',
 		target: '_self',
 		margins: {
 			top: 2,
