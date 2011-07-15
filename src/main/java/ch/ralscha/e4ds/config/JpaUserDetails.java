@@ -1,10 +1,12 @@
 package ch.ralscha.e4ds.config;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 
 import ch.ralscha.e4ds.entity.Role;
 import ch.ralscha.e4ds.entity.User;
@@ -22,12 +24,19 @@ public class JpaUserDetails implements UserDetails {
 	private String username;
 	private boolean enabled;
 	private String fullName;
+	private Locale locale;
 
 	public JpaUserDetails(User user) {
 		this.password = user.getPasswordHash();
 		this.username = user.getUserName();
 		this.enabled = user.isEnabled();
 		this.fullName = Joiner.on(" ").skipNulls().join(user.getFirstName(), user.getName());
+		
+		if (StringUtils.hasText(user.getLocale())) {
+			this.locale = new Locale(user.getLocale());
+		} else {
+			this.locale = Locale.ENGLISH;
+		}
 		
 		Builder<GrantedAuthority> builder = ImmutableSet.builder();
 		for (Role role : user.getRoles()) {
@@ -74,6 +83,10 @@ public class JpaUserDetails implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return enabled;
+	}
+
+	public Locale getLocale() {
+		return locale;
 	}
 
 }
