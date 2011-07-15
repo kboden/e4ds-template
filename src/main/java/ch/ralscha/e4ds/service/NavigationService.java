@@ -23,28 +23,28 @@ import com.google.common.collect.Sets;
 public class NavigationService {
 
 	private MenuNode root;
-	
+
 	public NavigationService() throws JsonParseException, JsonMappingException, IOException {
 		Resource menu = new ClassPathResource("/menu.json");
 		ObjectMapper mapper = new ObjectMapper();
-		root = mapper.readValue(menu.getInputStream(), MenuNode.class);		
+		root = mapper.readValue(menu.getInputStream(), MenuNode.class);
 	}
-	
+
 	@ExtDirectMethod(TREE_LOAD)
 	public MenuNode getNavigation() {
-		
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-				
+
 		MenuNode copyOfRoot = new MenuNode(root, authentication.getAuthorities());
 		upateIdAndLeaf(new MutableInt(0), copyOfRoot);
-				
+
 		return copyOfRoot;
 	}
 
 	private void upateIdAndLeaf(MutableInt id, MenuNode parent) {
 		parent.setId(id.intValue());
 		id.add(1);
-		
+
 		parent.setLeaf(parent.getChildren().isEmpty());
 
 		Set<MenuNode> removeChildren = Sets.newHashSet();
@@ -55,11 +55,9 @@ public class NavigationService {
 			} else {
 				upateIdAndLeaf(id, child);
 			}
-		}	
-		
+		}
+
 		parent.getChildren().removeAll(removeChildren);
 	}
 
-
-	
 }
