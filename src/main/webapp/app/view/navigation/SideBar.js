@@ -11,6 +11,7 @@ Ext.define('E4ds.view.navigation.SideBar', {
 	initComponent: function() {
 		this.items = [ {
 			xtype: 'treepanel',
+			border: 0,
 	        store: 'Navigation',
 	        rootVisible: false,
 	        animate: false
