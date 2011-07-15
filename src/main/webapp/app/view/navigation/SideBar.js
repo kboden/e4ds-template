@@ -4,11 +4,10 @@ Ext.define('E4ds.view.navigation.SideBar', {
 
 	title: 'Navigation',
 	collapsible: true,
-	animCollapse: true,
 	layout: 'fit',
 	minWidth: 100,
-	maxWidth: 200,
-
+	maxWidth: 200,		
+		
 	initComponent: function() {
 		this.items = [ {
 			xtype: 'treepanel',
