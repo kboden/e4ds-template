@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro">
+
+  <group name="app">
+    <js>/ux/**</js>
+    <js>/override.js</js>
+    <js>/controller/api.js</js>
+    <js>/direct.js</js>
+    <js>/controller/i18n.js</js>
+    <js>/app/model/**</js>
+    <js>/app/store/**</js>
+    <js>/app/view/**</js>
+    <js>/app/controller/**</js>
+    <js>/app.js</js>
+    
+    <css>/css/app.css</css>
+  </group>
+
+  <group name="login">
+    <js>/login.js</js>
+  </group>
+
+</groups>

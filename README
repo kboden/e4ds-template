@@ -11,10 +11,3 @@ http://localhost:8080/e4ds-template-0.0.1/
 For easier development and debugging there is the class StartTomcat in the 
 default package. Simply run this class like a normal java program inside
 your development environment. 
-
-
-
-
-
-sencha create jsb -a http://localhost:8080/index.html -p app.jsb3
-sencha build -p app.jsb3 -d .
