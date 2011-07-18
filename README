@@ -1,5 +1,4 @@
-Sample application with ExtJs4, ExtDirectSpring, Spring Framework 3.1, Spring Data JPA, 
-Hibernate, Spring Security.
+Sample application with ExtJs4, ExtDirectSpring, Spring Framework 3.1, Spring Data JPA, Hibernate, Spring Security.
 
 To start the application from the command line type
 mvn install t7:run
@@ -11,3 +10,12 @@ http://localhost:8080/e4ds-template-0.0.1/
 For easier development and debugging there is the class StartTomcat in the 
 default package. Simply run this class like a normal java program inside
 your development environment. 
+
+
+Switch between production and development mode with a system property
+Development:
+System.setProperty("spring.profiles.active", "development");
+
+Production:
+System.setProperty("spring.profiles.active", "production");
+or delete the line. production is the default profile.
