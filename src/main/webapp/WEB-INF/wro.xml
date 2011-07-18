@@ -4,9 +4,9 @@
   <group name="app">
     <js>/ux/**</js>
     <js>/override.js</js>
-    <js>/controller/api.js</js>
+    <js>/api.js</js>
     <js>/direct.js</js>
-    <js>/controller/i18n.js</js>
+    <js>/i18n.js</js>
     <js>/app/model/**</js>
     <js>/app/store/**</js>
     <js>/app/view/**</js>
