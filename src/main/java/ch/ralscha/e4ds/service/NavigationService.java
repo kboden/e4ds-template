@@ -11,6 +11,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class NavigationService {
 	}
 
 	@ExtDirectMethod(TREE_LOAD)
+	@PreAuthorize("isAuthenticated()")
 	public MenuNode getNavigation() {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -45,12 +46,14 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 
 	@ExtDirectMethod(STORE_READ)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ExtDirectStoreResponse<User> load(ExtDirectStoreReadRequest request) {
 		Page<User> page = userRepository.findAll(Util.createPageRequest(request));
 		return new ExtDirectStoreResponse<User>((int) page.getTotalElements(), page.getContent());
 	}
 
 	@ExtDirectMethod(STORE_MODIFY)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void destroy(List<User> destroyUsers) {
 		for (User user : destroyUsers) {
 			userRepository.delete(user);
@@ -61,6 +64,7 @@ public class UserService {
 	@ResponseBody
 	@RequestMapping(value = "/userFormPost", method = RequestMethod.POST)
 	@Transactional
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ExtDirectResponse userFormPost(HttpServletRequest request, @Valid User modifiedUser, BindingResult result) {
 
 		//Check uniqueness of userName and email

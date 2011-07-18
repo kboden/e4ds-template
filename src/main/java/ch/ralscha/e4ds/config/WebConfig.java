@@ -2,12 +2,17 @@ package ch.ralscha.e4ds.config;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.google.common.collect.ImmutableMap;
 
 import ro.isdc.wro.config.jmx.ConfigConstants;
 import ro.isdc.wro.http.ConfigurableWroFilter;
@@ -16,6 +21,19 @@ import ro.isdc.wro.http.ConfigurableWroFilter;
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+	@Autowired
+	private Environment environment;
+	
+	@Bean
+	public ch.ralscha.extdirectspring.controller.Configuration configuration() {
+		ch.ralscha.extdirectspring.controller.Configuration config = new ch.ralscha.extdirectspring.controller.Configuration();
+		config.setSendStacktrace(environment.acceptsProfiles("development"));
+		config.setExceptionToMessage(new ImmutableMap.Builder<Class<?>,String>()
+				.put(AccessDeniedException.class, "accessdenied")
+				.build());
+		return config;
+	}
+	
 	@Bean
 	public MessageSource messageSource() {
 
