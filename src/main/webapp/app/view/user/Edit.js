@@ -20,9 +20,9 @@ Ext.define('E4ds.view.user.Edit', {
 			defaults: {
 				anchor: '100%'
 			},
-			
-			bodyStyle: {
-			    background: 'transparent'
+					
+			api: {
+			    submit: userService.userFormPost
 			},
 			
 			fieldDefaults: {
@@ -48,13 +48,29 @@ Ext.define('E4ds.view.user.Edit', {
 			}, {
 				fieldLabel: 'Password',
 				name: 'passwordHash',
+				inputType: 'password',
 				id: 'pass'
 			}, {
 				fieldLabel: 'Confirm Password',
 				name: 'password-confirm',
 				vtype: 'password',
+				inputType: 'password',
 				initialPassField: 'pass'
 			}, {
+                xtype: 'combobox',
+                fieldLabel: 'Language',
+                name: 'locale',
+                store: Ext.create('Ext.data.ArrayStore', {
+                    fields: ['code', 'language'],
+                    data : [['de', 'German'], ['en', 'English']]
+                }),
+                valueField: 'code',
+                displayField: 'language',
+                queryMode: 'local',
+                emptyText: 'Select a language...',
+                allowBlank: false,
+                forceSelection: true
+            }, {
 				fieldLabel: 'Enabled',
 				name: 'enabled',
 				xtype: 'checkboxfield',

@@ -89,20 +89,21 @@ Ext.define('E4ds.controller.Users', {
 	},
 
 	updateUser: function(button) {
-		var form = this.getUserEditForm(), record = form.getRecord(), values = form.getValues();
+		var form = this.getUserEditForm(), 
+		           record = form.getRecord();
 
-		if (form.getForm().isValid()) {
-			if (record) {
-				record.set(values);
-				this.getUsersStore().sync();
-			} else {
-				var newUser = this.getUserModel().create(values);
-				this.getUsersStore().add(newUser);
-				this.getUsersStore().sync();
+		form.getForm().submit({
+			params: {
+				id: record ? record.data.id : ''
+			},
+			scope: this,
+			success: function(form, action) {
 				this.doGridRefresh();
+				this.getUserEditWindow().close();
 			}
-			this.getUserEditWindow().close();
-		}
+		});
+
+
 	},
 
 	onBeforeActivate: function(cmp, options) {

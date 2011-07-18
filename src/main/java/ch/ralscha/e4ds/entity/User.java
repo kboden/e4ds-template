@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.util.StringUtils;
 
 @Entity
 @Table(name = "`User`")
@@ -62,6 +63,10 @@ public class User extends AbstractPersistable<Long> {
 		this.firstName = modifiedUser.getFirstName();
 		this.email = modifiedUser.getEmail();
 		this.enabled = modifiedUser.isEnabled();
+
+		if (StringUtils.hasText(modifiedUser.getPasswordHash())) {
+			this.passwordHash = modifiedUser.getPasswordHash();
+		}
 	}
 
 	public String getUserName() {

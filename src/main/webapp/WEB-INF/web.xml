@@ -16,7 +16,7 @@
 
 	<context-param>
     	<param-name>spring.profiles.default</param-name>
-    	<param-value>deployment</param-value>
+    	<param-value>production</param-value>
 	</context-param>
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
