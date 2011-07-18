@@ -3,9 +3,6 @@ I18N
 
 GUI
   - Filter for userlist and loglist
-  - Statusbar
+  - Notification
   
   - Excel Export
-  
-Build
-  - Add a build step that minifies javascript and css, concats all the files into one
