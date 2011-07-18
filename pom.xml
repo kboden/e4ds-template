@@ -389,6 +389,10 @@
 							<key>jndiPropertySourceEnabled</key>
 							<value>true</value>
 						</systemProperty>
+						<systemProperty>
+							<key>spring.profiles.active</key>
+							<value>development</value>
+						</systemProperty>						
 					</systemProperties>
 					<libs>
 						<jarArtifact>
