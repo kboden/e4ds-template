@@ -13,7 +13,7 @@
 		<hibernate.version>3.6.5.Final</hibernate.version>
 		<hibernatevalidator.version>4.2.0.Final</hibernatevalidator.version>
 
-		<querydsl.version>2.2.0.beta5</querydsl.version>
+		<querydsl.version>2.2.0</querydsl.version>
 		<aspectj.version>1.6.11</aspectj.version>
 
 		<slf4j.version>1.6.1</slf4j.version>
@@ -379,11 +379,15 @@
 		</resources>
 
 		<plugins>
+		
 			<plugin>
-				<groupId>com.googlecode.t7mp</groupId>
-				<artifactId>maven-t7-plugin</artifactId>
-				<version>0.9.8.M1</version>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>7.4.4.v20110707</version>
 				<configuration>
+					<stopPort>8005</stopPort>
+					<stopKey>STOP</stopKey>
+
 					<systemProperties>
 						<systemProperty>
 							<key>jndiPropertySourceEnabled</key>
@@ -394,17 +398,17 @@
 							<value>development</value>
 						</systemProperty>						
 					</systemProperties>
-					<libs>
-						<jarArtifact>
-							<groupId>com.h2database</groupId>
-							<artifactId>h2</artifactId>
-							<version>1.3.157</version>
-						</jarArtifact>
-					</libs>
+
 				</configuration>
-
-			</plugin>
-
+				<dependencies>
+				  <dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<version>1.3.158</version>				  
+				  </dependency>
+				</dependencies>
+			</plugin>		
+		
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>maven-apt-plugin</artifactId>
