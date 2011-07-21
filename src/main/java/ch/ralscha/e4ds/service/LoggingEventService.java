@@ -12,6 +12,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 import ch.ralscha.e4ds.entity.LoggingEvent;
 import ch.ralscha.e4ds.repository.LoggingEventRepository;
 import ch.ralscha.e4ds.util.Util;
@@ -65,6 +67,25 @@ public class LoggingEventService {
 		logger.info("this is a info log entry");
 		logger.warn("a warning", new IllegalArgumentException());
 		logger.error("a serious error", new NullPointerException());			
+	}
+	
+	@ExtDirectMethod
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public void changeLogLevel(String levelString) {
+		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+		ch.qos.logback.classic.Logger logger = lc.getLogger("ROOT");
+		Level level = Level.toLevel(levelString);
+		if (level != null) {
+			logger.setLevel(level);
+		}
+	}
+	
+	@ExtDirectMethod
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String getCurrentLevel() {	
+		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+		ch.qos.logback.classic.Logger logger = lc.getLogger("ROOT");
+		return logger.getLevel().toString();
 	}
 
 }

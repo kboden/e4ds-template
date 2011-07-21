@@ -14,15 +14,26 @@ Ext.define('E4ds.controller.LoggingEvents', {
 		this.control({
 			'loggingeventlist': {
 				beforeactivate: this.onBeforeActivate,
+				activate: Ext.bind(loggingEventService.getCurrentLevel, this, [this.showCurrentLevel, this])
 			},
 			'loggingeventlist button[action=deleteall]': {
 				click: this.deleteAll
 			},
 			'loggingeventlist button[action=test]': {
 				click: this.addTestData
-			}
-			
+			},
+			'loggingeventlist combobox[name=logLevel]': {
+				change: this.logLevelChange
+			}			
 		});
+	},
+	
+	showCurrentLevel: function(logLevel) {
+		this.getLoggingeventList().down('combobox[name=logLevel]').setValue(logLevel);
+	},
+	
+	logLevelChange: function(field, newValue, oldValue) {
+		loggingEventService.changeLogLevel(newValue);
 	},
 	
 	deleteAll: function() {

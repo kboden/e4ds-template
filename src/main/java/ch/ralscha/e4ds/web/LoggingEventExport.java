@@ -40,7 +40,7 @@ public class LoggingEventExport {
 	private LoggingEventRepository loggingEventRepository;
 	
 	@Transactional(readOnly = true)
-	@RequestMapping(value = "/loggingEventExport", method = RequestMethod.GET)
+	@RequestMapping(value = "/loggingEventExport.xls", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void loggingEventExport(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -165,7 +165,7 @@ public class LoggingEventExport {
 		sheet.autoSizeColumn(1);
 		sheet.autoSizeColumn(2);
 		sheet.autoSizeColumn(3);
-		sheet.autoSizeColumn(4);
+		sheet.setColumnWidth(4, 10000);
 		sheet.autoSizeColumn(5);
 		sheet.autoSizeColumn(6);
 		sheet.autoSizeColumn(7);

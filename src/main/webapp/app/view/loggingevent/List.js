@@ -51,7 +51,9 @@ Ext.define('E4ds.view.loggingevent.List', {
 			dock: 'top',
 			items: [ {
 				text: 'Excel Export',
-				iconCls: 'icon-excel'
+				iconCls: 'icon-excel',
+				href: 'loggingEventExport.xls',
+				target: '_self',
 			}, {
 				text: 'Delete All',
 				action: 'deleteall',
@@ -60,7 +62,20 @@ Ext.define('E4ds.view.loggingevent.List', {
 				text: 'Add Test Logs',
 				action: 'test',
 				iconCls: 'icon-add'
-			}]
+			}, '-', {
+				xtype: 'combobox',
+				fieldLabel: 'Change Log Level',
+				name: 'logLevel',
+				store: Ext.create('Ext.data.ArrayStore', {
+					fields: [ 'level' ],
+					data: [ [ 'ERROR' ], [ 'WARN' ], [ 'INFO' ], [ 'DEBUG' ] ]
+				}),
+				valueField: 'level',
+				displayField: 'level',
+				queryMode: 'local',
+				forceSelection: true,
+				value: 'ERROR'
+			} ]
 		}, {
 			xtype: 'pagingtoolbar',
 			dock: 'bottom',
