@@ -29,7 +29,7 @@ import com.jolbox.bonecp.BoneCPDataSource;
 
 @Configuration
 @EnableTransactionManagement
-@ImportResource("classpath:spring/data.xml")
+@ImportResource("classpath:ch/ralscha/e4ds/config/data.xml")
 public class DataConfig {
 
 	@Autowired

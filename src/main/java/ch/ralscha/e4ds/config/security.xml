@@ -9,6 +9,7 @@
     <http pattern="/login.*" security="none" />
     <http pattern="/css/**" security="none" />
     <http pattern="/wro/login*" security="none" />
+    <http pattern="/i18n.js" security="none" />
     
 	<http use-expressions="true">
 		<intercept-url pattern="/**" access="isAuthenticated()" />

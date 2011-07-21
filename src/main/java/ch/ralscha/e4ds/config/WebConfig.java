@@ -1,5 +1,6 @@
 package ch.ralscha.e4ds.config;
 
+import java.util.Locale;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +10,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.google.common.collect.ImmutableMap;
-
 import ro.isdc.wro.config.jmx.ConfigConstants;
 import ro.isdc.wro.http.ConfigurableWroFilter;
+import ch.ralscha.e4ds.web.AppLocaleResolver;
+
+import com.google.common.collect.ImmutableMap;
 
 @Configuration
 @EnableWebMvc
@@ -30,6 +33,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		configurer.enable();
 	}
 
+	@Bean
+	public LocaleResolver localeResolver() {
+		AppLocaleResolver resolver = new AppLocaleResolver();
+		resolver.setDefaultLocale(Locale.ENGLISH);
+		return resolver;
+	}
+	
 	@Bean
 	public ch.ralscha.extdirectspring.controller.Configuration configuration() {
 		ch.ralscha.extdirectspring.controller.Configuration config = new ch.ralscha.extdirectspring.controller.Configuration();

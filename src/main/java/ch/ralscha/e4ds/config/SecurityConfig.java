@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 @Configuration
-@ImportResource("classpath:spring/security.xml")
+@ImportResource("classpath:ch/ralscha/e4ds/config/security.xml")
 public class SecurityConfig {
 	
 	@Bean
