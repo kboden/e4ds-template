@@ -13,7 +13,9 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import ro.isdc.wro.config.jmx.ConfigConstants;
 import ro.isdc.wro.http.ConfigurableWroFilter;
@@ -27,10 +29,24 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	private Environment environment;
-	
+
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+	}
+
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/index.html").setViewName("index");
+		registry.addViewController("/login.html").setViewName("login");
+	}
+
+	@Bean
+	public InternalResourceViewResolver viewResolver() {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setPrefix("/WEB-INF/jsp/");
+		resolver.setSuffix(".jsp");
+		return resolver;
 	}
 
 	@Bean
@@ -39,17 +55,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		resolver.setDefaultLocale(Locale.ENGLISH);
 		return resolver;
 	}
-	
+
 	@Bean
 	public ch.ralscha.extdirectspring.controller.Configuration configuration() {
 		ch.ralscha.extdirectspring.controller.Configuration config = new ch.ralscha.extdirectspring.controller.Configuration();
 		config.setSendStacktrace(environment.acceptsProfiles("development"));
-		config.setExceptionToMessage(new ImmutableMap.Builder<Class<?>,String>()
-				.put(AccessDeniedException.class, "accessdenied")
-				.build());
+		config.setExceptionToMessage(new ImmutableMap.Builder<Class<?>, String>().put(AccessDeniedException.class,
+				"accessdenied").build());
 		return config;
 	}
-	
+
 	@Bean
 	public MessageSource messageSource() {
 
@@ -70,23 +85,23 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 		//If true, it is DEVELOPMENT mode, by default this value is true
 		properties.setProperty(ConfigConstants.debug.name(), "false");
-		
+
 		// Default is true
 		properties.setProperty(ConfigConstants.gzipResources.name(), "true");
 		properties.setProperty(ConfigConstants.jmxEnabled.name(), "false");
-		
+
 		// MBean name to be used if JMX is enabled
 		properties.setProperty(ConfigConstants.mbeanName.name(), "wro");
-		
+
 		// Default is 0
 		properties.setProperty(ConfigConstants.cacheUpdatePeriod.name(), "0");
-		
+
 		// Default is 0
 		properties.setProperty(ConfigConstants.modelUpdatePeriod.name(), "0");
-		
+
 		// Default is false.
 		properties.setProperty(ConfigConstants.disableCache.name(), "false");
-		
+
 		// Default is UTF-8
 		properties.setProperty(ConfigConstants.encoding.name(), "UTF-8");
 

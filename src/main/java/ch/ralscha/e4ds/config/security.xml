@@ -13,7 +13,7 @@
     
 	<http use-expressions="true">
 		<intercept-url pattern="/**" access="isAuthenticated()" />
-		<form-login default-target-url="/index.jsp" always-use-default-target="true" login-page="/login.jsp"/>
+		<form-login default-target-url="/index.html" always-use-default-target="true" login-page="/login.html"/>
 		<logout />
 	</http>
  
