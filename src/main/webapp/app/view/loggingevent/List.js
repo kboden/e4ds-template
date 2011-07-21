@@ -47,6 +47,21 @@ Ext.define('E4ds.view.loggingevent.List', {
 	initComponent: function() {
 
 		this.dockedItems = [ {
+			xtype: 'toolbar',
+			dock: 'top',
+			items: [ {
+				text: 'Excel Export',
+				iconCls: 'icon-excel'
+			}, {
+				text: 'Delete All',
+				action: 'deleteall',
+				iconCls: 'icon-delete'
+			}, {
+				text: 'Add Test Logs',
+				action: 'test',
+				iconCls: 'icon-add'
+			}]
+		}, {
 			xtype: 'pagingtoolbar',
 			dock: 'bottom',
 			store: 'LoggingEvents',

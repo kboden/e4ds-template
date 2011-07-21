@@ -4,6 +4,8 @@ import static ch.ralscha.extdirectspring.annotation.ExtDirectMethodType.STORE_RE
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,7 +25,7 @@ import com.google.common.collect.Lists;
 @Service
 public class LoggingEventService {
 
-	static final ImmutableMap<String, String> mapGuiColumn2DbField = new ImmutableMap.Builder<String, String>()
+	private static final ImmutableMap<String, String> mapGuiColumn2DbField = new ImmutableMap.Builder<String, String>()
 			.put("dateTime", "timestmp")
 			.put("message", "formattedMessage")
 			.put("level", "levelString")
@@ -45,6 +47,24 @@ public class LoggingEventService {
 		}
 
 		return new ExtDirectStoreResponse<LoggingEventDto>((int) page.getTotalElements(), loggingEventList);
+	}
+	
+	@ExtDirectMethod
+	@Transactional
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public void deleteAll() {
+		loggingEventRepository.delete(loggingEventRepository.findAll());
+	}
+	
+	@ExtDirectMethod
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public void addTestData() {
+		Logger logger = LoggerFactory.getLogger(getClass());
+		
+		logger.debug("a simple debug log entry");
+		logger.info("this is a info log entry");
+		logger.warn("a warning", new IllegalArgumentException());
+		logger.error("a serious error", new NullPointerException());			
 	}
 
 }

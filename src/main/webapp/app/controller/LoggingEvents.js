@@ -14,10 +14,27 @@ Ext.define('E4ds.controller.LoggingEvents', {
 		this.control({
 			'loggingeventlist': {
 				beforeactivate: this.onBeforeActivate,
+			},
+			'loggingeventlist button[action=deleteall]': {
+				click: this.deleteAll
+			},
+			'loggingeventlist button[action=test]': {
+				click: this.addTestData
 			}
+			
 		});
 	},
-
+	
+	deleteAll: function() {
+		loggingEventService.deleteAll();
+		this.doGridRefresh();
+	},
+	
+	addTestData: function() {
+		loggingEventService.addTestData();
+		this.doGridRefresh();
+	},
+	
 	onBeforeActivate: function(cmp, options) {
 		if (options) {
 			this.doGridRefresh();
