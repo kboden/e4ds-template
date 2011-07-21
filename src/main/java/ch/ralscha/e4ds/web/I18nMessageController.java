@@ -29,6 +29,8 @@ public class I18nMessageController {
 	public void i18n(final HttpServletRequest request, final HttpServletResponse response, final Locale locale)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
+		response.setContentType("application/x-javascript;charset=UTF-8");
+		
 		ResourceBundle rb = ResourceBundle.getBundle("messages", locale);
 
 		Map<String, String> messages = Maps.newHashMap();
