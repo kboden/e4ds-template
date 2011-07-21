@@ -15,10 +15,11 @@ public class MenuNode {
 	private String text;
 	private String view;
 	private boolean leaf;
-	
+	private boolean expanded;
+
 	@JsonIgnore
 	private Set<String> roles = Sets.newHashSet();
-	
+
 	private List<MenuNode> children = Lists.newArrayList();
 
 	public MenuNode() {
@@ -27,7 +28,8 @@ public class MenuNode {
 
 	public MenuNode(MenuNode source, Collection<? extends GrantedAuthority> authorities) {
 		this.text = source.text;
-		this.view = source.view;		
+		this.view = source.view;
+		this.expanded = source.expanded;
 
 		for (MenuNode sourceChild : source.getChildren()) {
 			if (hasRole(sourceChild, authorities)) {
@@ -35,12 +37,12 @@ public class MenuNode {
 			}
 		}
 	}
-	
+
 	private boolean hasRole(MenuNode child, Collection<? extends GrantedAuthority> authorities) {
 		if (child.getRoles().isEmpty()) {
 			return true;
 		}
-		
+
 		for (GrantedAuthority grantedAuthority : authorities) {
 			if (child.getRoles().contains(grantedAuthority.getAuthority())) {
 				return true;
@@ -48,7 +50,7 @@ public class MenuNode {
 		}
 		return false;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -95,6 +97,14 @@ public class MenuNode {
 
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
+	}
+
+	public boolean isExpanded() {
+		return expanded;
+	}
+
+	public void setExpanded(boolean expanded) {
+		this.expanded = expanded;
 	}
 
 }

@@ -2,14 +2,17 @@
 	"text":"root",
 	"children":[{
 	    "text":"Business",
+	    "expanded": "true", 
 	    "children":[{
 	        "text": "Polling Chart", "view": "pollchart", "roles": ["ROLE_USER","ROLE_ADMIN"]
 	    }]},{
 	    "text":"Administration",
+	    "expanded": "true", 
 	    "children":[{
 	    	"text": "Users", "view": "userlist", "roles": ["ROLE_ADMIN"]
 	    }]},{
 	    "text":"System",
+	    "expanded": "true", 
 	    "children":[{
 	    	"text": "Log Events", "view": "loggingeventlist", "roles": ["ROLE_ADMIN"]
 	    }]}]
