@@ -6,7 +6,6 @@
     <js>/override.js</js>
     <js>/api.js</js>
     <js>/direct.js</js>
-    <js>/i18n.js</js>
     <js>/app/model/**</js>
     <js>/app/store/**</js>
     <js>/app/view/**</js>
@@ -16,8 +15,7 @@
     <css>/css/app.css</css>
   </group>
 
-  <group name="login">
-    <js>/i18n.js</js>
+  <group name="login">js>
     <js>/login.js</js>
   </group>
 

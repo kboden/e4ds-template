@@ -3,10 +3,10 @@ Ext.onReady(function() {
 
 	var login = Ext.create('Ext.form.Panel', {
 		frame: true,
-		title: 'Please Login',
+		title: i18n.login_title,
 		url: 'j_spring_security_check',
-		width: 300,
-		margin: "60px, 0, 0, 100px",
+		width: 320,
+		margin: '60px, 0, 0, 100px',
 		renderTo: Ext.getBody(),
 
 		standardSubmit: true,
@@ -14,20 +14,26 @@ Ext.onReady(function() {
 		defaults: {
 			anchor: '100%'
 		},
+		
 		defaultType: 'textfield',
+		
+		fieldDefaults: {
+			msgTarget: 'side'
+		},
+		
 		items: [ {
-			fieldLabel: 'Username',
+			fieldLabel: i18n.user_username,
 			name: 'j_username',
 			allowBlank: false
 		}, {
-			fieldLabel: 'Password',
+			fieldLabel: i18n.user_password,
 			name: 'j_password',
 			inputType: 'password',
 			allowBlank: false
 		} ],
 
 		buttons: [ {
-			text: 'Login with user',
+			text: i18n.login_withuser,
 			handler: function() {
 				var form = this.up('form').getForm();
 				form.setValues({
@@ -37,7 +43,7 @@ Ext.onReady(function() {
 				form.submit();
 			}
 		}, {
-			text: 'Login with admin',
+			text: i18n.login_withadmin,
 			handler: function() {
 				var form = this.up('form').getForm();
 				form.setValues({
@@ -47,7 +53,7 @@ Ext.onReady(function() {
 				form.submit();
 			}
 		}, {
-			text: 'Login',
+			text: i18n.login,
 			handler: function() {
 				var form = this.up('form').getForm();
 				if (form.isValid()) {
