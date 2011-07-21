@@ -46,25 +46,41 @@ Ext.define('E4ds.controller.Users', {
 	},
 
 	editUser: function(record) {
-		var view = Ext.widget('useredit');
-		view.down('form').loadRecord(record);
+		Ext.widget('useredit');
+		this.getUserEditForm().getForm().loadRecord(record);
 	},
 
 	createUser: function() {
 		Ext.widget('useredit');
+		this.getUserEditForm().getForm().isValid();
 	},
 
 	deleteUser: function(button) {
 		var record = this.getUserList().getSelectionModel().getSelection()[0];
 		if (record) {
-			this.getUsersStore().remove(record);
-			this.getUsersStore().sync();
-			this.doGridRefresh();
-			this.toggleDeleteButton(false);
-			this.toogleEditButton(false);
+			Ext.Msg.confirm('Delete User?',
+		            'Do you really want to delete ' + record.data.name,
+		            this.afterConfirmDeleteUser,
+		            this
+		        );
+			
+			
 		}
 	},
 
+	afterConfirmDeleteUser: function(btn) {
+		if (btn === 'yes') {
+			var record = this.getUserList().getSelectionModel().getSelection()[0];
+			if (record) {
+				this.getUsersStore().remove(record);
+				this.getUsersStore().sync();
+				this.doGridRefresh();
+				this.toggleDeleteButton(false);
+				this.toggleEditButton(false);
+			}
+		}
+	},
+	
 	enableActions: function(button, record) {
 		this.toggleDeleteButton(true);
 		this.toggleEditButton(true);
