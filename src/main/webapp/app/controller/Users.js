@@ -61,10 +61,7 @@ Ext.define('E4ds.controller.Users', {
 			Ext.Msg.confirm('Delete User?',
 		            'Do you really want to delete ' + record.data.name,
 		            this.afterConfirmDeleteUser,
-		            this
-		        );
-			
-			
+		            this);
 		}
 	},
 
@@ -118,8 +115,6 @@ Ext.define('E4ds.controller.Users', {
 				this.getUserEditWindow().close();
 			}
 		});
-
-
 	},
 
 	onBeforeActivate: function(cmp, options) {

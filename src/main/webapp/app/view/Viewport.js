@@ -10,7 +10,6 @@ Ext.define('E4ds.view.Viewport', {
 		split: true
 	},
 	
-
 	initComponent: function() {
 		this.items = [ {
 			region: 'north',
