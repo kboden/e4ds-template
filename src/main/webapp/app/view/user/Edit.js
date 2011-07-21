@@ -31,7 +31,8 @@ Ext.define('E4ds.view.user.Edit', {
 
 			items: [ {
 				name: 'userName',
-				fieldLabel: 'Username'
+				fieldLabel: 'Username',
+				allowBlank: false
 			}, {
 				name: 'firstName',
 				fieldLabel: 'First Name',
