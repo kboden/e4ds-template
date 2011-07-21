@@ -17,6 +17,7 @@
   </group>
 
   <group name="login">
+    <js>/i18n.js</js>
     <js>/login.js</js>
   </group>
 
