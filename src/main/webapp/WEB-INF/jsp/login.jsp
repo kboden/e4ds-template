@@ -1,3 +1,4 @@
+<%@page import="java.util.Enumeration"%>
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -26,8 +27,16 @@
     <% if (locale != null && locale.getLanguage().toLowerCase().equals("de")) { %>
       <script type="text/javascript" src="http://extjs.cachefly.net/ext-4.0.2a/locale/ext-lang-de.js"></script>
     <% } %>	
-	    
+	<c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}">
+	   <script type="text/javascript">
+	   Ext.onReady(function() {
+	   Ext.Msg.alert(i18n.error, i18n.login_failed);
+	   });
+	   </script>
+	</c:if>    
 </head>
 <body>
+
+
 </body>
 </html>
