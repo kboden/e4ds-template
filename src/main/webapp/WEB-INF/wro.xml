@@ -15,7 +15,7 @@
     <css>/css/app.css</css>
   </group>
 
-  <group name="login">js>
+  <group name="login">
     <js>/login.js</js>
   </group>
 
