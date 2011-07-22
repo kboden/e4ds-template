@@ -8,6 +8,13 @@ Ext.define('E4ds.view.loggingevent.List', {
 
 	requires: [ 'Ext.ux.RowExpander' ],
 
+	statics: {
+		logLevelStore: Ext.create('Ext.data.ArrayStore', {
+			fields: [ 'level' ],
+			data: [ [ 'ERROR' ], [ 'WARN' ], [ 'INFO' ], [ 'DEBUG' ] ]
+		})
+	},
+
 	constructor: function() {
 
 		this.columns = [ {
@@ -49,7 +56,15 @@ Ext.define('E4ds.view.loggingevent.List', {
 		this.dockedItems = [ {
 			xtype: 'toolbar',
 			dock: 'top',
-			items: [ {
+			items: [ {xtype: 'label', text: 'Filter:'}, {
+				xtype: 'combobox',
+				name: 'logLevelFilter',
+				store: this.self.logLevelStore,
+				valueField: 'level',
+				displayField: 'level',
+				queryMode: 'local',
+				forceSelection: true
+			}, '-', {
 				text: 'Excel Export',
 				iconCls: 'icon-excel',
 				href: 'loggingEventExport.xls',
@@ -66,10 +81,7 @@ Ext.define('E4ds.view.loggingevent.List', {
 				xtype: 'combobox',
 				fieldLabel: 'Change Log Level',
 				name: 'logLevel',
-				store: Ext.create('Ext.data.ArrayStore', {
-					fields: [ 'level' ],
-					data: [ [ 'ERROR' ], [ 'WARN' ], [ 'INFO' ], [ 'DEBUG' ] ]
-				}),
+				store: this.self.logLevelStore,
 				valueField: 'level',
 				displayField: 'level',
 				queryMode: 'local',

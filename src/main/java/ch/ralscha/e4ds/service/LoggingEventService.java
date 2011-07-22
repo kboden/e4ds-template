@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import ch.ralscha.e4ds.entity.LoggingEvent;
+import ch.ralscha.e4ds.entity.QLoggingEvent;
 import ch.ralscha.e4ds.repository.LoggingEventRepository;
 import ch.ralscha.e4ds.util.Util;
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreResponse;
+import ch.ralscha.extdirectspring.filter.StringFilter;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -41,7 +44,16 @@ public class LoggingEventService {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ExtDirectStoreResponse<LoggingEventDto> load(ExtDirectStoreReadRequest request) {
 
-		Page<LoggingEvent> page = loggingEventRepository.findAll(Util.createPageRequest(request, mapGuiColumn2DbField));
+		Pageable pageRequest = Util.createPageRequest(request, mapGuiColumn2DbField);
+		
+		Page<LoggingEvent> page;
+		if (request.getFilters().isEmpty()) {
+			page = loggingEventRepository.findAll(pageRequest);
+		} else {
+			String levelValue = ((StringFilter)request.getFilters().iterator().next()).getValue();
+			System.out.println(levelValue);
+			page = loggingEventRepository.findAll(QLoggingEvent.loggingEvent.levelString.eq(levelValue), pageRequest);
+		}
 
 		List<LoggingEventDto> loggingEventList = Lists.newArrayList();
 		for (LoggingEvent event : page.getContent()) {

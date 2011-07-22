@@ -24,8 +24,19 @@ Ext.define('E4ds.controller.LoggingEvents', {
 			},
 			'loggingeventlist combobox[name=logLevel]': {
 				change: this.logLevelChange
+			},
+			'loggingeventlist combobox[name=logLevelFilter]': {
+				change: this.filterLogLevel
 			}			
 		});
+	},
+	
+	filterLogLevel: function(field, newValue, oldValue) {
+		var myStore = this.getLoggingEventsStore();
+//		myStore.remoteFilter = false;
+//		myStore.clearFilter(true);
+//		myStore.remoteFilter = true;
+		myStore.filter('level', newValue);
 	},
 	
 	showCurrentLevel: function(logLevel) {
