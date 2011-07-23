@@ -61,6 +61,6 @@ Ext.define('E4ds.controller.Navigation', {
 		if (activeTabId !== currentId) {
 			selectionModel.select(this.getNavigationTree().getStore().getNodeById(activeTabId));
 		}
-	},
+	}
 
 });
