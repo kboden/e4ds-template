@@ -85,7 +85,7 @@ public class LoggingEventService {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void changeLogLevel(String levelString) {
 		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-		ch.qos.logback.classic.Logger logger = lc.getLogger("ROOT");
+		ch.qos.logback.classic.Logger logger = lc.getLogger("ch.ralscha.e4ds");
 		Level level = Level.toLevel(levelString);
 		if (level != null) {
 			logger.setLevel(level);
