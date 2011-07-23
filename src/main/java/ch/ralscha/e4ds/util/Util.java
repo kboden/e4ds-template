@@ -44,12 +44,14 @@ public class Util {
 			}			
 		}
 		
+		int page = Math.max(request.getPage()-1, 0);
+		
 		if (orders.isEmpty()) {
-			return new PageRequest(request.getPage()-1, request.getLimit());
+			return new PageRequest(page, request.getLimit());
 		}
 		
 		Sort sort = new Sort(orders);		
-		return new PageRequest(request.getPage()-1, request.getLimit(), sort);
+		return new PageRequest(page, request.getLimit(), sort);
 	
 	}
 	
