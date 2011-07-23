@@ -50,8 +50,8 @@ public class LoggingEventService {
 		if (request.getFilters().isEmpty()) {
 			page = loggingEventRepository.findAll(pageRequest);
 		} else {
-			String levelValue = ((StringFilter)request.getFilters().iterator().next()).getValue();
-			System.out.println(levelValue);
+			StringFilter levelFilter = (StringFilter)request.getFilters().iterator().next();
+			String levelValue = levelFilter.getValue();
 			page = loggingEventRepository.findAll(QLoggingEvent.loggingEvent.levelString.eq(levelValue), pageRequest);
 		}
 
