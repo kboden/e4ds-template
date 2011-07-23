@@ -15,5 +15,7 @@
 	    "expanded": "true", 
 	    "children":[{
 	    	"text": "Log Events", "view": "loggingeventlist", "roles": ["ROLE_ADMIN"]
+	    }, {
+	        "text": "Config", "view": "configedit", "roles": ["ROLE_ADMIN"]
 	    }]}]
 }

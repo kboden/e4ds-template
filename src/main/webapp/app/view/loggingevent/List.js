@@ -6,14 +6,7 @@ Ext.define('E4ds.view.loggingevent.List', {
 	title: 'Log Events',
 	closable: true,
 
-	requires: [ 'Ext.ux.RowExpander' ],
-
-	statics: {
-		logLevelStore: Ext.create('Ext.data.ArrayStore', {
-			fields: [ 'level' ],
-			data: [ [ 'ERROR' ], [ 'WARN' ], [ 'INFO' ], [ 'DEBUG' ] ]
-		})
-	},
+	requires: [ 'Ext.ux.RowExpander', 'Ext.ux.form.field.ClearButton' ],
 
 	constructor: function() {
 
@@ -56,37 +49,30 @@ Ext.define('E4ds.view.loggingevent.List', {
 		this.dockedItems = [ {
 			xtype: 'toolbar',
 			dock: 'top',
-			items: [ {xtype: 'label', text: 'Filter:'}, {
-				xtype: 'combobox',
-				name: 'logLevelFilter',
-				store: this.self.logLevelStore,
-				valueField: 'level',
-				displayField: 'level',
-				queryMode: 'local',
-				forceSelection: true
-			}, '-', {
+			items: [ {
 				text: 'Excel Export',
 				iconCls: 'icon-excel',
 				href: 'loggingEventExport.xls',
 				target: '_self',
-			}, {
+			}, '-', {
 				text: 'Delete All',
 				action: 'deleteall',
 				iconCls: 'icon-delete'
-			}, {
+			}, '-', {
 				text: 'Add Test Logs',
 				action: 'test',
 				iconCls: 'icon-add'
-			}, '-', {
+			}, '->',{
 				xtype: 'combobox',
-				fieldLabel: 'Change Log Level',
-				name: 'logLevel',
-				store: this.self.logLevelStore,
+				fieldLabel: 'Filter',
+				labelWidth: 40,
+				name: 'logLevelFilter',
+				store: Ext.create('E4ds.store.LogLevels'),
 				valueField: 'level',
 				displayField: 'level',
 				queryMode: 'local',
 				forceSelection: true,
-				value: 'ERROR'
+				plugins: [ 'clearbutton' ]
 			} ]
 		}, {
 			xtype: 'pagingtoolbar',

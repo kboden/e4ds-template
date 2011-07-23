@@ -15,8 +15,8 @@
 	</context-param>
 
 	<context-param>
-    	<param-name>spring.profiles.default</param-name>
-    	<param-value>production</param-value>
+		<param-name>spring.profiles.default</param-name>
+		<param-value>production</param-value>
 	</context-param>
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -101,5 +101,8 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
 
 </web-app>

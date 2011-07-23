@@ -14,16 +14,12 @@ Ext.define('E4ds.controller.LoggingEvents', {
 		this.control({
 			'loggingeventlist': {
 				beforeactivate: this.onBeforeActivate,
-				activate: Ext.bind(loggingEventService.getCurrentLevel, this, [this.showCurrentLevel, this])
 			},
 			'loggingeventlist button[action=deleteall]': {
 				click: this.deleteAll
 			},
 			'loggingeventlist button[action=test]': {
 				click: this.addTestData
-			},
-			'loggingeventlist combobox[name=logLevel]': {
-				change: this.logLevelChange
 			},
 			'loggingeventlist combobox[name=logLevelFilter]': {
 				change: this.filterLogLevel
@@ -33,19 +29,17 @@ Ext.define('E4ds.controller.LoggingEvents', {
 	
 	filterLogLevel: function(field, newValue, oldValue) {
 		var myStore = this.getLoggingEventsStore();
-//		myStore.remoteFilter = false;
-//		myStore.clearFilter(true);
-//		myStore.remoteFilter = true;
-		myStore.filter('level', newValue);
+		if (newValue) {
+			myStore.remoteFilter = false;
+			myStore.clearFilter(true);
+			myStore.remoteFilter = true;
+			myStore.filter('level', newValue);
+		} else {
+			myStore.clearFilter();
+		}
 	},
 	
-	showCurrentLevel: function(logLevel) {
-		this.getLoggingeventList().down('combobox[name=logLevel]').setValue(logLevel);
-	},
-	
-	logLevelChange: function(field, newValue, oldValue) {
-		loggingEventService.changeLogLevel(newValue);
-	},
+
 	
 	deleteAll: function() {
 		loggingEventService.deleteAll();
@@ -59,7 +53,7 @@ Ext.define('E4ds.controller.LoggingEvents', {
 	
 	onBeforeActivate: function(cmp, options) {
 		if (options) {
-			this.doGridRefresh();
+			this.getLoggingEventsStore().clearFilter();
 		}
 	},
 
