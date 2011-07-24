@@ -13,7 +13,7 @@ Ext.define('E4ds.view.config.Edit', {
 
     items: [{
     	xtype: 'combobox',
-		fieldLabel: 'Change Log Level',
+		fieldLabel: 'Log Level',
 		name: 'logLevel',
 		labelWidth: 110,
 		store: Ext.create('E4ds.store.LogLevels'),
