@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
@@ -66,8 +67,13 @@ public class LoggingEventService {
 	@ExtDirectMethod
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public void deleteAll() {
-		loggingEventRepository.delete(loggingEventRepository.findAll());
+	public void deleteAll(String level) {
+		System.out.println("delete all: " + level);
+		if (StringUtils.hasText(level)) {
+			loggingEventRepository.delete(loggingEventRepository.findByLevelString(level));
+		} else {
+			loggingEventRepository.delete(loggingEventRepository.findAll());
+		}
 	}
 	
 	@ExtDirectMethod

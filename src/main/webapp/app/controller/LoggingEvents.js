@@ -34,15 +34,16 @@ Ext.define('E4ds.controller.LoggingEvents', {
 			myStore.clearFilter(true);
 			myStore.remoteFilter = true;
 			myStore.filter('level', newValue);
+			this.getLoggingeventList().down('button[action=export]').setParams({level: newValue});
 		} else {
 			myStore.clearFilter();
+			this.getLoggingeventList().down('button[action=export]').setParams();
 		}
 	},
-	
-
-	
+		
 	deleteAll: function() {
-		loggingEventService.deleteAll();
+		var filter = this.getLoggingEventsStore().filters.get(0);
+		loggingEventService.deleteAll(filter && filter.value);
 		this.doGridRefresh();
 	},
 	

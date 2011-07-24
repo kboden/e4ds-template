@@ -51,11 +51,12 @@ Ext.define('E4ds.view.loggingevent.List', {
 			dock: 'top',
 			items: [ {
 				text: 'Excel Export',
+				action: 'export',
 				iconCls: 'icon-excel',
-				href: 'loggingEventExport.xls',
+				href: 'loggingEventExport.xls',				
 				target: '_self',
 			}, '-', {
-				text: 'Delete All',
+				text: 'Delete',
 				action: 'deleteall',
 				iconCls: 'icon-delete'
 			}, '-', {

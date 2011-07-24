@@ -25,8 +25,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ch.ralscha.e4ds.entity.LoggingEvent;
 import ch.ralscha.e4ds.entity.LoggingEventException;
@@ -42,11 +44,11 @@ public class LoggingEventExport {
 	@Transactional(readOnly = true)
 	@RequestMapping(value = "/loggingEventExport.xls", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public void loggingEventExport(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void loggingEventExport(HttpServletRequest request, HttpServletResponse response, 
+			@RequestParam(required=false) String level) throws Exception {
 
 		response.setContentType("application/vnd.ms-excel");
 		response.addHeader("Content-disposition", "attachment;filename=logs.xls");
-		OutputStream out = response.getOutputStream();
 
 		Workbook workbook = new HSSFWorkbook();
 
@@ -84,7 +86,13 @@ public class LoggingEventExport {
 		createCell(row, 6, "CallerClass", titleStyle, createHelper);
 		createCell(row, 7, "CallerLine", titleStyle, createHelper);
 
-		List<LoggingEvent> events = loggingEventRepository.findAll();
+		List<LoggingEvent> events;
+		if (StringUtils.hasText(level)) {
+			events = loggingEventRepository.findByLevelString(level);
+		} else {
+			events = loggingEventRepository.findAll();
+		}
+		
 		int rowNo = 1;
 		for (LoggingEvent event : events) {
 			row = sheet.createRow(rowNo);
@@ -170,10 +178,9 @@ public class LoggingEventExport {
 		sheet.autoSizeColumn(6);
 		sheet.autoSizeColumn(7);
 
+		OutputStream out = response.getOutputStream();
 		workbook.write(out);
-
-		out.close();
-
+		out.close();		
 	}
 
 	private void createCell(Row row, int column, String value, CellStyle style, CreationHelper createHelper) {
