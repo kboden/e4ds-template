@@ -18,8 +18,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.db.DBAppender;
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.db.DataSourceConnectionSource;
@@ -55,25 +55,30 @@ public class DataConfig {
 		
 		//Debugging
 		//ds.setCloseConnectionWatch(true);
-
+		
 		setupLog(ds);
 		return ds;
 	}
 
+
 	private void setupLog(DataSource dataSource) {
+		boolean development = environment.acceptsProfiles("development");
 
 		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
 		lc.reset();
-
-		PatternLayout patternLayout = new PatternLayout();
-		patternLayout.setContext(lc);
-		patternLayout.setPattern("%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n");
-		patternLayout.start();
-
-		ConsoleAppender<ILoggingEvent> appender = new ConsoleAppender<ILoggingEvent>();
-		appender.setContext(lc);
-		appender.setLayout(patternLayout);
-		appender.start();
+		
+		ConsoleAppender<ILoggingEvent> consoleAppender = null;
+		if (development) {
+			PatternLayoutEncoder encoder = new PatternLayoutEncoder();
+			encoder.setContext(lc);
+			encoder.setPattern("%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n");
+			encoder.start();
+			
+			consoleAppender = new ConsoleAppender<ILoggingEvent>();
+			consoleAppender.setContext(lc);
+			consoleAppender.setEncoder(encoder);
+			consoleAppender.start();
+		}
 
 		DataSourceConnectionSource source = new DataSourceConnectionSource();
 		source.setContext(lc);
@@ -87,14 +92,16 @@ public class DataConfig {
 
 		Logger rootLogger = lc.getLogger("root");
 		rootLogger.setLevel(Level.WARN);
-		rootLogger.addAppender(appender);
+		if (development) {
+			rootLogger.addAppender(consoleAppender);
+		}
 		rootLogger.addAppender(dbAppender);
 		lc.start();
 
 		StatusPrinter.printInCaseOfErrorsOrWarnings(lc);
 
 	}
-
+	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
