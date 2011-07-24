@@ -1,48 +1,48 @@
-Ext.ux.NotificationMgr = {
-	positions: []
-};
-
 Ext.define('Ext.ux.Notification', {
 	extend: 'Ext.Window',
 
+	statics: {
+		positions: []
+	},
+	
 	initComponent: function() {
 		Ext.apply(this, {
 			iconCls: this.iconCls || 'x-icon-information',
 			cls: 'x-notification',
 			width: 200,
-			autoHeight: true,
-			plain: true,
-			border: false,
 			draggable: false,
-			shadow: true,
-			bodyStyle: 'text-align:center'
+			bodyStyle: 'text-align: center'
 		});
+		
 		if (this.autoDestroy) {
 			this.task = new Ext.util.DelayedTask(this.hide, this);
-		} else {
-			this.closable = true;
-		}
-		Ext.ux.Notification.superclass.initComponent.apply(this);
+		} 
+		
+		this.callParent(arguments);
 	},
+
 	setMessage: function(msg) {
 		this.body.update(msg);
 	},
+
 	setTitle: function(title, iconCls) {
-		Ext.ux.Notification.superclass.setTitle.call(this, title, iconCls || this.iconCls);
+		this.setTitle(title);
+		this.setIconCls(iconCls || this.iconCls);
 	},
+	
 	onDestroy: function() {
-		Ext.ux.NotificationMgr.positions.splice(this.pos);
-		Ext.ux.Notification.superclass.onDestroy.call(this);
+		this.self.positions.splice(this.pos);
+		this.callParent();
 	},
-	cancelHiding: function() {
-		this.addClass('fixed');
+	
+	cancelHiding: function() {		
 		if (this.autoDestroy) {
 			this.task.cancel();
 		}
 	},
+	
 	afterShow: function() {
-
-		Ext.ux.Notification.superclass.afterShow.call(this);
+		this.callParent();
 		Ext.fly(this.body.dom).on('click', this.cancelHiding, this);
 		if (this.autoDestroy) {
 			this.task.delay(this.hideDelay || 5000);
@@ -57,9 +57,9 @@ Ext.define('Ext.ux.Notification', {
 		var me = this;
 
 		this.pos = 0;
-		while (Ext.ux.NotificationMgr.positions.indexOf(this.pos) > -1)
+		while (this.self.positions.indexOf(this.pos) > -1)
 			this.pos++;
-		Ext.ux.NotificationMgr.positions.push(this.pos);
+		this.self.positions.push(this.pos);
 
 		this.el.alignTo(document, "br-br", [ -20, -20 - ((this.getSize().height + 10) * this.pos) ]);
 		this.el.slideIn('b', {
@@ -74,13 +74,15 @@ Ext.define('Ext.ux.Notification', {
 		});
 
 	},
+	
 	onHide: function() {
 		this.el.disableShadow();
 		this.el.ghost("b", {
 			duration: 500,
 			remove: true
 		});
-		Ext.ux.NotificationMgr.positions.splice(this.pos);
+		this.self.positions.splice(this.pos);
 	},
+	
 	focus: Ext.emptyFn
 });
