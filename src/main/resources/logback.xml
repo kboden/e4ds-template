@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
   
-  <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
-    <connectionSource class="ch.qos.logback.core.db.JNDIConnectionSource">
-      <param name="jndiLocation" value="java:comp/env/jdbc/e4ds" />
-    </connectionSource>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>   
   </appender>
-  
-  <root>    
-    <level value="WARN" />
-    <appender-ref ref="DB" />
-  </root>  
 
+  <root level="ERROR">    
+    <appender-ref ref="STDOUT" />
+  </root>  
+   
 </configuration>
