@@ -13,20 +13,24 @@ Ext.define('E4ds.controller.Config', {
 		this.control({
 			'configedit': {
 				activate: Ext.bind(loggingEventService.getCurrentLevel, this, [this.showCurrentLevel, this])
-			},
-			'configedit combobox[name=logLevel]': {
-				change: this.logLevelChange
 			}
 		});
 
 	},
 	
 	showCurrentLevel: function(logLevel) {
-		this.getConfigedit().down('combobox[name=logLevel]').setValue(logLevel);
+		var cb = this.getConfigedit().down('combobox[name=logLevel]'); 
+		cb.setValue(logLevel);
+		cb.on('change', this.logLevelChange);
 	},
 	
 	logLevelChange: function(field, newValue, oldValue) {
 		loggingEventService.changeLogLevel(newValue);
+		Ext.create('Ext.ux.Notification', {
+		    title: 'My title',
+		    html: 'a simple message',
+		    autoDestroy: true
+		}).show(document);
 	},
 
 });
