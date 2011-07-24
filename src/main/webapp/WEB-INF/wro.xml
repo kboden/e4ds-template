@@ -7,6 +7,8 @@
     <js>/ext/ux/BoxReorderer.js</js>
     <js>/ext/ux/TabCloseMenu.js</js>
     <js>/ext/ux/TabReorderer.js</js>
+    <js>/ext/ux/form/field/ClearButton.js</js>
+    <js>/ext/ux/Notification.js</js>
     <js>/override.js</js>
     <js>/api.js</js>
     <js>/direct.js</js>
