@@ -1,3 +1,5 @@
+Ext.require('Ext.ux.Notification');
+
 Ext.application({
 	name: 'E4ds',
 	appFolder: 'app',
@@ -12,8 +14,12 @@ Ext.application({
 			}
 		});
 		
-		Ext.direct.Manager.on('exception', function(e) {
-			console.log('ex: ' + e);
+		Ext.direct.Manager.on('exception', function(e) {	
+			if (e.message === 'accessdenied') {
+				Ext.ux.Notification.error('Error', 'Access is denied');
+			} else {
+				Ext.ux.Notification.error('Error', e.message);
+			}
 		});		
 		
 		

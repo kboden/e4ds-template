@@ -2,7 +2,27 @@ Ext.define('Ext.ux.Notification', {
 	extend: 'Ext.Window',
 
 	statics: {
-		positions: []
+		positions: [],
+		info: function(title, text) {
+			this.notification(title, text, false);
+		},
+		error: function(title, text) {
+			this.notification(title, text, true);
+		},
+		notification: function(title, text, error) {
+			var newNotification = new this();
+			newNotification.iconCls = error ? 'x-icon-error' : 'x-icon-information';
+			newNotification.title = title;
+			newNotification.html = text;
+			newNotification.autoDestroy = true;
+			newNotification.bodyStyle = {
+				'background-color': error ? '#F76541' : '#5FFB17',
+				'color': error ? 'white' : 'black',
+				'font-weight': 'bold',
+				'text-align': 'center'
+			};
+			newNotification.show();
+		}
 	},
 	
 	initComponent: function() {
@@ -10,8 +30,8 @@ Ext.define('Ext.ux.Notification', {
 			iconCls: this.iconCls || 'x-icon-information',
 			cls: 'x-notification',
 			width: 200,
-			draggable: false,
-			bodyStyle: 'text-align: center'
+			draggable: false
+			//bodyStyle: 'text-align: center'
 		});
 		
 		if (this.autoDestroy) {
@@ -45,7 +65,7 @@ Ext.define('Ext.ux.Notification', {
 		this.callParent();
 		Ext.fly(this.body.dom).on('click', this.cancelHiding, this);
 		if (this.autoDestroy) {
-			this.task.delay(this.hideDelay || 5000);
+			this.task.delay(this.hideDelay || 3000);
 		}
 	},
 
@@ -61,7 +81,7 @@ Ext.define('Ext.ux.Notification', {
 			this.pos++;
 		this.self.positions.push(this.pos);
 
-		this.el.alignTo(document, "br-br", [ -20, -20 - ((this.getSize().height + 10) * this.pos) ]);
+		this.el.alignTo(document, "br-br", [ -20, -40 - ((this.getSize().height + 10) * this.pos) ]);
 		this.el.slideIn('b', {
 			duration: 500,
 			listeners: {

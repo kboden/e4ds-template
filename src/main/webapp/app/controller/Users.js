@@ -94,6 +94,7 @@ Ext.define('E4ds.controller.Users', {
 				this.doGridRefresh();
 				this.toggleDeleteButton(false);
 				this.toggleEditButton(false);
+				Ext.ux.Notification.info('Successful', 'User deleted');
 			}
 		}
 	},
@@ -132,6 +133,7 @@ Ext.define('E4ds.controller.Users', {
 			success: function(form, action) {
 				this.doGridRefresh();
 				this.getUserEditWindow().close();
+				Ext.ux.Notification.info('Successful', 'User saved');
 			}
 		});
 	},
