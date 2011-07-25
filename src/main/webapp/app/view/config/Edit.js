@@ -22,7 +22,7 @@ Ext.define('E4ds.view.config.Edit', {
 		queryMode: 'local',
 		forceSelection: true,
 		value: 'ERROR'
-    }],
+    }]
 	
 
 });
