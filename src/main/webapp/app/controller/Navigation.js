@@ -34,7 +34,7 @@ Ext.define('E4ds.controller.Navigation', {
 	getPath: function(node) {
 		return node.parentNode ? this.getPath(node.parentNode) + "/" + node.getId() : "/" + node.getId();
 	},
-	
+
 	onTreeItemClick: function(treeview, record, item, index, event, options) {
 		var view = record.raw.view, tab = this.getTabpanel().child(view);
 		if (view) {
@@ -53,7 +53,7 @@ Ext.define('E4ds.controller.Navigation', {
 		var activeTab = this.getTabpanel().getActiveTab();
 		var selectionModel = this.getNavigationTree().getSelectionModel();
 		this.getNavigationTree().expandPath(activeTab.treePath);
-				
+
 		var activeTabId = activeTab.navigationId;
 		var selection = selectionModel.getLastSelected();
 		var currentId = selection && selection.raw.id;
