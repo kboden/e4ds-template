@@ -19,6 +19,7 @@
     <js>/app.js</js>
     
     <css>/css/app.css</css>
+    <css>/ext/ux/css/ItemSelector.css</css>
   </group>
 
   <group name="login">

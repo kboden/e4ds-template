@@ -6,6 +6,7 @@ import static ch.ralscha.extdirectspring.annotation.ExtDirectMethodType.STORE_RE
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -21,10 +22,13 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ch.ralscha.e4ds.entity.QUser;
+import ch.ralscha.e4ds.entity.Role;
 import ch.ralscha.e4ds.entity.User;
+import ch.ralscha.e4ds.repository.RoleRepository;
 import ch.ralscha.e4ds.repository.UserRepository;
 import ch.ralscha.e4ds.util.Util;
 import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
@@ -34,6 +38,8 @@ import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreResponse;
 import ch.ralscha.extdirectspring.filter.StringFilter;
 
+import com.google.common.base.Splitter;
+import com.google.common.collect.Sets;
 import com.mysema.query.BooleanBuilder;
 
 @Service
@@ -42,6 +48,9 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -71,6 +80,12 @@ public class UserService {
 		return new ExtDirectStoreResponse<User>((int) page.getTotalElements(), page.getContent());
 	}
 
+	@ExtDirectMethod(STORE_READ)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public List<Role> loadAllRoles() {
+		return roleRepository.findAll();
+	}
+
 	@ExtDirectMethod(STORE_MODIFY)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void destroy(List<User> destroyUsers) {
@@ -84,7 +99,8 @@ public class UserService {
 	@RequestMapping(value = "/userFormPost", method = RequestMethod.POST)
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ExtDirectResponse userFormPost(HttpServletRequest request, @Valid User modifiedUser, BindingResult result) {
+	public ExtDirectResponse userFormPost(HttpServletRequest request, @RequestParam(required = false) String roleIds,
+			@Valid User modifiedUser, BindingResult result) {
 
 		//Check uniqueness of userName and email
 		if (!result.hasErrors()) {
@@ -110,14 +126,25 @@ public class UserService {
 			if (StringUtils.hasText(modifiedUser.getPasswordHash())) {
 				modifiedUser.setPasswordHash(passwordEncoder.encode(modifiedUser.getPasswordHash()));
 			}
-
+			
+			Set<Role> roles = Sets.newHashSet();
+			if (StringUtils.hasText(roleIds)) {
+				Iterable<String> roleIdsIt = Splitter.on(",").split(roleIds);
+				for (String roleId : roleIdsIt) {
+					roles.add(roleRepository.findOne(Long.valueOf(roleId)));
+				}
+			} 
+			
 			if (modifiedUser.getId() != null) {
 				User dbUser = userRepository.findOne(modifiedUser.getId());
 				if (dbUser != null) {
+					dbUser.getRoles().clear();
+					dbUser.getRoles().addAll(roles);
 					dbUser.update(modifiedUser);
 				}
 			} else {
 				modifiedUser.setCreateDate(new Date());
+				modifiedUser.setRoles(roles);
 				userRepository.save(modifiedUser);
 			}
 		}
@@ -127,44 +154,5 @@ public class UserService {
 		return builder.build();
 
 	}
-
-	//	@ExtDirectMethod(STORE_MODIFY)
-	//	public List<User> create(List<User> newUsers) {
-	//		List<User> insertedUsers = Lists.newArrayList();
-	//
-	//		for (User newUser : newUsers) {
-	//			
-	//			if (StringUtils.hasText(newUser.getPasswordHash())) {
-	//				newUser.setPasswordHash(passwordEncoder.encode(newUser.getPasswordHash()));
-	//			}
-	//			
-	//			newUser.setCreateDate(new Date());
-	//			insertedUsers.add(userRepository.save(newUser));
-	//			
-	//			newUser.setPasswordHash(null);
-	//		}
-	//
-	//		return insertedUsers;
-	//	}
-	//
-	//	@ExtDirectMethod(STORE_MODIFY)
-	//	@Transactional
-	//	public List<User> update(List<User> modifiedUsers) {
-	//		List<User> updatedRecords = Lists.newArrayList();
-	//		for (User modifiedUser : modifiedUsers) {
-	//			User dbUser = userRepository.findOne(modifiedUser.getId());
-	//			if (dbUser != null) {
-	//				dbUser.update(modifiedUser);
-	//								
-	//				if (StringUtils.hasText(modifiedUser.getPasswordHash())) {
-	//					dbUser.setPasswordHash(passwordEncoder.encode(modifiedUser.getPasswordHash()));
-	//					modifiedUser.setPasswordHash(null);
-	//				}				
-	//				
-	//				updatedRecords.add(dbUser);
-	//			}
-	//		}
-	//		return updatedRecords;
-	//	}	
 
 }

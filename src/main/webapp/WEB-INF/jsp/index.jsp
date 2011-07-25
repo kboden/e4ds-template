@@ -10,11 +10,14 @@
     <title>e4ds-template</title>
     <link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css">
     
+    
+    
     <script type="text/javascript" src="i18n.js"></script>
     
     <spring:eval expression="@environment.acceptsProfiles('development')" var="isDevelopment" />
     <c:if test="${isDevelopment}">  
 	    <link rel="stylesheet" type="text/css" href="css/app.css">
+	    <link rel="stylesheet" type="text/css" href="ext/ux/css/ItemSelector.css">
 	    
 	    <script type="text/javascript" src="ext/ext-all-debug.js"></script>
 	    <script type="text/javascript" src="override.js"></script>

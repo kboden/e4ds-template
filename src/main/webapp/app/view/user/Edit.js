@@ -9,6 +9,8 @@ Ext.define('E4ds.view.user.Edit', {
 	width: 400,
 	modal: true,
 
+	requires: ['Ext.ux.form.ItemSelector'],
+	
 	initComponent: function() {
 		this.items = [ {
 			xtype: 'form',
@@ -77,7 +79,15 @@ Ext.define('E4ds.view.user.Edit', {
 				xtype: 'checkboxfield',
 				inputValue: 'true',
 				uncheckedValue: 'false'
-			} ],
+			},{
+				xtype: 'itemselector',
+	            name: 'roleIds',
+	            fieldLabel: 'Roles',
+	            store: 'Roles',
+	            displayField: 'name',
+	            valueField: 'id',
+	            allowBlank: true
+	        } ],
 
 			buttons: [ {
 				xtype: 'button',

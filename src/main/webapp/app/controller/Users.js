@@ -2,8 +2,8 @@ Ext.define('E4ds.controller.Users', {
 	extend: 'Ext.app.Controller',
 
 	views: [ 'user.List', 'user.Edit' ],
-	stores: [ 'Users' ],
-	models: [ 'User' ],
+	stores: [ 'Users', 'Roles' ],
+	models: [ 'User', 'Role' ],
 	refs: [ {
 		ref: 'userList',
 		selector: 'userlist'
@@ -33,7 +33,7 @@ Ext.define('E4ds.controller.Users', {
 			},
 			'userlist button[action=delete]': {
 				click: this.deleteUser
-			}, 
+			},
 			'userlist textfield': {
 				filter: this.handleFilter,
 			}
@@ -46,12 +46,12 @@ Ext.define('E4ds.controller.Users', {
 			myStore.remoteFilter = false;
 			myStore.clearFilter(true);
 			myStore.remoteFilter = true;
-			myStore.filter('filter', newValue);			
+			myStore.filter('filter', newValue);
 		} else {
 			myStore.clearFilter();
 		}
 	},
-	
+
 	editUserFromDblClick: function(grid, record) {
 		this.editUser(record);
 	},
@@ -62,7 +62,14 @@ Ext.define('E4ds.controller.Users', {
 
 	editUser: function(record) {
 		Ext.widget('useredit');
-		this.getUserEditForm().getForm().loadRecord(record);
+
+		var form = this.getUserEditForm().getForm();
+		form.loadRecord(record);
+		form.setValues({
+			'roleIds': Ext.Array.map(record.raw.roles, function(item) {
+				return item.id;
+			})
+		});
 	},
 
 	createUser: function() {
