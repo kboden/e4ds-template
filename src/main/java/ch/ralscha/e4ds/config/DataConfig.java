@@ -89,6 +89,9 @@ public class DataConfig {
 		dbAppender.setConnectionSource(source);
 		dbAppender.start();
 
+		Logger appLogger = lc.getLogger("ch.ralscha.e4ds");
+		appLogger.setLevel(Level.WARN);
+		
 		Logger rootLogger = lc.getLogger("root");
 		rootLogger.setLevel(Level.WARN);
 		if (development) {
