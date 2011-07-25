@@ -16,7 +16,7 @@ Ext.define('E4ds.view.config.Edit', {
 		fieldLabel: 'Log Level',
 		name: 'logLevel',
 		labelWidth: 110,
-		store: Ext.create('E4ds.store.LogLevels'),
+		store: 'LogLevels',
 		valueField: 'level',
 		displayField: 'level',
 		queryMode: 'local',

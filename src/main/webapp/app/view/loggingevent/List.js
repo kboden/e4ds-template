@@ -68,7 +68,7 @@ Ext.define('E4ds.view.loggingevent.List', {
 				fieldLabel: 'Filter',
 				labelWidth: 40,
 				name: 'logLevelFilter',
-				store: Ext.create('E4ds.store.LogLevels'),
+				store: 'LogLevels',
 				valueField: 'level',
 				displayField: 'level',
 				queryMode: 'local',
