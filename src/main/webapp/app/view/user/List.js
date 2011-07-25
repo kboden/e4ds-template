@@ -59,6 +59,28 @@ Ext.define('E4ds.view.user.List', {
 				disabled: true,
 				action: 'delete',
 				iconCls: 'icon-delete'
+			}, '->', {
+				fieldLabel: 'Filter',
+				labelWidth: 40,
+				xtype: 'trigger',
+				triggerCls: Ext.baseCSSPrefix + 'form-search-trigger',
+				onTriggerClick: function() {
+					this.fireEvent('filter', this, this.getValue());
+				},
+				listeners: {
+					specialkey: function(f, e) {
+						if (e.getKey() == e.ENTER) {
+							this.fireEvent('filter', this, this.getValue());
+						}
+					},
+					change: function(f, val) {
+						if (!val) {
+							this.fireEvent('filter', this, this.getValue());
+						}
+					}
+				},
+
+				plugins: [ 'clearbutton' ]
 			} ]
 		}, {
 			xtype: 'pagingtoolbar',

@@ -33,10 +33,25 @@ Ext.define('E4ds.controller.Users', {
 			},
 			'userlist button[action=delete]': {
 				click: this.deleteUser
+			}, 
+			'userlist textfield': {
+				filter: this.handleFilter,
 			}
 		});
 	},
 
+	handleFilter: function(field, newValue) {
+		var myStore = this.getUsersStore();
+		if (newValue) {
+			myStore.remoteFilter = false;
+			myStore.clearFilter(true);
+			myStore.remoteFilter = true;
+			myStore.filter('filter', newValue);			
+		} else {
+			myStore.clearFilter();
+		}
+	},
+	
 	editUserFromDblClick: function(grid, record) {
 		this.editUser(record);
 	},
@@ -58,10 +73,8 @@ Ext.define('E4ds.controller.Users', {
 	deleteUser: function(button) {
 		var record = this.getUserList().getSelectionModel().getSelection()[0];
 		if (record) {
-			Ext.Msg.confirm('Delete User?',
-		            'Do you really want to delete ' + record.data.name,
-		            this.afterConfirmDeleteUser,
-		            this);
+			Ext.Msg.confirm('Delete User?', 'Do you really want to delete ' + record.data.name,
+					this.afterConfirmDeleteUser, this);
 		}
 	},
 
@@ -77,7 +90,7 @@ Ext.define('E4ds.controller.Users', {
 			}
 		}
 	},
-	
+
 	enableActions: function(button, record) {
 		this.toggleDeleteButton(true);
 		this.toggleEditButton(true);
@@ -102,8 +115,7 @@ Ext.define('E4ds.controller.Users', {
 	},
 
 	updateUser: function(button) {
-		var form = this.getUserEditForm(), 
-		           record = form.getRecord();
+		var form = this.getUserEditForm(), record = form.getRecord();
 
 		form.getForm().submit({
 			params: {

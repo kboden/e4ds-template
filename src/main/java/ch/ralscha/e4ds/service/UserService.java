@@ -32,6 +32,7 @@ import ch.ralscha.extdirectspring.bean.ExtDirectResponse;
 import ch.ralscha.extdirectspring.bean.ExtDirectResponseBuilder;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreReadRequest;
 import ch.ralscha.extdirectspring.bean.ExtDirectStoreResponse;
+import ch.ralscha.extdirectspring.filter.StringFilter;
 
 import com.mysema.query.BooleanBuilder;
 
@@ -48,7 +49,25 @@ public class UserService {
 	@ExtDirectMethod(STORE_READ)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ExtDirectStoreResponse<User> load(ExtDirectStoreReadRequest request) {
-		Page<User> page = userRepository.findAll(Util.createPageRequest(request));
+
+		Page<User> page;
+		if (request.getFilters().isEmpty()) {
+			page = userRepository.findAll(Util.createPageRequest(request));
+		} else {
+			StringFilter filter = (StringFilter) request.getFilters().iterator().next();
+			String filterValue = filter.getValue();
+
+			BooleanBuilder bb = new BooleanBuilder();
+			if (StringUtils.hasText(filterValue)) {
+				String likeValue = "%" + filterValue.toLowerCase() + "%";
+				bb.or(QUser.user.userName.lower().like(likeValue));
+				bb.or(QUser.user.name.lower().like(likeValue));
+				bb.or(QUser.user.firstName.lower().like(likeValue));
+				bb.or(QUser.user.email.lower().like(likeValue));
+			}
+
+			page = userRepository.findAll(bb, Util.createPageRequest(request));
+		}
 		return new ExtDirectStoreResponse<User>((int) page.getTotalElements(), page.getContent());
 	}
 
@@ -72,13 +91,12 @@ public class UserService {
 			BooleanBuilder bb = new BooleanBuilder(QUser.user.userName.equalsIgnoreCase(modifiedUser.getUserName()));
 			if (modifiedUser.getId() != null) {
 				bb.and(QUser.user.id.ne(modifiedUser.getId()));
-			}			
+			}
 			if (userRepository.count(bb) > 0) {
 				result.rejectValue("userName", null, "Username already taken");
 			}
 
-			
-			bb =  new BooleanBuilder(QUser.user.email.equalsIgnoreCase(modifiedUser.getEmail()));
+			bb = new BooleanBuilder(QUser.user.email.equalsIgnoreCase(modifiedUser.getEmail()));
 			if (modifiedUser.getId() != null) {
 				bb.and(QUser.user.id.ne(modifiedUser.getId()));
 			}
@@ -88,11 +106,11 @@ public class UserService {
 		}
 
 		if (!result.hasErrors()) {
-			
+
 			if (StringUtils.hasText(modifiedUser.getPasswordHash())) {
 				modifiedUser.setPasswordHash(passwordEncoder.encode(modifiedUser.getPasswordHash()));
 			}
-			
+
 			if (modifiedUser.getId() != null) {
 				User dbUser = userRepository.findOne(modifiedUser.getId());
 				if (dbUser != null) {
@@ -103,7 +121,7 @@ public class UserService {
 				userRepository.save(modifiedUser);
 			}
 		}
-		
+
 		ExtDirectResponseBuilder builder = new ExtDirectResponseBuilder(request);
 		builder.addErrors(result);
 		return builder.build();
