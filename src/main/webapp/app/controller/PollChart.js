@@ -50,18 +50,18 @@ Ext.define('E4ds.controller.PollChart', {
 
 	controlPolling: function(button, event) {
 		if (button.getText() == 'Start') {
-			button.setText('Stop');
+			button.setText(i18n.chart_stop);
 			button.setIconCls('icon-stop');
 			this.provider.connect();
 		} else {
-			button.setText('Start');
+			button.setText(i18n.chart_start);
 			button.setIconCls('icon-start');
 			this.provider.disconnect();
 		}
 	},
 
 	onBeforeActivate: function() {
-		if (this.getControlButton().getText() != 'Start') {
+		if (this.getControlButton().getText() !== i18n.chart_start) {
 			this.provider.connect();
 		}
 	},

@@ -2,7 +2,7 @@ Ext.define('E4ds.view.config.Edit', {
 	extend: 'Ext.form.Panel',
 	alias: 'widget.configedit',
 
-	title: 'Config',
+	title: i18n.config,
 	closable: true,
 
 	fieldDefaults: {
@@ -13,7 +13,7 @@ Ext.define('E4ds.view.config.Edit', {
 
     items: [{
     	xtype: 'combobox',
-		fieldLabel: 'Log Level',
+		fieldLabel: i18n.config_loglevel,
 		name: 'logLevel',
 		labelWidth: 110,
 		store: 'LogLevels',

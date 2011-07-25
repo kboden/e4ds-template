@@ -16,9 +16,9 @@ Ext.application({
 		
 		Ext.direct.Manager.on('exception', function(e) {	
 			if (e.message === 'accessdenied') {
-				Ext.ux.Notification.error('Error', 'Access is denied');
+				Ext.ux.Notification.error(i18n.error, i18n.error_accessdenied);
 			} else {
-				Ext.ux.Notification.error('Error', e.message);
+				Ext.ux.Notification.error(i18n.error, e.message);
 			}
 		});		
 		
@@ -32,7 +32,7 @@ Ext.application({
 				return true;
 			},
 
-			passwordText: 'Passwords do not match'
+			passwordText: i18n.user_passworddonotmatch
 		});
 
 	}

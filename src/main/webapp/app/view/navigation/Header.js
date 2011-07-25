@@ -8,14 +8,14 @@ Ext.define('E4ds.view.navigation.Header', {
 	},
 
 	items: [ {
-		html: 'e4ds-template v 0.0.1',
+		html: 'e4ds-template',
 		cls: 'appHeader'
 	}, {
 		xtype: 'tbspacer',
 		flex: 1
 	}, {
 		xtype: 'label',
-		text: 'Logged on: ',
+		text: i18n.login_loggedon + ': ',
 		width: 200,
 		margins: {
 			top: 6,

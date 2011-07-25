@@ -3,12 +3,15 @@ package ch.ralscha.e4ds.service;
 import static ch.ralscha.extdirectspring.annotation.ExtDirectMethodType.TREE_LOAD;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Set;
 
 import org.apache.commons.lang.mutable.MutableInt;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +26,9 @@ import com.google.common.collect.Sets;
 @Service
 public class NavigationService {
 
+	@Autowired
+	private MessageSource messageSource;
+	
 	private MenuNode root;
 
 	public NavigationService() throws JsonParseException, JsonMappingException, IOException {
@@ -33,18 +39,19 @@ public class NavigationService {
 
 	@ExtDirectMethod(TREE_LOAD)
 	@PreAuthorize("isAuthenticated()")
-	public MenuNode getNavigation() {
+	public MenuNode getNavigation(Locale locale) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 		MenuNode copyOfRoot = new MenuNode(root, authentication.getAuthorities());
-		upateIdAndLeaf(new MutableInt(0), copyOfRoot);
+		upateIdAndLeaf(new MutableInt(0), copyOfRoot, locale);
 
 		return copyOfRoot;
 	}
 
-	private void upateIdAndLeaf(MutableInt id, MenuNode parent) {
+	private void upateIdAndLeaf(MutableInt id, MenuNode parent, Locale locale) {
 		parent.setId(id.intValue());
+		parent.setText(messageSource.getMessage(parent.getText(), null, parent.getText(), locale));
 		id.add(1);
 
 		parent.setLeaf(parent.getChildren().isEmpty());
@@ -55,7 +62,7 @@ public class NavigationService {
 			if (child.getView() == null && child.getChildren().isEmpty()) {
 				removeChildren.add(child);
 			} else {
-				upateIdAndLeaf(id, child);
+				upateIdAndLeaf(id, child, locale);
 			}
 		}
 

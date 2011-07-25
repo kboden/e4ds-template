@@ -6,12 +6,14 @@ import static ch.ralscha.extdirectspring.annotation.ExtDirectMethodType.STORE_RE
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,6 +56,9 @@ public class UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private MessageSource messageSource;
 
 	@ExtDirectMethod(STORE_READ)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -99,8 +104,8 @@ public class UserService {
 	@RequestMapping(value = "/userFormPost", method = RequestMethod.POST)
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ExtDirectResponse userFormPost(HttpServletRequest request, @RequestParam(required = false) String roleIds,
-			@Valid User modifiedUser, BindingResult result) {
+	public ExtDirectResponse userFormPost(HttpServletRequest request, Locale locale,
+			@RequestParam(required = false) String roleIds, @Valid User modifiedUser, BindingResult result) {
 
 		//Check uniqueness of userName and email
 		if (!result.hasErrors()) {
@@ -109,7 +114,7 @@ public class UserService {
 				bb.and(QUser.user.id.ne(modifiedUser.getId()));
 			}
 			if (userRepository.count(bb) > 0) {
-				result.rejectValue("userName", null, "Username already taken");
+				result.rejectValue("userName", null, messageSource.getMessage("user_usernametaken", null, locale));
 			}
 
 			bb = new BooleanBuilder(QUser.user.email.equalsIgnoreCase(modifiedUser.getEmail()));
@@ -117,7 +122,7 @@ public class UserService {
 				bb.and(QUser.user.id.ne(modifiedUser.getId()));
 			}
 			if (userRepository.count(bb) > 0) {
-				result.rejectValue("email", null, "Email already taken");
+				result.rejectValue("email", null, messageSource.getMessage("user_emailtaken", null, locale));
 			}
 		}
 

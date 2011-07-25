@@ -2,7 +2,7 @@ Ext.define('E4ds.view.poll.PollChart', {
 	extend: 'Ext.panel.Panel',
 	alias: 'widget.pollchart',
 
-	title: 'Polling Chart',
+	title: i18n.chart_title,
 
 	layout: 'fit',
 	closable: true,
@@ -24,7 +24,7 @@ Ext.define('E4ds.view.poll.PollChart', {
 		this.dockedItems = [ {
 			xtype: 'toolbar',
 			items: [ {
-				text: 'Stop',
+				text: i18n.chart_stop,
 				iconCls: 'icon-stop',
 				action: 'control'
 			} ]
@@ -44,7 +44,7 @@ Ext.define('E4ds.view.poll.PollChart', {
 				minimum: 0,
 				// majorTickSteps: 500,
 				// minorTickSteps: 100,
-				title: 'Points',
+				title: i18n.chart_points,
 				label: {
 					renderer: Ext.util.Format.numberRenderer('0')
 				},
@@ -60,7 +60,7 @@ Ext.define('E4ds.view.poll.PollChart', {
 				type: 'Category',
 				position: 'bottom',
 				fields: [ 'time' ],
-				title: 'Polling time'
+				title: i18n.chart_pollingtime
 			} ],
 			series: [ {
 				type: 'line',
@@ -71,7 +71,7 @@ Ext.define('E4ds.view.poll.PollChart', {
 				tips: {
 					width: 130,
 					renderer: function(storeItem, item) {
-						this.setTitle('Received ' + storeItem.get('points') + ' points at ' + storeItem.get('time'));
+						this.setTitle(i18n.chart_received + ' ' + storeItem.get('points') + ' '+i18n.chart_pointsat+' ' + storeItem.get('time'));
 					}
 				},
 				axis: 'left',

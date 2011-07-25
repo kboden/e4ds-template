@@ -28,7 +28,7 @@ Ext.define('E4ds.controller.Navigation', {
 	},
 
 	showLoggedOnUser: function(fullname) {
-		this.getLoggedOnLabel().setText('Logged on: ' + fullname);
+		this.getLoggedOnLabel().setText(i18n.login_loggedon + ': ' + fullname);
 	},
 
 	getPath: function(node) {

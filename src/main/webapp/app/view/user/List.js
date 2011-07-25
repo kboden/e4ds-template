@@ -3,7 +3,7 @@ Ext.define('E4ds.view.user.List', {
 	alias: 'widget.userlist',
 	store: 'Users',
 
-	title: 'Users',
+	title: i18n.user_users,
 	closable: true,
 
 	columns: [ {
@@ -12,23 +12,23 @@ Ext.define('E4ds.view.user.List', {
 		width: 50,
 		sortable: false
 	}, {
-		header: 'Username',
+		header: i18n.user_username,
 		dataIndex: 'userName',
 		flex: 1
 	}, {
-		header: 'First Name',
+		header: i18n.user_firstname,
 		dataIndex: 'firstName',
 		flex: 1
 	}, {
-		header: 'Last Name',
+		header: i18n.user_lastname,
 		dataIndex: 'name',
 		flex: 1
 	}, {
-		header: 'Email',
+		header: i18n.user_email,
 		dataIndex: 'email',
 		flex: 1
 	}, {
-		header: 'Enabled',
+		header: i18n.user_enabled,
 		dataIndex: 'enabled',
 		width: 70,
 		renderer: function(value) {
@@ -45,22 +45,22 @@ Ext.define('E4ds.view.user.List', {
 			xtype: 'toolbar',
 			dock: 'top',
 			items: [ {
-				text: 'New User',
+				text: i18n.user_new,
 				disabled: false,
 				action: 'add',
 				iconCls: 'icon-add'
 			}, {
-				text: 'Edit User',
+				text: i18n.user_edit,
 				disabled: true,
 				action: 'edit',
 				iconCls: 'icon-edit'
 			}, {
-				text: 'Delete User',
+				text: i18n.user_delete,
 				disabled: true,
 				action: 'delete',
 				iconCls: 'icon-delete'
 			}, '->', {
-				fieldLabel: 'Filter',
+				fieldLabel: i18n.filter,
 				labelWidth: 40,
 				xtype: 'trigger',
 				triggerCls: Ext.baseCSSPrefix + 'form-search-trigger',
@@ -87,8 +87,8 @@ Ext.define('E4ds.view.user.List', {
 			dock: 'bottom',
 			store: 'Users',
 			displayInfo: true,
-			displayMsg: 'Displaying Users {0} - {1} of {2}',
-			emptyMsg: 'No Users to display'
+			displayMsg: i18n.user_display,
+			emptyMsg: i18n.user_no
 		} ];
 
 		this.callParent(arguments);

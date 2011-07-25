@@ -2,7 +2,7 @@ Ext.define('E4ds.view.user.Edit', {
 	extend: 'Ext.window.Window',
 	alias: 'widget.useredit',
 
-	title: 'Edit User',
+	title: i18n.user_edit,
 	layout: 'fit',
 	autoShow: true,
 	resizable: true,
@@ -33,48 +33,49 @@ Ext.define('E4ds.view.user.Edit', {
 
 			items: [ {
 				name: 'userName',
-				fieldLabel: 'Username',
+				fieldLabel: i18n.user_username,
 				allowBlank: false
 			}, {
 				name: 'firstName',
-				fieldLabel: 'First Name',
+				fieldLabel: i18n.user_firstname,
 				allowBlank: false
 			}, {
 				name: 'name',
-				fieldLabel: 'Last Name',
+				fieldLabel: i18n.user_lastname,
 				allowBlank: false
 			}, {
 				name: 'email',
-				fieldLabel: 'Email',
+				fieldLabel: i18n.user_email,
 				vtype: 'email',
 				allowBlank: false
 			}, {
-				fieldLabel: 'Password',
 				name: 'passwordHash',
+				fieldLabel: i18n.user_password,				
 				inputType: 'password',
 				id: 'pass'
 			}, {
-				fieldLabel: 'Confirm Password',
 				name: 'password-confirm',
+				fieldLabel: i18n.user_confirmpassword,				
 				vtype: 'password',
 				inputType: 'password',
 				initialPassField: 'pass'
 			}, {
                 xtype: 'combobox',
-                fieldLabel: 'Language',
+                fieldLabel: i18n.user_language,
                 name: 'locale',
                 store: Ext.create('Ext.data.ArrayStore', {
                     fields: ['code', 'language'],
-                    data : [['de', 'German'], ['en', 'English']]
+                    data : [['de', i18n.user_language_german], 
+                            ['en', i18n.user_language_english]]
                 }),
                 valueField: 'code',
                 displayField: 'language',
                 queryMode: 'local',
-                emptyText: 'Select a language...',
+                emptyText: i18n.user_selectlanguage,
                 allowBlank: false,
                 forceSelection: true
             }, {
-				fieldLabel: 'Enabled',
+				fieldLabel: i18n.user_enabled,
 				name: 'enabled',
 				xtype: 'checkboxfield',
 				inputValue: 'true',
@@ -82,7 +83,7 @@ Ext.define('E4ds.view.user.Edit', {
 			},{
 				xtype: 'itemselector',
 	            name: 'roleIds',
-	            fieldLabel: 'Roles',
+	            fieldLabel: i18n.user_roles,
 	            store: 'Roles',
 	            displayField: 'name',
 	            valueField: 'id',
@@ -91,12 +92,12 @@ Ext.define('E4ds.view.user.Edit', {
 
 			buttons: [ {
 				xtype: 'button',
-				text: 'Save',
+				text: i18n.save,
 				action : 'save',
 				disabled: true,
 				formBind: true
 			}, {
-				text: 'Cancel',
+				text: i18n.cancel,
 				scope: this,
 				handler: this.close
 			} ]

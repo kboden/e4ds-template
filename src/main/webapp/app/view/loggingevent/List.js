@@ -3,7 +3,7 @@ Ext.define('E4ds.view.loggingevent.List', {
 	alias: 'widget.loggingeventlist',
 	store: 'LoggingEvents',
 
-	title: 'Log Events',
+	title: i18n.logevents,
 	closable: true,
 
 	requires: [ 'Ext.ux.RowExpander', 'Ext.ux.form.field.ClearButton' ],
@@ -11,24 +11,24 @@ Ext.define('E4ds.view.loggingevent.List', {
 	constructor: function() {
 
 		this.columns = [ {
-			header: 'Timestamp',
+			header: i18n.logevents_timestamp,
 			dataIndex: 'dateTime',
 			width: 200
 		}, {
-			header: 'Level',
+			header: i18n.logevents_level,
 			dataIndex: 'level',
 			width: 70
 		}, {
-			header: 'Message',
+			header: i18n.logevents_message,
 			dataIndex: 'message',
 			flex: 1
 		}, {
-			header: 'Caller Class',
+			header: i18n.logevents_callerclass,
 			dataIndex: 'callerClass',
 			sortable: false,
 			flex: 1
 		}, {
-			header: 'Caller Line',
+			header: i18n.logevents_callerline,
 			dataIndex: 'callerLine',
 			align: 'right',
 			sortable: false,
@@ -50,22 +50,22 @@ Ext.define('E4ds.view.loggingevent.List', {
 			xtype: 'toolbar',
 			dock: 'top',
 			items: [ {
-				text: 'Excel Export',
+				text: i18n.logevents_excelexport,
 				action: 'export',
 				iconCls: 'icon-excel',
 				href: 'loggingEventExport.xls',				
 				target: '_self',
 			}, '-', {
-				text: 'Delete',
+				text: i18n.logevents_delete,
 				action: 'deleteall',
 				iconCls: 'icon-delete'
 			}, '-', {
-				text: 'Add Test Logs',
+				text: i18n.logevents_addtest,
 				action: 'test',
 				iconCls: 'icon-add'
 			}, '->',{
 				xtype: 'combobox',
-				fieldLabel: 'Filter',
+				fieldLabel: i18n.filter,
 				labelWidth: 40,
 				name: 'logLevelFilter',
 				store: 'LogLevels',
@@ -80,8 +80,8 @@ Ext.define('E4ds.view.loggingevent.List', {
 			dock: 'bottom',
 			store: 'LoggingEvents',
 			displayInfo: true,
-			displayMsg: 'Displaying Log Events {0} - {1} of {2}',
-			emptyMsg: 'No Log Events to display'
+			displayMsg: i18n.logevents_display,
+			emptyMsg: i18n.logevents_no
 		} ];
 
 		this.callParent(arguments);

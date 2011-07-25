@@ -2,7 +2,7 @@ Ext.define('E4ds.view.navigation.SideBar', {
 	alias: 'widget.sidebar',
 	extend: 'Ext.panel.Panel',
 
-	title: 'Navigation',
+	title: i18n.navigation,
 	collapsible: true,
 	layout: 'fit',
 	minWidth: 100,

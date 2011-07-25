@@ -2,6 +2,7 @@ package ch.ralscha.e4ds.web;
 
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.joda.time.format.ISODateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,10 +43,14 @@ public class LoggingEventExport {
 	@Autowired
 	private LoggingEventRepository loggingEventRepository;
 
+	@Autowired
+	private MessageSource messageSource;
+	
 	@Transactional(readOnly = true)
 	@RequestMapping(value = "/loggingEventExport.xls", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void loggingEventExport(HttpServletRequest request, HttpServletResponse response,
+			Locale locale,
 			@RequestParam(required = false) String level) throws Exception {
 
 		response.setContentType("application/vnd.ms-excel");
@@ -78,13 +84,13 @@ public class LoggingEventExport {
 
 		Row row = sheet.createRow(0);
 		createCell(row, 0, "ID", titleStyle, createHelper);
-		createCell(row, 1, "Timestamp", titleStyle, createHelper);
-		createCell(row, 2, "User", titleStyle, createHelper);
+		createCell(row, 1, messageSource.getMessage("logevents_timestamp", null, locale), titleStyle, createHelper);
+		createCell(row, 2,  messageSource.getMessage("user", null, locale), titleStyle, createHelper);
 		createCell(row, 3, "IP", titleStyle, createHelper);
-		createCell(row, 4, "Message", titleStyle, createHelper);
-		createCell(row, 5, "Level", titleStyle, createHelper);
-		createCell(row, 6, "CallerClass", titleStyle, createHelper);
-		createCell(row, 7, "CallerLine", titleStyle, createHelper);
+		createCell(row, 4,  messageSource.getMessage("logevents_message", null, locale), titleStyle, createHelper);
+		createCell(row, 5,  messageSource.getMessage("logevents_level", null, locale), titleStyle, createHelper);
+		createCell(row, 6,  messageSource.getMessage("logevents_callerclass", null, locale), titleStyle, createHelper);
+		createCell(row, 7,  messageSource.getMessage("logevents_callerline", null, locale), titleStyle, createHelper);
 
 		List<LoggingEvent> events;
 		if (StringUtils.hasText(level)) {
@@ -188,5 +194,6 @@ public class LoggingEventExport {
 		cell.setCellValue(createHelper.createRichTextString(value));
 		cell.setCellStyle(style);
 	}
+
 
 }

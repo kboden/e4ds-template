@@ -80,7 +80,7 @@ Ext.define('E4ds.controller.Users', {
 	deleteUser: function(button) {
 		var record = this.getUserList().getSelectionModel().getSelection()[0];
 		if (record) {
-			Ext.Msg.confirm('Delete User?', 'Do you really want to delete ' + record.data.name,
+			Ext.Msg.confirm(i18n.user_delete+'?', i18n.delete_confirm + ' ' + record.data.name,
 					this.afterConfirmDeleteUser, this);
 		}
 	},
@@ -94,7 +94,7 @@ Ext.define('E4ds.controller.Users', {
 				this.doGridRefresh();
 				this.toggleDeleteButton(false);
 				this.toggleEditButton(false);
-				Ext.ux.Notification.info('Successful', 'User deleted');
+				Ext.ux.Notification.info(i18n.successful, i18n.user_deleted);
 			}
 		}
 	},
@@ -133,7 +133,7 @@ Ext.define('E4ds.controller.Users', {
 			success: function(form, action) {
 				this.doGridRefresh();
 				this.getUserEditWindow().close();
-				Ext.ux.Notification.info('Successful', 'User saved');
+				Ext.ux.Notification.info(i18n.successful, i18n.user_saved);
 			}
 		});
 	},
