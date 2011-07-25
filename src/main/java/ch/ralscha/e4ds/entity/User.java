@@ -63,6 +63,7 @@ public class User extends AbstractPersistable<Long> {
 		this.firstName = modifiedUser.getFirstName();
 		this.email = modifiedUser.getEmail();
 		this.enabled = modifiedUser.isEnabled();
+		this.locale = modifiedUser.getLocale();
 
 		if (StringUtils.hasText(modifiedUser.getPasswordHash())) {
 			this.passwordHash = modifiedUser.getPasswordHash();

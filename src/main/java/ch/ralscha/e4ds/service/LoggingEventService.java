@@ -99,7 +99,7 @@ public class LoggingEventService {
 	public String getCurrentLevel() {
 		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
 		ch.qos.logback.classic.Logger logger = lc.getLogger("ch.ralscha.e4ds");
-		return logger.getLevel().toString();
+		return logger != null && logger.getLevel() != null ? logger.getLevel().toString() : "ERROR";
 	}
 
 }

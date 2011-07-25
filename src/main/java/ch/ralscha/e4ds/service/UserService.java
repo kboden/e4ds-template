@@ -86,7 +86,7 @@ public class UserService {
 	}
 
 	@ExtDirectMethod(STORE_READ)
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	public List<Role> loadAllRoles() {
 		return roleRepository.findAll();
 	}
