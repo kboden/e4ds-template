@@ -13,6 +13,12 @@ Ext.define('E4ds.view.Viewport', {
 	requires: [ 'Ext.ux.TabReorderer', 'Ext.ux.TabCloseMenu' ],
 	
 	initComponent: function() {
+		
+		var tabCloseMenu = Ext.create('Ext.ux.TabCloseMenu');
+		tabCloseMenu.closeTabText = i18n.tabclosemenu_close;
+		tabCloseMenu.closeOthersTabsText = i18n.tabclosemenu_closeother;
+		tabCloseMenu.closeAllTabsText = i18n.tabclosemenu_closeall;
+		
 		this.items = [ {
 			region: 'north',
 			xtype: 'navigationheader',
@@ -20,7 +26,7 @@ Ext.define('E4ds.view.Viewport', {
 		}, {
 			region: 'center',
 			xtype: 'tabpanel',
-			plugins: [Ext.create('Ext.ux.TabReorderer'), Ext.create('Ext.ux.TabCloseMenu')],
+			plugins: [Ext.create('Ext.ux.TabReorderer'), tabCloseMenu],
 			plain: true
 		}, {
 			region: 'west',
