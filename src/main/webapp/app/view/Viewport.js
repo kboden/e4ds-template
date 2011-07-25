@@ -10,6 +10,8 @@ Ext.define('E4ds.view.Viewport', {
 		split: true
 	},
 	
+	requires: [ 'Ext.ux.TabReorderer', 'Ext.ux.TabCloseMenu' ],
+	
 	initComponent: function() {
 		this.items = [ {
 			region: 'north',
