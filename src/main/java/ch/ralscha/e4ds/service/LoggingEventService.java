@@ -68,7 +68,6 @@ public class LoggingEventService {
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteAll(String level) {
-		System.out.println("delete all: " + level);
 		if (StringUtils.hasText(level)) {
 			loggingEventRepository.delete(loggingEventRepository.findByLevelString(level));
 		} else {
@@ -102,7 +101,7 @@ public class LoggingEventService {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String getCurrentLevel() {	
 		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-		ch.qos.logback.classic.Logger logger = lc.getLogger("ROOT");
+		ch.qos.logback.classic.Logger logger = lc.getLogger("ch.ralscha.e4ds");
 		return logger.getLevel().toString();
 	}
 
