@@ -2,12 +2,16 @@
 <groups xmlns="http://www.isdc.ro/wro">
 
   <group name="app">
-    <js>/ux/**</js>
     <js>/ext/ux/RowExpander.js</js>
     <js>/ext/ux/BoxReorderer.js</js>
     <js>/ext/ux/TabCloseMenu.js</js>
     <js>/ext/ux/TabReorderer.js</js>
     <js>/ext/ux/form/field/ClearButton.js</js>
+    <js>/ext/ux/layout/component/form/ItemSelector.js</js>
+    <js>/ext/ux/layout/component/form/MultiSelect.js</js>
+    <js>/ext/ux/form/FilterField.js</js>
+    <js>/ext/ux/form/MultiSelect.js</js>
+    <js>/ext/ux/form/ItemSelector.js</js>    
     <js>/ext/ux/Notification.js</js>
     <js>/override.js</js>
     <js>/api.js</js>
