@@ -10,9 +10,9 @@ import org.apache.commons.lang.SystemUtils;
 public class StartTomcat {
 
 	public static void main(String[] args) throws ServletException, LifecycleException {
-		
+
 		System.setProperty("spring.profiles.active", "development");
-		
+
 		Tomcat tomcat = new Tomcat();
 		//tomcat.setSilent(true);
 		tomcat.setPort(8080);
@@ -21,8 +21,8 @@ public class StartTomcat {
 
 		File currentDir = new File(".");
 		@SuppressWarnings("unused")
-		Context ctx = tomcat.addWebapp("/", currentDir.getAbsolutePath() + "/src/main/webapp");		
-		
+		Context ctx = tomcat.addWebapp("/", currentDir.getAbsolutePath() + "/src/main/webapp");
+
 		/* Overwrites default.properties
 		tomcat.enableNaming();
 		System.setProperty("jndiPropertySourceEnabled", "true");
@@ -51,7 +51,7 @@ public class StartTomcat {
 		environment.setValue("");
 		ctx.getNamingResources().addEnvironment(environment);
 		*/
-		
+
 		tomcat.start();
 		tomcat.getServer().await();
 	}

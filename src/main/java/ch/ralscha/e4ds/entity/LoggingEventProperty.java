@@ -14,10 +14,10 @@ public class LoggingEventProperty {
 
 	@EmbeddedId
 	private LoggingEventPropertyId id;
-	
+
 	@Column(name = "mapped_value")
 	private String mappedValue;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "event_id", nullable = false, insertable = false, updatable = false)
 	private LoggingEvent eventId;

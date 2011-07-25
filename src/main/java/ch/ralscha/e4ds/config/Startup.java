@@ -30,7 +30,7 @@ public class Startup implements ApplicationListener<ContextRefreshedEvent> {
 
 	@Override
 	@Transactional
-	public void onApplicationEvent(ContextRefreshedEvent event) {			
+	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (userRepository.count() == 0) {
 			//admin user
 			User adminUser = new User();
@@ -42,30 +42,29 @@ public class Startup implements ApplicationListener<ContextRefreshedEvent> {
 			adminUser.setEnabled(true);
 			adminUser.setLocale("en");
 			adminUser.setCreateDate(new Date());
-		
+
 			Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 			adminUser.setRoles(Sets.newHashSet(adminRole));
-		
+
 			userRepository.save(adminUser);
-		
+
 			//normal user
 			User normalUser = new User();
 			normalUser.setUserName("user");
 			normalUser.setEmail("user@test.ch");
 			normalUser.setFirstName("user");
 			normalUser.setName("user");
-			
+
 			normalUser.setPasswordHash(passwordEncoder.encode("user"));
 			normalUser.setEnabled(true);
 			normalUser.setLocale("de");
 			normalUser.setCreateDate(new Date());
-		
+
 			Role userRole = roleRepository.findByName("ROLE_USER");
 			normalUser.setRoles(Sets.newHashSet(userRole));
-		
+
 			userRepository.save(normalUser);
-		}			
+		}
 	}
-	
 
 }

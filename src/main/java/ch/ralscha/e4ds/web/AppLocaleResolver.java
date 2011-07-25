@@ -15,7 +15,7 @@ public class AppLocaleResolver extends AbstractLocaleResolver {
 
 	@Override
 	public Locale resolveLocale(HttpServletRequest request) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();	
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null) {
 			return request.getLocale();
 		} else if (authentication.getPrincipal() instanceof JpaUserDetails) {
@@ -29,8 +29,7 @@ public class AppLocaleResolver extends AbstractLocaleResolver {
 
 	@Override
 	public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
-		throw new UnsupportedOperationException(
-				"Cannot change locale - use a different locale resolution strategy");
+		throw new UnsupportedOperationException("Cannot change locale - use a different locale resolution strategy");
 	}
 
 }

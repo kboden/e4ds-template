@@ -11,8 +11,8 @@ import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
 
 @Service
 public class HeartbeatService {
-	
-	@ExtDirectMethod(value=POLL, event = "heartbeat")
+
+	@ExtDirectMethod(value = POLL, event = "heartbeat")
 	@PreAuthorize("isAuthenticated()")
 	public void heartbeat(HttpSession session) {
 		//nothing here

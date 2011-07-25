@@ -30,7 +30,7 @@ public class I18nMessageController {
 			throws JsonGenerationException, JsonMappingException, IOException {
 
 		response.setContentType("application/x-javascript;charset=UTF-8");
-		
+
 		ResourceBundle rb = ResourceBundle.getBundle("messages", locale);
 
 		Map<String, String> messages = Maps.newHashMap();

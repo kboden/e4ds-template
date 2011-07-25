@@ -52,28 +52,27 @@ public class DataConfig {
 		ds.setAcquireIncrement(5);
 		ds.setStatementsCacheSize(200);
 		ds.setReleaseHelperThreads(1);
-		
+
 		//Debugging
 		//ds.setCloseConnectionWatch(true);
-		
+
 		setupLog(ds);
 		return ds;
 	}
-
 
 	private void setupLog(DataSource dataSource) {
 		boolean development = environment.acceptsProfiles("development");
 
 		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
 		lc.reset();
-		
+
 		ConsoleAppender<ILoggingEvent> consoleAppender = null;
 		if (development) {
 			PatternLayoutEncoder encoder = new PatternLayoutEncoder();
 			encoder.setContext(lc);
 			encoder.setPattern("%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n");
 			encoder.start();
-			
+
 			consoleAppender = new ConsoleAppender<ILoggingEvent>();
 			consoleAppender.setContext(lc);
 			consoleAppender.setEncoder(encoder);
@@ -101,7 +100,7 @@ public class DataConfig {
 		StatusPrinter.printInCaseOfErrorsOrWarnings(lc);
 
 	}
-	
+
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();

@@ -40,7 +40,7 @@ public class LoggingEventDto {
 				break;
 			}
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
 
 		List<LoggingEventException> exceptionList;

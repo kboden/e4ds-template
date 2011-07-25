@@ -9,10 +9,10 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 @Configuration
 @ImportResource("classpath:ch/ralscha/e4ds/config/security.xml")
 public class SecurityConfig {
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new StandardPasswordEncoder();
 	}
-	
+
 }

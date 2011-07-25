@@ -12,7 +12,7 @@ import ch.ralscha.e4ds.repository.LoggingEventRepository;
 
 @Component
 public class LogCleanup {
-	
+
 	@Autowired
 	private LoggingEventRepository loggingEventRepository;
 

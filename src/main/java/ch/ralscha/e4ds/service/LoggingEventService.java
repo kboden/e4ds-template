@@ -32,10 +32,7 @@ import com.google.common.collect.Lists;
 public class LoggingEventService {
 
 	private static final ImmutableMap<String, String> mapGuiColumn2DbField = new ImmutableMap.Builder<String, String>()
-			.put("dateTime", "timestmp")
-			.put("message", "formattedMessage")
-			.put("level", "levelString")
-			.build();
+			.put("dateTime", "timestmp").put("message", "formattedMessage").put("level", "levelString").build();
 
 	@Autowired
 	private LoggingEventRepository loggingEventRepository;
@@ -46,12 +43,12 @@ public class LoggingEventService {
 	public ExtDirectStoreResponse<LoggingEventDto> load(ExtDirectStoreReadRequest request) {
 
 		Pageable pageRequest = Util.createPageRequest(request, mapGuiColumn2DbField);
-		
+
 		Page<LoggingEvent> page;
 		if (request.getFilters().isEmpty()) {
 			page = loggingEventRepository.findAll(pageRequest);
 		} else {
-			StringFilter levelFilter = (StringFilter)request.getFilters().iterator().next();
+			StringFilter levelFilter = (StringFilter) request.getFilters().iterator().next();
 			String levelValue = levelFilter.getValue();
 			page = loggingEventRepository.findAll(QLoggingEvent.loggingEvent.levelString.eq(levelValue), pageRequest);
 		}
@@ -63,7 +60,7 @@ public class LoggingEventService {
 
 		return new ExtDirectStoreResponse<LoggingEventDto>((int) page.getTotalElements(), loggingEventList);
 	}
-	
+
 	@ExtDirectMethod
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -74,18 +71,18 @@ public class LoggingEventService {
 			loggingEventRepository.delete(loggingEventRepository.findAll());
 		}
 	}
-	
+
 	@ExtDirectMethod
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void addTestData() {
 		Logger logger = LoggerFactory.getLogger(getClass());
-		
+
 		logger.debug("a simple debug log entry");
 		logger.info("this is a info log entry");
 		logger.warn("a warning", new IllegalArgumentException());
-		logger.error("a serious error", new NullPointerException());			
+		logger.error("a serious error", new NullPointerException());
 	}
-	
+
 	@ExtDirectMethod
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void changeLogLevel(String levelString) {
@@ -96,10 +93,10 @@ public class LoggingEventService {
 			logger.setLevel(level);
 		}
 	}
-	
+
 	@ExtDirectMethod
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public String getCurrentLevel() {	
+	public String getCurrentLevel() {
 		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
 		ch.qos.logback.classic.Logger logger = lc.getLogger("ch.ralscha.e4ds");
 		return logger.getLevel().toString();

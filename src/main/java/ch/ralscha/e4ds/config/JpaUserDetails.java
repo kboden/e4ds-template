@@ -31,13 +31,13 @@ public class JpaUserDetails implements UserDetails {
 		this.username = user.getUserName();
 		this.enabled = user.isEnabled();
 		this.fullName = Joiner.on(" ").skipNulls().join(user.getFirstName(), user.getName());
-		
+
 		if (StringUtils.hasText(user.getLocale())) {
 			this.locale = new Locale(user.getLocale());
 		} else {
 			this.locale = Locale.ENGLISH;
 		}
-		
+
 		Builder<GrantedAuthority> builder = ImmutableSet.builder();
 		for (Role role : user.getRoles()) {
 			builder.add(new SimpleGrantedAuthority(role.getName()));

@@ -17,42 +17,41 @@ import ch.ralscha.extdirectspring.bean.SortInfo;
 import com.google.common.collect.Lists;
 
 public class Util {
-	
+
 	private Util() {
 		//do not instantiate this class
 	}
-	
+
 	public static Pageable createPageRequest(ExtDirectStoreReadRequest request) {
-		return createPageRequest(request, Collections.<String,String>emptyMap());
+		return createPageRequest(request, Collections.<String, String> emptyMap());
 	}
 
-	public static Pageable createPageRequest(ExtDirectStoreReadRequest request,
-			Map<String, String> mapGuiColumn2Dbfield) {
+	public static Pageable createPageRequest(ExtDirectStoreReadRequest request, Map<String, String> mapGuiColumn2Dbfield) {
 
 		List<Order> orders = Lists.newArrayList();
 		for (SortInfo sortInfo : request.getSorters()) {
-			
+
 			String property = mapGuiColumn2Dbfield.get(sortInfo.getProperty());
 			if (property == null) {
 				property = sortInfo.getProperty();
 			}
-			
+
 			if (sortInfo.getDirection() == SortDirection.ASCENDING) {
-				orders.add(new Order(Direction.ASC, property));	
+				orders.add(new Order(Direction.ASC, property));
 			} else {
-				orders.add(new Order(Direction.DESC, property));	
-			}			
+				orders.add(new Order(Direction.DESC, property));
+			}
 		}
-		
-		int page = Math.max(request.getPage()-1, 0);
-		
+
+		int page = Math.max(request.getPage() - 1, 0);
+
 		if (orders.isEmpty()) {
 			return new PageRequest(page, request.getLimit());
 		}
-		
-		Sort sort = new Sort(orders);		
+
+		Sort sort = new Sort(orders);
 		return new PageRequest(page, request.getLimit(), sort);
-	
+
 	}
-	
+
 }

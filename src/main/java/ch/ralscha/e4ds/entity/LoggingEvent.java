@@ -21,16 +21,16 @@ public class LoggingEvent {
 
 	@Column(name = "timestmp", nullable = false)
 	private BigDecimal timestmp;
-	
+
 	@Column(name = "formatted_message", nullable = false)
 	private String formattedMessage;
-	
+
 	@Column(name = "logger_name", nullable = false)
 	private String loggerName;
-	
+
 	@Column(name = "level_string", nullable = false)
 	private String levelString;
-	
+
 	@Column(name = "thread_name")
 	private String threadName;
 
@@ -41,28 +41,28 @@ public class LoggingEvent {
 	private String arg1;
 	private String arg2;
 	private String arg3;
-	
+
 	@Column(name = "caller_filename", nullable = false)
 	private String callerFilename;
-	
+
 	@Column(name = "caller_class", nullable = false)
 	private String callerClass;
-	
+
 	@Column(name = "caller_method", nullable = false)
 	private String callerMethod;
-	
+
 	@Column(name = "caller_line", nullable = false)
 	private String callerLine;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "event_id", unique = true, nullable = false)
 	private Long eventId;
-	
-	@OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
+
+	@OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<LoggingEventException> loggingEventException = Sets.newHashSet();
-	
-	@OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
+
+	@OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<LoggingEventProperty> loggingEventProperty = Sets.newHashSet();
 
 	public BigDecimal getTimestmp() {

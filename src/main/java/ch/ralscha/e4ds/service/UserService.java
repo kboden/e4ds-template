@@ -126,15 +126,15 @@ public class UserService {
 			if (StringUtils.hasText(modifiedUser.getPasswordHash())) {
 				modifiedUser.setPasswordHash(passwordEncoder.encode(modifiedUser.getPasswordHash()));
 			}
-			
+
 			Set<Role> roles = Sets.newHashSet();
 			if (StringUtils.hasText(roleIds)) {
 				Iterable<String> roleIdsIt = Splitter.on(",").split(roleIds);
 				for (String roleId : roleIdsIt) {
 					roles.add(roleRepository.findOne(Long.valueOf(roleId)));
 				}
-			} 
-			
+			}
+
 			if (modifiedUser.getId() != null) {
 				User dbUser = userRepository.findOne(modifiedUser.getId());
 				if (dbUser != null) {

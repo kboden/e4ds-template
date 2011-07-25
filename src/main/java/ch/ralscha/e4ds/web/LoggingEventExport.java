@@ -40,12 +40,12 @@ public class LoggingEventExport {
 
 	@Autowired
 	private LoggingEventRepository loggingEventRepository;
-	
+
 	@Transactional(readOnly = true)
 	@RequestMapping(value = "/loggingEventExport.xls", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public void loggingEventExport(HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam(required=false) String level) throws Exception {
+	public void loggingEventExport(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(required = false) String level) throws Exception {
 
 		response.setContentType("application/vnd.ms-excel");
 		response.addHeader("Content-disposition", "attachment;filename=logs.xls");
@@ -92,12 +92,12 @@ public class LoggingEventExport {
 		} else {
 			events = loggingEventRepository.findAll();
 		}
-		
+
 		int rowNo = 1;
 		for (LoggingEvent event : events) {
 			row = sheet.createRow(rowNo);
 			rowNo++;
-		
+
 			Cell cell = row.createCell(0);
 			cell.setCellType(Cell.CELL_TYPE_NUMERIC);
 			cell.setCellValue(event.getEventId());
@@ -110,7 +110,7 @@ public class LoggingEventExport {
 
 			String userName = null;
 			String ip = null;
-			
+
 			Set<LoggingEventProperty> properties = event.getLoggingEventProperty();
 			for (LoggingEventProperty prop : properties) {
 				if ("userName".equals(prop.getId().getMappedKey())) {
@@ -119,28 +119,28 @@ public class LoggingEventExport {
 					ip = prop.getMappedValue();
 				}
 			}
-			
+
 			if (userName != null) {
 				cell = row.createCell(2);
 				cell.setCellType(Cell.CELL_TYPE_STRING);
 				cell.setCellValue(userName);
 				cell.setCellStyle(normalStyle);
 			}
-			
+
 			if (ip != null) {
 				cell = row.createCell(3);
 				cell.setCellType(Cell.CELL_TYPE_STRING);
 				cell.setCellValue(ip);
 				cell.setCellStyle(normalStyle);
 			}
-			
+
 			cell = row.createCell(4);
 			cell.setCellType(Cell.CELL_TYPE_STRING);
 			cell.setCellValue(event.getFormattedMessage());
 			cell.setCellStyle(normalStyle);
 
 			if (!event.getLoggingEventException().isEmpty()) {
-				
+
 				StringBuilder sb = new StringBuilder();
 				for (LoggingEventException loggingEventException : event.getLoggingEventException()) {
 					sb.append(loggingEventException.getTraceLine());
@@ -180,7 +180,7 @@ public class LoggingEventExport {
 
 		OutputStream out = response.getOutputStream();
 		workbook.write(out);
-		out.close();		
+		out.close();
 	}
 
 	private void createCell(Row row, int column, String value, CellStyle style, CreationHelper createHelper) {

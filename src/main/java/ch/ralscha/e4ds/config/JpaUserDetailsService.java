@@ -15,16 +15,16 @@ public class JpaUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUserName(username);
 		if (user != null) {
 			return new JpaUserDetails(user);
 		}
-		
-		throw new UsernameNotFoundException(username);		
+
+		throw new UsernameNotFoundException(username);
 	}
 
 }

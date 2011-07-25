@@ -9,13 +9,13 @@ import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
 
 @Service
 public class SecurityService {
-	
+
 	@ExtDirectMethod
 	@PreAuthorize("isAuthenticated()")
 	public String getLoggedOnUser() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof JpaUserDetails) {
-			return ((JpaUserDetails)principal).getFullName();
+			return ((JpaUserDetails) principal).getFullName();
 		}
 		return principal.toString();
 	}

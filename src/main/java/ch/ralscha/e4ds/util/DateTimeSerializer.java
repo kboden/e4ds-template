@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
 
 public class DateTimeSerializer extends JsonSerializer<DateTime> {
-	
+
 	@Override
 	public void serialize(DateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
 			JsonProcessingException {

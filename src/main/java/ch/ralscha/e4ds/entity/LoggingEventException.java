@@ -14,10 +14,10 @@ public class LoggingEventException {
 
 	@EmbeddedId
 	private LoggingEventExceptionId id;
-	
-	@Column(name = "trace_line", nullable = false)	
+
+	@Column(name = "trace_line", nullable = false)
 	private String traceLine;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "event_id", nullable = false, insertable = false, updatable = false)
 	private LoggingEvent eventId;

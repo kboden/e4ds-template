@@ -12,12 +12,12 @@ import ch.ralscha.extdirectspring.annotation.ExtDirectMethod;
 
 @Service
 public class PollService {
-	
+
 	private DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm:ss");
-	
-	@ExtDirectMethod(value=POLL, event = "chartdata")
+
+	@ExtDirectMethod(value = POLL, event = "chartdata")
 	@PreAuthorize("isAuthenticated()")
-	public Poll getPollData() {		
-		return new Poll(fmt.print(new DateTime()), (int)(Math.random()*1000));
+	public Poll getPollData() {
+		return new Poll(fmt.print(new DateTime()), (int) (Math.random() * 1000));
 	}
 }

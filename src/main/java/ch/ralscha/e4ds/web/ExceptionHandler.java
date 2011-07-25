@@ -28,14 +28,14 @@ public class ExceptionHandler implements HandlerExceptionResolver, InitializingB
 
 	@Autowired(required = false)
 	private Configuration configuration;
-	
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		if (configuration == null) {
 			configuration = new Configuration();
 		}
-	}	
-	
+	}
+
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse res, Object handler,
 			Exception ex) {
@@ -54,7 +54,7 @@ public class ExceptionHandler implements HandlerExceptionResolver, InitializingB
 		} else {
 			response.setWhere(null);
 		}
-				
+
 		try {
 			res.getOutputStream().print(mapper.writeValueAsString(response));
 			res.getOutputStream().flush();
@@ -65,7 +65,7 @@ public class ExceptionHandler implements HandlerExceptionResolver, InitializingB
 		return null;
 
 	}
-	
+
 	private String getStackTrace(final Throwable t) {
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw, true);
