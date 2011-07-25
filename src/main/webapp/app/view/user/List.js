@@ -5,6 +5,8 @@ Ext.define('E4ds.view.user.List', {
 
 	title: i18n.user_users,
 	closable: true,
+	
+	requires: ['Ext.ux.form.FilterField'],
 
 	columns: [ {
 		header: 'ID',
@@ -33,7 +35,7 @@ Ext.define('E4ds.view.user.List', {
 		width: 70,
 		renderer: function(value) {
 			if (value === true) {
-				return 'yes';
+				return i18n.yes;
 			}
 			return '';
 		}
@@ -62,25 +64,7 @@ Ext.define('E4ds.view.user.List', {
 			}, '->', {
 				fieldLabel: i18n.filter,
 				labelWidth: 40,
-				xtype: 'trigger',
-				triggerCls: Ext.baseCSSPrefix + 'form-search-trigger',
-				onTriggerClick: function() {
-					this.fireEvent('filter', this, this.getValue());
-				},
-				listeners: {
-					specialkey: function(f, e) {
-						if (e.getKey() == e.ENTER) {
-							this.fireEvent('filter', this, this.getValue());
-						}
-					},
-					change: function(f, val) {
-						if (!val) {
-							this.fireEvent('filter', this, this.getValue());
-						}
-					}
-				},
-
-				plugins: [ 'clearbutton' ]
+				xtype: 'filterfield'				
 			} ]
 		}, {
 			xtype: 'pagingtoolbar',
