@@ -20,7 +20,6 @@
 	    <link rel="stylesheet" type="text/css" href="ext/ux/css/ItemSelector.css">
 	    
 	    <script type="text/javascript" src="ext/ext-all-debug.js"></script>
-	    <script type="text/javascript" src="override.js"></script>
 	    <script type="text/javascript" src="loader.js"></script>
 		
 	    <script type="text/javascript" src="api.js"></script>

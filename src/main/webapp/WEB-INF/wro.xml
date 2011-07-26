@@ -13,7 +13,6 @@
     <js>/ext/ux/form/MultiSelect.js</js>
     <js>/ext/ux/form/ItemSelector.js</js>    
     <js>/ext/ux/Notification.js</js>
-    <js>/override.js</js>
     <js>/api.js</js>
     <js>/direct.js</js>
     <js>/app/model/**</js>
