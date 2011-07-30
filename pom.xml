@@ -18,7 +18,7 @@
 
 		<slf4j.version>1.6.1</slf4j.version>
 		<logback.version>0.9.29</logback.version>
-		<tomcat.version>7.0.16</tomcat.version>
+		<tomcat.version>7.0.19</tomcat.version>
 
 		<eds.version>1.0.11</eds.version>
 
