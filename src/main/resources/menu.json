@@ -20,10 +20,17 @@
 	    	"roles": ["ROLE_ADMIN"]
 	    }]},{
 	    "text":"navigation_system",
+	    "iconCls": "icon-system",
 	    "expanded": "true", 
 	    "children":[{
-	    	"text": "logevents", "view": "loggingeventlist", "roles": ["ROLE_ADMIN"]
+	    	"text": "logevents", 
+	    	"iconCls": "icon-logging",
+	    	"view": "loggingeventlist", 
+	    	"roles": ["ROLE_ADMIN"]
 	    }, {
-	        "text": "config", "view": "configedit", "roles": ["ROLE_ADMIN"]
+	        "text": "config", 
+	        "iconCls": "icon-logging",
+	        "view": "configedit", 
+	        "roles": ["ROLE_ADMIN"]
 	    }]}]
 }

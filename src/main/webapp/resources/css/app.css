@@ -12,6 +12,22 @@
 	white-space: nowrap;
 }
 
+.icon-add {
+	background-image: url(../images/add.png) !important;
+}
+
+.icon-delete {
+	background-image: url(../images/eraser.png) !important;
+}
+
+.icon-logging {
+	background-image: url(../images/data_scroll.png) !important;
+}
+
+.icon-system {
+	background-image: url(../images/application_server.png) !important;
+}
+
 .icon-user-add {
 	background-image: url(../images/user_add.png) !important;
 }
