@@ -1,4 +1,4 @@
-Ext.require('Ext.ux.Notification');
+Ext.require('E4ds.component.Notification');
 
 Ext.application({
 	name: 'E4ds',
@@ -6,6 +6,12 @@ Ext.application({
 	controllers: [ 'Users', 'Navigation', 'PollChart', 'LoggingEvents', 'Config' ],
 	autoCreateViewport: true,
 	launch: function() {
+
+		if (this.hasLocalstorage()) {
+			Ext.state.Manager.setProvider(Ext.create('Ext.state.LocalStorageProvider'));
+		} else {
+			Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
+		}
 
 		Ext.direct.Manager.on('event', function(e) {
 			//todo: need a better method to handle session timeouts
@@ -16,12 +22,11 @@ Ext.application({
 		
 		Ext.direct.Manager.on('exception', function(e) {	
 			if (e.message === 'accessdenied') {
-				Ext.ux.Notification.error(i18n.error, i18n.error_accessdenied);
+				E4ds.component.Notification.error(i18n.error, i18n.error_accessdenied);
 			} else {
-				Ext.ux.Notification.error(i18n.error, e.message);
+				E4ds.component.Notification.error(i18n.error, e.message);
 			}
 		});		
-		
 		
 		Ext.apply(Ext.form.field.VTypes, {
 			password: function(val, field) {
@@ -35,5 +40,12 @@ Ext.application({
 			passwordText: i18n.user_passworddonotmatch
 		});
 
+	},
+	hasLocalstorage: function() {
+		try {
+			return !!localStorage.getItem;
+		} catch (e) {
+			return false;
+		}
 	}
 });

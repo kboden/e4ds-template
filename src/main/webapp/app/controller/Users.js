@@ -47,8 +47,13 @@ Ext.define('E4ds.controller.Users', {
 			myStore.clearFilter(true);
 			myStore.remoteFilter = true;
 			myStore.filter('filter', newValue);
+			
+			this.getUserList().down('button[action=export]').setParams({
+				filter: newValue
+			});			
 		} else {
 			myStore.clearFilter();
+			this.getUserList().down('button[action=export]').setParams();				
 		}
 	},
 
@@ -94,7 +99,7 @@ Ext.define('E4ds.controller.Users', {
 				this.doGridRefresh();
 				this.toggleDeleteButton(false);
 				this.toggleEditButton(false);
-				Ext.ux.Notification.info(i18n.successful, i18n.user_deleted);
+				E4ds.component.Notification.info(i18n.successful, i18n.user_deleted);
 			}
 		}
 	},
@@ -133,7 +138,7 @@ Ext.define('E4ds.controller.Users', {
 			success: function(form, action) {
 				this.doGridRefresh();
 				this.getUserEditWindow().close();
-				Ext.ux.Notification.info(i18n.successful, i18n.user_saved);
+				E4ds.component.Notification.info(i18n.successful, i18n.user_saved);
 			}
 		});
 	},

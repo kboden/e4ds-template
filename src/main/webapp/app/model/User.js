@@ -9,8 +9,6 @@ Ext.define('E4ds.model.User', {
 		type: 'direct',
 		api: {
 			read: userService.load,
-			// create: userService.create,
-			// update: userService.update,
 			destroy: userService.destroy
 		},
 		reader: {

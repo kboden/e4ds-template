@@ -1,6 +1,7 @@
 Ext.define('E4ds.view.user.Edit', {
 	extend: 'Ext.window.Window',
 	alias: 'widget.useredit',
+	stateId: 'userEdit',
 
 	title: i18n.user_edit,
 	layout: 'fit',
@@ -9,10 +10,14 @@ Ext.define('E4ds.view.user.Edit', {
 	width: 400,
 	modal: true,
 
+	iconCls: 'icon-user-edit',
+
 	requires: ['Ext.ux.form.ItemSelector'],
 	
 	initComponent: function() {
-		this.items = [ {
+		var me = this;
+		
+		me.items = [ {
 			xtype: 'form',
 			padding: 5,
 			bodyPadding: 10,
@@ -94,15 +99,17 @@ Ext.define('E4ds.view.user.Edit', {
 				xtype: 'button',
 				text: i18n.save,
 				action : 'save',
+                                iconCls: 'icon-save',
 				disabled: true,
 				formBind: true
 			}, {
 				text: i18n.cancel,
-				scope: this,
-				handler: this.close
+				scope: me,
+				handler: me.close,
+				iconCls: 'icon-cancel'
 			} ]
 		} ];
 
-		this.callParent(arguments);
+		me.callParent(arguments);
 	}
 });

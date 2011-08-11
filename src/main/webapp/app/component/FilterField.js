@@ -1,8 +1,8 @@
-Ext.define('Ext.ux.form.FilterField', {
+Ext.define('E4ds.component.FilterField', {
 	extend: 'Ext.form.field.Trigger',
 	alias: 'widget.filterfield',
 	triggerCls: Ext.baseCSSPrefix + 'form-search-trigger',
-	requires: [ 'Ext.ux.form.field.ClearButton' ],
+	requires: [ 'E4ds.component.ClearButton' ],
 	plugins: [ 'clearbutton' ],
 
 	initComponent: function() {

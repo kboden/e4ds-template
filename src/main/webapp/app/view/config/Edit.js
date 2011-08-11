@@ -9,20 +9,25 @@ Ext.define('E4ds.view.config.Edit', {
 		msgTarget: 'side'
 	},
 
-    bodyPadding: 5,
+	bodyPadding: 5,
 
-    items: [{
-    	xtype: 'combobox',
-		fieldLabel: i18n.config_loglevel,
-		name: 'logLevel',
-		labelWidth: 110,
-		store: 'LogLevels',
-		valueField: 'level',
-		displayField: 'level',
-		queryMode: 'local',
-		forceSelection: true,
-		value: 'ERROR'
-    }]
-	
+	initComponent: function() {
+		var me = this;
+		
+		me.items = [ {
+			xtype: 'combobox',
+			fieldLabel: i18n.config_loglevel,
+			name: 'logLevel',
+			labelWidth: 110,
+			store: 'LogLevels',
+			valueField: 'level',
+			displayField: 'level',
+			queryMode: 'local',
+			forceSelection: true,
+			value: 'ERROR'
+		} ];
+
+		me.callParent(arguments);
+	}
 
 });

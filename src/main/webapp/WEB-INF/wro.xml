@@ -2,31 +2,44 @@
 <groups xmlns="http://www.isdc.ro/wro">
 
   <group name="app">
-    <js>/ext/ux/RowExpander.js</js>
-    <js>/ext/ux/BoxReorderer.js</js>
-    <js>/ext/ux/TabCloseMenu.js</js>
-    <js>/ext/ux/TabReorderer.js</js>
-    <js>/ext/ux/form/field/ClearButton.js</js>
-    <js>/ext/ux/layout/component/form/ItemSelector.js</js>
-    <js>/ext/ux/layout/component/form/MultiSelect.js</js>
-    <js>/ext/ux/form/FilterField.js</js>
-    <js>/ext/ux/form/MultiSelect.js</js>
-    <js>/ext/ux/form/ItemSelector.js</js>    
-    <js>/ext/ux/Notification.js</js>
+    <js>/extjs/ux/RowExpander.js</js>
+    <js>/extjs/ux/BoxReorderer.js</js>
+    <js>/extjs/ux/TabCloseMenu.js</js>
+    <js>/extjs/ux/TabReorderer.js</js>
+    <js>/app/component/ClearButton.js</js>
+    <js>/app/component/FilterField.js</js>
+    <js>/extjs/ux/layout/component/form/ItemSelector.js</js>
+    <js>/extjs/ux/layout/component/form/MultiSelect.js</js>    
+    <js>/extjs/ux/form/MultiSelect.js</js>
+    <js>/extjs/ux/form/ItemSelector.js</js>    
+    <js>/app/component/Notification.js</js>
     <js>/api.js</js>
     <js>/direct.js</js>
-    <js>/app/model/**</js>
-    <js>/app/store/**</js>
-    <js>/app/view/**</js>
-    <js>/app/controller/**</js>
+    <js>/app/model/PollChart.js</js>
+    <js>/app/model/Role.js</js>
+    <js>/app/model/User.js</js>
+    <js>/app/store/Navigation.js</js>
+    <js>/app/store/PollChart.js</js>
+    <js>/app/store/Roles.js</js>
+    <js>/app/store/Users.js</js>
+    <js>/app/view/navigation/Header.js</js>
+    <js>/app/view/navigation/SideBar.js</js>
+    <js>/app/view/poll/PollChart.js</js>
+    <js>/app/view/user/Edit.js</js>
+    <js>/app/view/user/List.js</js>
+    <js>/app/view/Viewport.js</js>
+    <js>/app/controller/Navigation.js</js>
+    <js>/app/controller/PollChart.js</js>
+    <js>/app/controller/Users.js</js>
     <js>/app.js</js>
     
-    <css>/css/app.css</css>
-    <css>/ext/ux/css/ItemSelector.css</css>
+    <css>/resources/css/app.css</css>
+    <css>/extjs/ux/css/ItemSelector.css</css>
   </group>
 
   <group name="login">
     <js>/login.js</js>
+    <css>/resources/css/app.css</css>
   </group>
 
 </groups>

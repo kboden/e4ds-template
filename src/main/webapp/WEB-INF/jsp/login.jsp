@@ -8,23 +8,25 @@
 <head>
     <meta charset="utf-8">
     <title>e4ds-template</title>    
-    <link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css">    
+    <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">    
         
     <script src="i18n.js"></script>
     
     <spring:eval expression="@environment.acceptsProfiles('development')" var="isDevelopment" />    
     <c:if test="${isDevelopment}">
-	    <script src="ext/ext-all-debug.js"></script>	    
+            <link rel="stylesheet" type="text/css" href="resources/css/app.css">
+	    <script src="extjs/ext-all-debug.js"></script>	    
 	    <script src="login.js"></script>
     </c:if>
     <c:if test="${not isDevelopment}">
-	    <script src="ext/ext-all.js"></script> 
-		<script src="wro/login.js?v=<spring:eval expression='@environment["application.version"]'/>"></script>        
-	</c:if>
+      <link rel="stylesheet" type="text/css" href="wro/login.css?v=<spring:eval expression='@environment["application.version"]'/>" />
+      <script src="extjs/ext-all.js"></script> 
+      <script src="wro/login.js?v=<spring:eval expression='@environment["application.version"]'/>"></script>        
+    </c:if>
 	    
 	<% Locale locale = RequestContextUtils.getLocale(request); %>
     <% if (locale != null && locale.getLanguage().toLowerCase().equals("de")) { %>
-      <script src="ext/locale/ext-lang-de.js"></script>
+      <script src="extjs/locale/ext-lang-de.js"></script>
     <% } %>	
 	<c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}">
 	   <script type="text/javascript">

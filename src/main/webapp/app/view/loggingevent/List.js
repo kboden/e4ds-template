@@ -6,11 +6,12 @@ Ext.define('E4ds.view.loggingevent.List', {
 	title: i18n.logevents,
 	closable: true,
 
-	requires: [ 'Ext.ux.RowExpander', 'Ext.ux.form.field.ClearButton' ],
+	requires: [ 'Ext.ux.RowExpander', 'E4ds.component.ClearButton' ],
 
 	constructor: function() {
-
-		this.columns = [ {
+		var me = this;
+		
+		me.columns = [ {
 			header: i18n.logevents_timestamp,
 			dataIndex: 'dateTime',
 			width: 200
@@ -35,18 +36,19 @@ Ext.define('E4ds.view.loggingevent.List', {
 			width: 70
 		} ];
 
-		this.plugins = [ {
+		me.plugins = [ {
 			ptype: 'rowexpander',
 			rowBodyTpl: [ '<tpl if="stacktrace">', '<p>{stacktrace}</p>', '</tpl>', '<tpl if="!stacktrace">',
 					'<p>{message}</p>', '</tpl>' ]
 		} ];
 
-		this.callParent(arguments);
+		me.callParent(arguments);
 	},
 
 	initComponent: function() {
-
-		this.dockedItems = [ {
+		var me = this;
+		
+		me.dockedItems = [ {
 			xtype: 'toolbar',
 			dock: 'top',
 			items: [ {
@@ -84,7 +86,7 @@ Ext.define('E4ds.view.loggingevent.List', {
 			emptyMsg: i18n.logevents_no
 		} ];
 
-		this.callParent(arguments);
+		me.callParent(arguments);
 
 	}
 

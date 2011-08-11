@@ -17,7 +17,7 @@
      * <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
      *
      */
-    Ext.define('Ext.ux.form.field.ClearButton', {
+    Ext.define('E4ds.component.ClearButton', {
         alias: 'plugin.clearbutton',
 
         /**
@@ -104,7 +104,6 @@
          * Creates the Element and DOM for the clear button
          */
         createClearButtonEl: function() {
-            var animateWithClass = this.animateClearButton && this.animateWithCss3;
             this.clearButtonEl = this.textField.bodyEl.createChild({
                 tag: 'div',
                 cls: this.clearButtonCls

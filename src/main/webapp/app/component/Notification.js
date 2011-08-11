@@ -1,4 +1,4 @@
-Ext.define('Ext.ux.Notification', {
+Ext.define('E4ds.component.Notification', {
 	extend: 'Ext.Window',
 
 	statics: {

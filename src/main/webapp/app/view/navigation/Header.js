@@ -7,8 +7,10 @@ Ext.define('E4ds.view.navigation.Header', {
 		align: 'stretch'
 	},
 
-	items: [ {
-		html: 'e4ds-template',
+	initComponent: function() {
+		var me = this;
+		me.items = [ {
+			html: 'e4ds-template',
 		cls: 'appHeader'
 	}, {
 		xtype: 'tbspacer',
@@ -29,6 +31,7 @@ Ext.define('E4ds.view.navigation.Header', {
 	}, {
 		xtype: 'button',
 		text: i18n.logout,
+			iconCls: 'icon-logout',
 		href: 'j_spring_security_logout',
 		target: '_self',
 		margins: {
@@ -37,5 +40,10 @@ Ext.define('E4ds.view.navigation.Header', {
 			bottom: 10,
 			left: 0
 		}
-	} ]
+		} ];
+
+		me.callParent(arguments);
+
+	}
+
 });

@@ -41,6 +41,7 @@ Ext.define('E4ds.controller.Navigation', {
 			if (!tab) {
 				tab = this.getTabpanel().add({
 					xtype: view,
+					iconCls: record.raw.iconCls,
 					treePath: this.getPath(record),
 					navigationId: record.raw.id
 				});
