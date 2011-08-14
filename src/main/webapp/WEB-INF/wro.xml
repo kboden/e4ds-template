@@ -15,19 +15,26 @@
     <js>/app/component/Notification.js</js>
     <js>/api.js</js>
     <js>/direct.js</js>
+    <js>/app/model/LoggingEvent.js</js>
     <js>/app/model/PollChart.js</js>
     <js>/app/model/Role.js</js>
     <js>/app/model/User.js</js>
+    <js>/app/store/LoggingEvents.js</js>
+    <js>/app/store/LogLevels.js</js>
     <js>/app/store/Navigation.js</js>
     <js>/app/store/PollChart.js</js>
     <js>/app/store/Roles.js</js>
     <js>/app/store/Users.js</js>
+    <js>/app/view/config/Edit.js</js>
+    <js>/app/view/loggingevent/List.js</js>
     <js>/app/view/navigation/Header.js</js>
     <js>/app/view/navigation/SideBar.js</js>
     <js>/app/view/poll/PollChart.js</js>
     <js>/app/view/user/Edit.js</js>
     <js>/app/view/user/List.js</js>
     <js>/app/view/Viewport.js</js>
+    <js>/app/controller/Config.js</js>
+    <js>/app/controller/LoggingEvents.js</js>
     <js>/app/controller/Navigation.js</js>
     <js>/app/controller/PollChart.js</js>
     <js>/app/controller/Users.js</js>
