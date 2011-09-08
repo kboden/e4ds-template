@@ -1,5 +1,7 @@
 package ch.ralscha.e4ds.config;
 
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import liquibase.integration.spring.SpringLiquibase;
@@ -25,6 +27,7 @@ import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.db.DataSourceConnectionSource;
 import ch.qos.logback.core.util.StatusPrinter;
 
+import com.google.common.collect.Maps;
 import com.jolbox.bonecp.BoneCPDataSource;
 
 @Configuration
@@ -91,7 +94,7 @@ public class DataConfig {
 
 		Logger appLogger = lc.getLogger("ch.ralscha.e4ds");
 		appLogger.setLevel(Level.WARN);
-		
+
 		Logger rootLogger = lc.getLogger("root");
 		rootLogger.setLevel(Level.WARN);
 		if (development) {
@@ -111,9 +114,15 @@ public class DataConfig {
 		emf.setPersistenceProvider(new org.hibernate.ejb.HibernatePersistence());
 		emf.setPackagesToScan("ch.ralscha.e4ds.entity");
 
-		//Map<String,String> properties = Maps.newHashMap();
+		Map<String, String> properties = Maps.newHashMap();
 		//properties.put("hibernate.show_sql", "true");
-		//emf.setJpaPropertyMap(properties);
+
+		String dialect = environment.getProperty("hibernate.dialect");
+		if (dialect != null) {
+			properties.put("hibernate.dialect", dialect);
+		}
+
+		emf.setJpaPropertyMap(properties);
 
 		return emf;
 	}

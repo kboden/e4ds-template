@@ -46,14 +46,14 @@ Ext.define('E4ds.controller.LoggingEvents', {
 	deleteAll: function() {
 		var filter = this.getLoggingEventsStore().filters.get(0);
 		loggingEventService.deleteAll(filter && filter.value, function() {
-			E4ds.component.Notification.info(i18n.successful, i18n.logevents_deleted);
+			Ext.ux.window.Notification.info(i18n.successful, i18n.logevents_deleted);
 			this.doGridRefresh();
 		}, this);		
 	},
 
 	addTestData: function() {
 		loggingEventService.addTestData(function() {
-			E4ds.component.Notification.info(i18n.successful, i18n.logevents_testinserted);
+			Ext.ux.window.Notification.info(i18n.successful, i18n.logevents_testinserted);
 			this.doGridRefresh();	
 		}, this);
 		

@@ -57,7 +57,7 @@ public class UserService {
 
 	@Autowired
 	private UserCustomRepository userCustomRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -72,7 +72,7 @@ public class UserService {
 		if (!request.getFilters().isEmpty()) {
 			StringFilter filter = (StringFilter) request.getFilters().iterator().next();
 			filterValue = filter.getValue();
-			}
+		}
 
 		Page<User> page = userCustomRepository.findWithFilter(filterValue, Util.createPageRequest(request));
 		return new ExtDirectStoreResponse<User>((int) page.getTotalElements(), page.getContent());

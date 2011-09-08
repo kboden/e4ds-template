@@ -1,4 +1,4 @@
-Ext.require('E4ds.component.Notification');
+Ext.require('Ext.ux.window.Notification');
 
 Ext.application({
 	name: 'E4ds',
@@ -14,7 +14,6 @@ Ext.application({
 		}
 
 		Ext.direct.Manager.on('event', function(e) {
-			//todo: need a better method to handle session timeouts
 			if (e.code && e.code === 'parse') {
 				window.location.reload();
 			}
@@ -22,9 +21,9 @@ Ext.application({
 		
 		Ext.direct.Manager.on('exception', function(e) {	
 			if (e.message === 'accessdenied') {
-				E4ds.component.Notification.error(i18n.error, i18n.error_accessdenied);
+				Ext.ux.window.Notification.error(i18n.error, i18n.error_accessdenied);
 			} else {
-				E4ds.component.Notification.error(i18n.error, e.message);
+				Ext.ux.window.Notification.error(i18n.error, e.message);
 			}
 		});		
 		

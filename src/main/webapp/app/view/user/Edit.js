@@ -70,8 +70,7 @@ Ext.define('E4ds.view.user.Edit', {
                 name: 'locale',
                 store: Ext.create('Ext.data.ArrayStore', {
                     fields: ['code', 'language'],
-                    data : [['de', i18n.user_language_german], 
-                            ['en', i18n.user_language_english]]
+					data: [ [ 'de', i18n.user_language_german ], [ 'en', i18n.user_language_english ] ]
                 }),
                 valueField: 'code',
                 displayField: 'language',

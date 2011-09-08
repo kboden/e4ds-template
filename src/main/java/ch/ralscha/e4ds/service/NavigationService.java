@@ -28,7 +28,7 @@ public class NavigationService {
 
 	@Autowired
 	private MessageSource messageSource;
-	
+
 	private MenuNode root;
 
 	public NavigationService() throws JsonParseException, JsonMappingException, IOException {

@@ -16,19 +16,20 @@ Ext.define('E4ds.controller.Config', {
 				activate: Ext.bind(loggingEventService.getCurrentLevel, this, [ this.showCurrentLevel, this ])
 			}
 		});
-
 	},
 
 	showCurrentLevel: function(logLevel) {
+		if (this.getConfigedit()) {
 		var cb = this.getConfigedit().down('combobox[name=logLevel]');
 		cb.setValue(logLevel);
 		cb.on('change', this.logLevelChange);
+		}
 	},
 
 	logLevelChange: function(field, newValue, oldValue) {
 		loggingEventService.changeLogLevel(newValue);
 		
-		E4ds.component.Notification.info(i18n.successful, i18n.config_loglevelchanged);
-	},
+		Ext.ux.window.Notification.info(i18n.successful, i18n.config_loglevelchanged);
+	}
 
 });

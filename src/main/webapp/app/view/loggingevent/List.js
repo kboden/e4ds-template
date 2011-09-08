@@ -6,30 +6,30 @@ Ext.define('E4ds.view.loggingevent.List', {
 	title: i18n.logevents,
 	closable: true,
 
-	requires: [ 'Ext.ux.RowExpander', 'E4ds.component.ClearButton' ],
+	requires: [ 'Ext.ux.RowExpander', 'Ext.ux.form.field.ClearButton' ],
 
 	constructor: function() {
 		var me = this;
 		
 		me.columns = [ {
-			header: i18n.logevents_timestamp,
+			text: i18n.logevents_timestamp,
 			dataIndex: 'dateTime',
 			width: 200
 		}, {
-			header: i18n.logevents_level,
+			text: i18n.logevents_level,
 			dataIndex: 'level',
 			width: 70
 		}, {
-			header: i18n.logevents_message,
+			text: i18n.logevents_message,
 			dataIndex: 'message',
 			flex: 1
 		}, {
-			header: i18n.logevents_callerclass,
+			text: i18n.logevents_callerclass,
 			dataIndex: 'callerClass',
 			sortable: false,
 			flex: 1
 		}, {
-			header: i18n.logevents_callerline,
+			text: i18n.logevents_callerline,
 			dataIndex: 'callerLine',
 			align: 'right',
 			sortable: false,
@@ -38,6 +38,9 @@ Ext.define('E4ds.view.loggingevent.List', {
 
 		me.plugins = [ {
 			ptype: 'rowexpander',
+			expandOnEnter: false,
+			expandOnDblClick: false,
+			selectRowOnExpand: true,			
 			rowBodyTpl: [ '<tpl if="stacktrace">', '<p>{stacktrace}</p>', '</tpl>', '<tpl if="!stacktrace">',
 					'<p>{message}</p>', '</tpl>' ]
 		} ];
@@ -52,7 +55,7 @@ Ext.define('E4ds.view.loggingevent.List', {
 			xtype: 'toolbar',
 			dock: 'top',
 			items: [ {
-				text: i18n.logevents_excelexport,
+				text: i18n.excelexport,
 				action: 'export',
 				iconCls: 'icon-excel',
 				href: 'loggingEventExport.xls',				

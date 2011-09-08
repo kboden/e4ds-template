@@ -45,12 +45,11 @@ public class LoggingEventExport {
 
 	@Autowired
 	private MessageSource messageSource;
-	
+
 	@Transactional(readOnly = true)
 	@RequestMapping(value = "/loggingEventExport.xls", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public void loggingEventExport(HttpServletRequest request, HttpServletResponse response,
-			Locale locale,
+	public void loggingEventExport(HttpServletRequest request, HttpServletResponse response, Locale locale,
 			@RequestParam(required = false) String level) throws Exception {
 
 		response.setContentType("application/vnd.ms-excel");
@@ -83,14 +82,14 @@ public class LoggingEventExport {
 		HSSFPatriarch patr = ((HSSFSheet) sheet).createDrawingPatriarch();
 
 		Row row = sheet.createRow(0);
-		createCell(row, 0, "ID", titleStyle, createHelper);
-		createCell(row, 1, messageSource.getMessage("logevents_timestamp", null, locale), titleStyle, createHelper);
-		createCell(row, 2,  messageSource.getMessage("user", null, locale), titleStyle, createHelper);
-		createCell(row, 3, "IP", titleStyle, createHelper);
-		createCell(row, 4,  messageSource.getMessage("logevents_message", null, locale), titleStyle, createHelper);
-		createCell(row, 5,  messageSource.getMessage("logevents_level", null, locale), titleStyle, createHelper);
-		createCell(row, 6,  messageSource.getMessage("logevents_callerclass", null, locale), titleStyle, createHelper);
-		createCell(row, 7,  messageSource.getMessage("logevents_callerline", null, locale), titleStyle, createHelper);
+		createCell(row, 0, "ID", titleStyle);
+		createCell(row, 1, messageSource.getMessage("logevents_timestamp", null, locale), titleStyle);
+		createCell(row, 2, messageSource.getMessage("user", null, locale), titleStyle);
+		createCell(row, 3, "IP", titleStyle);
+		createCell(row, 4, messageSource.getMessage("logevents_message", null, locale), titleStyle);
+		createCell(row, 5, messageSource.getMessage("logevents_level", null, locale), titleStyle);
+		createCell(row, 6, messageSource.getMessage("logevents_callerclass", null, locale), titleStyle);
+		createCell(row, 7, messageSource.getMessage("logevents_callerline", null, locale), titleStyle);
 
 		List<LoggingEvent> events;
 		if (StringUtils.hasText(level)) {
@@ -189,11 +188,10 @@ public class LoggingEventExport {
 		out.close();
 	}
 
-	private void createCell(Row row, int column, String value, CellStyle style, CreationHelper createHelper) {
+	private void createCell(Row row, int column, String value, CellStyle style) {
 		Cell cell = row.createCell(column);
-		cell.setCellValue(createHelper.createRichTextString(value));
+		cell.setCellValue(value);
 		cell.setCellStyle(style);
 	}
-
 
 }

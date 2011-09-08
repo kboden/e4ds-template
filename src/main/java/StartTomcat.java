@@ -22,21 +22,19 @@ public class StartTomcat {
 		File currentDir = new File(".");
 		@SuppressWarnings("unused")
 		Context ctx = tomcat.addWebapp("/", currentDir.getAbsolutePath() + "/src/main/webapp");
-
-		/* Overwrites default.properties
+		/*
 		tomcat.enableNaming();
-		System.setProperty("jndiPropertySourceEnabled", "true");
 		
 		ContextEnvironment environment = new ContextEnvironment();
 		environment.setType("java.lang.String");
 		environment.setName("database.url");
-		environment.setValue("jdbc:h2:~/e4ds");
+		environment.setValue("jdbc:jtds:sqlserver://localhost/changelog");
 		ctx.getNamingResources().addEnvironment(environment);
 		
 		environment = new ContextEnvironment();
 		environment.setType("java.lang.String");
 		environment.setName("database.driver");
-		environment.setValue("org.h2.Driver");
+		environment.setValue("net.sourceforge.jtds.jdbc.Driver");
 		ctx.getNamingResources().addEnvironment(environment);
 		
 		environment = new ContextEnvironment();
@@ -48,10 +46,15 @@ public class StartTomcat {
 		environment = new ContextEnvironment();
 		environment.setType("java.lang.String");
 		environment.setName("database.password");
-		environment.setValue("");
+		environment.setValue("papa8gei");
+		ctx.getNamingResources().addEnvironment(environment);
+
+		environment = new ContextEnvironment();
+		environment.setType("java.lang.String");
+		environment.setName("hibernate.dialect");
+		environment.setValue("ch.ralscha.changelog.util.MySQLServer2008Dialect");
 		ctx.getNamingResources().addEnvironment(environment);
 		*/
-
 		tomcat.start();
 		tomcat.getServer().await();
 	}
