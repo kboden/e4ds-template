@@ -77,13 +77,13 @@
 
 	<changeSet author="dev" id="6">
 		<addForeignKeyConstraint baseColumnNames="event_id" baseTableName="logging_event_exception" constraintName="FK_log_event_ex_event"
-			referencedColumnNames="event_id"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="event_id"
 			referencedTableName="logging_event" />
 	</changeSet>
 
 	<changeSet author="dev" id="7">
 		<addForeignKeyConstraint baseColumnNames="event_id" baseTableName="logging_event_property" constraintName="FK_log_event_prop_event"
-			referencedColumnNames="event_id"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="event_id"
 			referencedTableName="logging_event" />
 	</changeSet>
 
@@ -137,11 +137,11 @@
 		<addPrimaryKey columnNames="userId,roleId" constraintName="PK_UserRoles" tableName="UserRoles" />
 		
 		<addForeignKeyConstraint baseColumnNames="userId" baseTableName="UserRoles" constraintName="FK_UserRoles_User"
-			referencedColumnNames="id"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
 			referencedTableName="User" />		
 		
 		<addForeignKeyConstraint baseColumnNames="roleId" baseTableName="UserRoles" constraintName="FK_UserRoles_Role"
-			referencedColumnNames="id"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id"
 			referencedTableName="Role" />			
 	</changeSet>
 	
