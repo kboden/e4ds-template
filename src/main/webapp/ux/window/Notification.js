@@ -1,3 +1,4 @@
+
 /* 
  *	Notification / Toastwindow extension for Ext JS 4.x
  *
@@ -8,8 +9,8 @@
  *	Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) 
  *	and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  *
- *	Version: 1.1
- *	Last changed date: 2011-09-01
+ *	Version: 1.3
+ *	Last changed date: 2011-09-13
  */
 
 Ext.define('Ext.ux.window.Notification', {
@@ -18,7 +19,7 @@ Ext.define('Ext.ux.window.Notification', {
 
 	title: 'Notification',
 
-	cls: 'notification-window',
+	cls: 'ux-notification-window',
 	autoDestroy: true,
 	autoHeight: true,
 	plain: false,
@@ -47,6 +48,8 @@ Ext.define('Ext.ux.window.Notification', {
 	slideInDelay: 1500,
 	slideDownDelay: 1000,
 	fadeDelay: 500,
+	stickOnClick: true,
+	stickWhileHover: true,
 
 	// Private. Do not override!
 	underDestruction: false,
@@ -71,7 +74,7 @@ Ext.define('Ext.ux.window.Notification', {
 				corner: 'br',
 				title: title,
 				manager: 'notification',
-				iconCls: error ? 'notification-icon-error' : 'notification-icon-information',
+				iconCls: error ? 'ux-notification-icon-error' : 'ux-notification-icon-information',
 				autoDestroyDelay: 4000,
 				slideInDelay: 800,
 				slideDownDelay: 1500,
@@ -140,8 +143,7 @@ Ext.define('Ext.ux.window.Notification', {
 			me.manager = Ext.getCmp(me.manager);
 		}
 
-		// If no manager is provided or found then the static object is used.
-		// With the el property pointing to the body document.
+		// If no manager is provided or found, then the static object is used and the el property pointed to the body document.
 		if (!me.manager) {
 			me.manager = me.statics().defaultManager;
 
@@ -154,11 +156,6 @@ Ext.define('Ext.ux.window.Notification', {
 			me.manager.notifications = [];
 		}
 
-		if (me.autoDestroy) {
-			me.task = new Ext.util.DelayedTask(me.doDestroy, me);
-		} else {
-			me.closable = true;
-		}
 	},
 
 	onRender: function() {
@@ -166,23 +163,27 @@ Ext.define('Ext.ux.window.Notification', {
 
         	me.callParent(arguments);
 
+		if (me.stickOnClick) {
 		if (me.body && me.body.dom) {
 			Ext.fly(me.body.dom).on('click', me.cancelAutoDestroy, me);
 		}
+		}
 
 		if (me.autoDestroy) {
+			me.task = new Ext.util.DelayedTask(me.doAutoDestroy, me);
 	 		me.task.delay(me.autoDestroyDelay);
 		}
+
+		me.el.hover(
+			function () {
+				me.mouseIsOver = true;
+			},
+			function () {
+				me.mouseIsOver = false;
 	},
+			me
+		);
 
-	cancelAutoDestroy: function() {
-		var me = this;
-
-		me.addClass('notification-fixed');
-		if (me.autoDestroy) {
-			me.task.cancel();
-			me.autoDestroy = false;
-		}
 	},
 
 	getXposAlignedToManager: function () {
@@ -277,26 +278,79 @@ Ext.define('Ext.ux.window.Notification', {
 
 	},
 
-	/* Not allowing notifications to be destroyed without passing through doDestroy() first.
-	   This avoids notifications being destroyed while animating, which would cause framework errors. */
-	listeners: {
-		'beforedestroy': function (me, eOpts) {
-			if (!me.readyToDestroy) {
-				return false;
+	slideDown: function () {
+		var me = this;
+
+		var index = Ext.Array.indexOf(me.manager.notifications, me)
+
+		// Not animating the element if it already started to destroy itself
+		if (!me.underDestruction && me.el) {
+
+			if (index) {
+				me.xPos = me.getXposAlignedToSibling(me.manager.notifications[index - 1]);
+				me.yPos = me.getYposAlignedToSibling(me.manager.notifications[index - 1]);
+			} else {
+				me.xPos = me.getXposAlignedToManager();
+				me.yPos = me.getYposAlignedToManager();
+			}
+
+			me.el.animate({
+				to: {
+					x: me.xPos,
+					y: me.yPos
+				},
+				easing: me.slideDownAnimation,
+				duration: me.slideDownDelay,
+				dynamic: true
+			});
+		}
+	},
+
+	cancelAutoDestroy: function() {
+		var me = this;
+
+		me.addClass('notification-fixed');
+		if (me.autoDestroy) {
+			me.task.cancel();
+			me.autoDestroy = false;
+		}
+	},
+
+	doAutoDestroy: function () {
+		var me = this;
+
+		/* Delayed destruction when mouse leaves the component.
+		   Doing this before me.mouseIsOver is checked below to avoid a race condition while resetting event handlers */
+		me.el.hover(
+			function () {
+			},
+			function () {
+				me.destroy();
+			},
+			me
+		);
+		
+		if (!(me.stickWhileHover && me.mouseIsOver)) {
+			// Destroy immediately
+			me.destroy();
 			}
 		},
+
+	listeners: {
 		'beforehide': function (me, eOpts) {
-			if (!me.readyToDestroy) {
 				if (!me.underDestruction) {
-					me.doDestroy();
-				}
+				// Force window to animate and destroy, instead of hiding
+				me.destroy();
 				return false;
 			}
 		}
 	},
 
-	doDestroy: function () {
+	destroy: function () {
 		var me = this;
+
+		// Avoids starting the last animation on an element already underway with its destruction
+		if (!me.underDestruction) {
 
 		me.underDestruction = true;
 
@@ -327,41 +381,21 @@ Ext.define('Ext.ux.window.Notification', {
 				}
 			}
 		});
-
-	},
-
-	slideDown: function () {
-		var me = this;
-
-		var index = Ext.Array.indexOf(me.manager.notifications, me);
-
-		// Not animating the element if it already started to destroy itself
-		if (!me.underDestruction && me.el) {
-
-			if (index) {
-				me.xPos = me.getXposAlignedToSibling(me.manager.notifications[index - 1]);
-				me.yPos = me.getYposAlignedToSibling(me.manager.notifications[index - 1]);
-			} else {
-				me.xPos = me.getXposAlignedToManager();
-				me.yPos = me.getYposAlignedToManager();
 			}
 
-			me.el.animate({
-				to: {
-					x: me.xPos,
-					y: me.yPos
-				},
-				easing: me.slideDownAnimation,
-				duration: me.slideDownDelay,
-				dynamic: true
-			});
+		// After animation is complete the component may be destroyed
+		if (me.readyToDestroy) {
+			this.callParent(arguments);
 		}
 	}
 
 });
 
+
 /*	Changelog:
  *
  *	2011-09-01 - 1.1: Bugfix. Array.indexOf not universally implemented, causing errors in IE<=8. Replaced with Ext.Array.indexOf.
+ *	2011-09-12 - 1.2: Added config options: stickOnClick and stickWhileHover
+ *	2011-09-13 - 1.3: Cleaned up component destruction
  *
  */
