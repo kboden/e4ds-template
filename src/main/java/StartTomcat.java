@@ -11,7 +11,7 @@ public class StartTomcat {
 
 	public static void main(String[] args) throws ServletException, LifecycleException {
 
-		//System.setProperty("spring.profiles.active", "development");
+		System.setProperty("spring.profiles.active", "development");
 
 		Tomcat tomcat = new Tomcat();
 		//tomcat.setSilent(true);
