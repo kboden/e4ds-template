@@ -19,3 +19,7 @@ System.setProperty("spring.profiles.active", "development");
 Production:
 System.setProperty("spring.profiles.active", "production");
 or delete the line. production is the default profile.
+
+
+Tomcat
+mvn -Dexec.classpathScope=compile "-Dexec.args=-classpath %classpath StartTomcat" -Dexec.executable=java process-classes org.codehaus.mojo:exec-maven-plugin:1.2:exec
