@@ -211,13 +211,13 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-
+        <!-- 
 		<dependency>
 			<groupId>resources</groupId>
 			<artifactId>extjs</artifactId>
 			<version>${extjs.version}</version>
 		</dependency>
-
+         -->
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
@@ -351,13 +351,13 @@
 		</repository>	
 
 
-
+        <!-- 
 		<repository>
 			<id>ralscha</id>
 			<name>My Private Repository</name>
 			<url>http://ralscha.ch/repository</url>
 		</repository>
-
+        -->
 	</repositories>
 
 	<build>
