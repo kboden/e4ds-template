@@ -25,7 +25,7 @@ import org.xml.sax.SAXException;
 public class StartJetty {
 	public static void main(String[] args) throws Exception {
 		long start = System.currentTimeMillis();
-		System.setProperty("spring.profiles.active", "development");
+		//System.setProperty("spring.profiles.active", "development");
 
 		int port = 8080;
 

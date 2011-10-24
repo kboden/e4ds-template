@@ -16,7 +16,7 @@
 		<querydsl.version>2.2.1</querydsl.version>
 		<aspectj.version>1.6.11</aspectj.version>
 
-		<slf4j.version>1.6.2</slf4j.version>
+		<slf4j.version>1.6.3</slf4j.version>
 		<logback.version>0.9.30</logback.version>
 
 		<eds.version>1.0.12</eds.version>
@@ -26,7 +26,7 @@
 
 		<maven.build.timestamp.format>yyyy-MM-dd'T'hh:mm:ss.SSSZ</maven.build.timestamp.format>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
-		<extjs.version>4.0.6</extjs.version>
+		<extjs.version>4.0.7</extjs.version>
 	</properties>
 
 
@@ -203,7 +203,7 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.0.1</version>
+			<version>2.1</version>
 		</dependency>
 
 		<dependency>
@@ -449,7 +449,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.9</version>
+				<version>2.10</version>
 			</plugin>
 
 			<plugin>
