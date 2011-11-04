@@ -41,7 +41,7 @@ public class StartJetty {
 		context.setDefaultsDescriptor("./src/main/config/webdefault.xml");
 
 		List<Artifact> includeOnlyArtifact = new ArrayList<Artifact>();
-		includeOnlyArtifact.add(new Artifact("resources", "extjs"));
+		//includeOnlyArtifact.add(new Artifact("resources", "extjs"));
 
 		context.setConfigurations(new Configuration[] { new MavenWebInfConfiguration(includeOnlyArtifact),
 				new org.eclipse.jetty.webapp.WebXmlConfiguration(),
@@ -81,7 +81,7 @@ public class StartJetty {
 
 		@SuppressWarnings("unused")
 		public MavenWebInfConfiguration() throws ParserConfigurationException, SAXException, IOException {
-			this(new ArrayList<Artifact>());
+			this(null);
 		}
 
 		public MavenWebInfConfiguration(List<Artifact> includeOnlyArtifacts) throws ParserConfigurationException,
@@ -141,12 +141,16 @@ public class StartJetty {
 		}
 
 		private boolean isIncluded(List<Artifact> includeOnlyArtifacts, String groupId, String artifactId) {
-			for (Artifact artifact : includeOnlyArtifacts) {
-				if (artifact.is(groupId, artifactId)) {
-					return true;
+			if (includeOnlyArtifacts != null) {			
+				for (Artifact artifact : includeOnlyArtifacts) {
+					if (artifact.is(groupId, artifactId)) {
+						return true;
+					}
 				}
+				return false;
 			}
-			return false;
+			
+			return true;
 		}
 
 		private String stripWhitespace(String orig) {
