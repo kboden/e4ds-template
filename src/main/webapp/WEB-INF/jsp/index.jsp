@@ -18,7 +18,6 @@
     <c:if test="${isDevelopment}">  
 	    <link rel="stylesheet" type="text/css" href="resources/css/app.css">
 	    <link rel="stylesheet" type="text/css" href="ux/css/ClearButton.css">
-	    <link rel="stylesheet" type="text/css" href="ux/css/ItemSelector.css">
 	    <link rel="stylesheet" type="text/css" href="ux/css/Notification.css">
 	    <link rel="stylesheet" type="text/css" href="ux/css/BoxSelect.css">
 	    

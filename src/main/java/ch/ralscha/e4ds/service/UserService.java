@@ -17,6 +17,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ch.ralscha.e4ds.config.JpaUserDetails;
 import ch.ralscha.e4ds.entity.QUser;
 import ch.ralscha.e4ds.entity.Role;
 import ch.ralscha.e4ds.entity.User;
@@ -96,8 +98,9 @@ public class UserService {
 	@ResponseBody
 	@RequestMapping(value = "/userFormPost", method = RequestMethod.POST)
 	@Transactional
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	public ExtDirectResponse userFormPost(HttpServletRequest request, Locale locale,
+			@RequestParam(required = false, defaultValue="false") boolean options,
 			@RequestParam(required = false) String roleIds, @Valid User modifiedUser, BindingResult result) {
 
 		//Check uniqueness of userName and email
@@ -153,4 +156,15 @@ public class UserService {
 
 	}
 
+	
+	@ExtDirectMethod
+	@PreAuthorize("isAuthenticated()")
+	@Transactional(readOnly=true)
+	public User getLoggedOnUserObject() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof JpaUserDetails) {
+			return userRepository.findByUserName(((JpaUserDetails) principal).getUsername());
+		}
+		return null;
+	}
 }

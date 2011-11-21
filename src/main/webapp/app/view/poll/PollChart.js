@@ -1,7 +1,7 @@
 Ext.define('E4ds.view.poll.PollChart', {
 	extend: 'Ext.panel.Panel',
 	alias: 'widget.pollchart',
-
+        stateId: 'pollChart',
 	title: i18n.chart_title,
 
 	layout: 'fit',
