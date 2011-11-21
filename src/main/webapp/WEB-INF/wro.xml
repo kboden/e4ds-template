@@ -7,11 +7,7 @@
     <js>/ux/TabCloseMenu.js</js>
     <js>/ux/TabReorderer.js</js>
     <js>/ux/form/field/ClearButton.js</js>
-    <js>/ux/form/field/FilterField.js</js>
-    <js>/ux/layout/component/form/ItemSelector.js</js>
-    <js>/ux/layout/component/form/MultiSelect.js</js>    
-    <js>/ux/form/MultiSelect.js</js>
-    <js>/ux/form/ItemSelector.js</js>    
+    <js>/ux/form/field/FilterField.js</js> 
     <js>/ux/window/Notification.js</js>
     <js>/api.js</js>
     <js>/direct.js</js>
@@ -45,9 +41,9 @@
     <js>/app.js</js>
     
     <css>/resources/css/app.css</css>
-    <css>/resources/css/ClearButton.css</css>
-    <css>/resources/css/ItemSelector.css</css>
-    <css>/resources/css/Notification.css</css>
+    <css>/ux/css/ClearButton.css</css>
+    <css>/ux/css/ItemSelector.css</css>
+    <css>/ux/css/Notification.css</css>
   </group>
 
   <group name="login">
@@ -55,7 +51,7 @@
     <js>/login.js</js>
     
     <css>/resources/css/app.css</css>
-    <css>/resources/css/Notification.css</css>
+    <css>/ux/css/Notification.css</css>
   </group>
 
 </groups>

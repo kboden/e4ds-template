@@ -14,23 +14,23 @@ Ext.define('E4ds.view.user.List', {
 		var me = this;
 
 		me.columns = [ {
-			text: i18n.user_username,
+		text: i18n.user_username,
 		dataIndex: 'userName',
 		flex: 1
 	}, {
-			text: i18n.user_firstname,
+		text: i18n.user_firstname,
 		dataIndex: 'firstName',
 		flex: 1
 	}, {
-			text: i18n.user_lastname,
+		text: i18n.user_lastname,
 		dataIndex: 'name',
 		flex: 1
 	}, {
-			text: i18n.user_email,
+		text: i18n.user_email,
 		dataIndex: 'email',
 		flex: 1
 	}, {
-			text: i18n.user_enabled,
+		text: i18n.user_enabled,
 		dataIndex: 'enabled',
 		width: 70,
 		renderer: function(value) {

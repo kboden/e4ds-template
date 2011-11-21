@@ -7,12 +7,12 @@ Ext.define('E4ds.view.user.Edit', {
 	layout: 'fit',
 	autoShow: true,
 	resizable: true,
-	width: 400,
+	width: 450,
 	modal: true,
 
 	iconCls: 'icon-user-edit',
 
-	requires: ['Ext.ux.form.ItemSelector'],
+	requires: ['Ext.ux.form.field.BoxSelect'],
 	
 	initComponent: function() {
 		var me = this;
@@ -85,8 +85,10 @@ Ext.define('E4ds.view.user.Edit', {
 				inputValue: 'true',
 				uncheckedValue: 'false'
 			},{
-				xtype: 'itemselector',
+				xtype: 'comboboxselect',
 	            name: 'roleIds',
+                    queryMode: 'local',
+	            pinList: false,
 	            fieldLabel: i18n.user_roles,
 	            store: 'Roles',
 	            displayField: 'name',
