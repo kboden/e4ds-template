@@ -65,6 +65,7 @@ public class StartJetty {
 		private String groupId;
 		private String artifact;
 
+		@SuppressWarnings("unused")
 		public Artifact(String groupId, String artifact) {
 			this.groupId = groupId;
 			this.artifact = artifact;
