@@ -57,18 +57,22 @@ public class User extends AbstractPersistable<Long> {
 	@JoinTable(name = "UserRoles", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
 	private Set<Role> roles;
 
-	public void update(User modifiedUser) {
-		this.userName = modifiedUser.getUserName();
+	public void update(User modifiedUser, boolean personalOptionsUpdate) {
+		if (!personalOptionsUpdate) {
+			this.userName = modifiedUser.getUserName();
+			this.enabled = modifiedUser.isEnabled();
+		}
+		
 		this.name = modifiedUser.getName();
 		this.firstName = modifiedUser.getFirstName();
 		this.email = modifiedUser.getEmail();
-		this.enabled = modifiedUser.isEnabled();
 		this.locale = modifiedUser.getLocale();
 
 		if (StringUtils.hasText(modifiedUser.getPasswordHash())) {
 			this.passwordHash = modifiedUser.getPasswordHash();
 		}
 	}
+	
 
 	public String getUserName() {
 		return userName;
@@ -142,5 +146,7 @@ public class User extends AbstractPersistable<Long> {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+
+
 
 }

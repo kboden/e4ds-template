@@ -128,25 +128,35 @@ public class UserService {
 				modifiedUser.setPasswordHash(passwordEncoder.encode(modifiedUser.getPasswordHash()));
 			}
 
-			Set<Role> roles = Sets.newHashSet();
-			if (StringUtils.hasText(roleIds)) {
-				Iterable<String> roleIdsIt = Splitter.on(",").split(roleIds);
-				for (String roleId : roleIdsIt) {
-					roles.add(roleRepository.findOne(Long.valueOf(roleId)));
+			if (!options) {
+				Set<Role> roles = Sets.newHashSet();
+				if (StringUtils.hasText(roleIds)) {
+					Iterable<String> roleIdsIt = Splitter.on(",").split(roleIds);
+					for (String roleId : roleIdsIt) {
+						roles.add(roleRepository.findOne(Long.valueOf(roleId)));
+					}
 				}
-			}
 
-			if (modifiedUser.getId() != null) {
-				User dbUser = userRepository.findOne(modifiedUser.getId());
-				if (dbUser != null) {
-					dbUser.getRoles().clear();
-					dbUser.getRoles().addAll(roles);
-					dbUser.update(modifiedUser);
+				if (modifiedUser.getId() != null) {
+					User dbUser = userRepository.findOne(modifiedUser.getId());
+					if (dbUser != null) {
+						dbUser.getRoles().clear();
+						dbUser.getRoles().addAll(roles);
+						dbUser.update(modifiedUser, false);
+					}
+				} else {
+					modifiedUser.setCreateDate(new Date());
+					modifiedUser.setRoles(roles);
+					userRepository.save(modifiedUser);
 				}
 			} else {
-				modifiedUser.setCreateDate(new Date());
-				modifiedUser.setRoles(roles);
-				userRepository.save(modifiedUser);
+				if (modifiedUser.getId() != null) {
+					User dbUser = userRepository.findOne(modifiedUser.getId());
+					if (dbUser != null) {
+						dbUser.update(modifiedUser, true);
+					}
+				} 
+			
 			}
 		}
 
