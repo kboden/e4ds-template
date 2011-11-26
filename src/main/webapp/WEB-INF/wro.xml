@@ -7,7 +7,8 @@
     <js>/ux/TabCloseMenu.js</js>
     <js>/ux/TabReorderer.js</js>
     <js>/ux/form/field/ClearButton.js</js>
-    <js>/ux/form/field/FilterField.js</js> 
+    <js>/ux/form/field/FilterField.js</js>
+    <js>/ux/form/field/BoxSelect.js</js> 
     <js>/ux/window/Notification.js</js>
     <js>/api.js</js>
     <js>/direct.js</js>
@@ -28,6 +29,7 @@
     <js>/app/view/loggingevent/List.js</js>
     <js>/app/view/navigation/Header.js</js>
     <js>/app/view/navigation/SideBar.js</js>
+    <js>/app/view/navigation/UserOptions.js</js>
     <js>/app/view/poll/PollChart.js</js>
     <js>/app/view/user/Edit.js</js>
     <js>/app/view/user/List.js</js>
