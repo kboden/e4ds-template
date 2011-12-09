@@ -58,7 +58,7 @@ public class StartJetty {
 		server.start();
 
 		System.out.println("Jetty Startup Time: " + (System.currentTimeMillis() - start) + " ms");
-		System.out.println("Jetty running on 8080");
+		System.out.println("Jetty running on " + port);
 	}
 
 	private static class Artifact {
