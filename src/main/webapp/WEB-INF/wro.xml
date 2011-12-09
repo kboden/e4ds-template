@@ -45,6 +45,7 @@
     <css>/resources/css/app.css</css>
     <css>/ux/css/ClearButton.css</css>
     <css>/ux/css/Notification.css</css>
+    <css>/ux/css/BoxSelect.css</css>
   </group>
 
   <group name="login">
