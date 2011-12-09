@@ -29,7 +29,8 @@ Ext.define('E4ds.view.navigation.UserOptions', {
 			},
 			
 			baseParams: {
-				'options': true
+				'options': true,
+				'userName': '1'
 			},
 			
 			fieldDefaults: {
@@ -37,9 +38,6 @@ Ext.define('E4ds.view.navigation.UserOptions', {
 			},
 
 			items: [ {
-				name: 'userName',
-				xtype: 'hiddenfield'
-			}, {
 				name: 'firstName',
 				fieldLabel: i18n.user_firstname,
 				allowBlank: false
