@@ -52,7 +52,7 @@ public class StartJetty {
 				new org.eclipse.jetty.plus.webapp.PlusConfiguration(),
 				*/
 				new org.eclipse.jetty.webapp.JettyWebXmlConfiguration() });
-		
+
 		Server server = new Server(port);
 		server.setHandler(context);
 		server.start();
@@ -142,7 +142,7 @@ public class StartJetty {
 		}
 
 		private boolean isIncluded(List<Artifact> includeOnlyArtifacts, String groupId, String artifactId) {
-			if (includeOnlyArtifacts != null) {			
+			if (includeOnlyArtifacts != null) {
 				for (Artifact artifact : includeOnlyArtifacts) {
 					if (artifact.is(groupId, artifactId)) {
 						return true;
@@ -150,7 +150,7 @@ public class StartJetty {
 				}
 				return false;
 			}
-			
+
 			return true;
 		}
 

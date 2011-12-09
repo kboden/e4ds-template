@@ -7,11 +7,11 @@ Ext.application({
 	autoCreateViewport: true,
 	launch: function() {
 
-		if (this.hasLocalstorage()) {
-			Ext.state.Manager.setProvider(Ext.create('Ext.state.LocalStorageProvider'));
-		} else {
-			Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
-		}
+//		if (this.hasLocalstorage()) {
+//			Ext.state.Manager.setProvider(Ext.create('Ext.state.LocalStorageProvider'));
+//		} else {
+//			Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
+//		}
 
 		Ext.direct.Manager.on('event', function(e) {
 			if (e.code && e.code === 'parse') {

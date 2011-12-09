@@ -59,6 +59,7 @@ Ext.define('E4ds.controller.Navigation', {
 			var form = this.getUserOptionsForm().getForm();
 			var model = this.getUserModel();
 			var record = new model(result);
+			console.log(record);
 			form.loadRecord(record);
 		}
 	},

@@ -100,23 +100,31 @@ public class UserService {
 	@Transactional
 	@PreAuthorize("isAuthenticated()")
 	public ExtDirectResponse userFormPost(HttpServletRequest request, Locale locale,
-			@RequestParam(required = false, defaultValue="false") boolean options,
+			@RequestParam(required = false, defaultValue = "false") boolean options,
 			@RequestParam(required = false) String roleIds, @Valid User modifiedUser, BindingResult result) {
 
 		//Check uniqueness of userName and email
 		if (!result.hasErrors()) {
-			BooleanBuilder bb = new BooleanBuilder(QUser.user.userName.equalsIgnoreCase(modifiedUser.getUserName()));
-			if (modifiedUser.getId() != null) {
-				bb.and(QUser.user.id.ne(modifiedUser.getId()));
-			}
-			if (userRepository.count(bb) > 0) {
-				result.rejectValue("userName", null, messageSource.getMessage("user_usernametaken", null, locale));
+			if (!options) {
+				BooleanBuilder bb = new BooleanBuilder(QUser.user.userName.equalsIgnoreCase(modifiedUser.getUserName()));
+				if (modifiedUser.getId() != null) {
+					bb.and(QUser.user.id.ne(modifiedUser.getId()));
+				}
+				if (userRepository.count(bb) > 0) {
+					result.rejectValue("userName", null, messageSource.getMessage("user_usernametaken", null, locale));
+				}
 			}
 
-			bb = new BooleanBuilder(QUser.user.email.equalsIgnoreCase(modifiedUser.getEmail()));
-			if (modifiedUser.getId() != null) {
+			BooleanBuilder bb = new BooleanBuilder(QUser.user.email.equalsIgnoreCase(modifiedUser.getEmail()));
+			if (modifiedUser.getId() != null && !options) {
 				bb.and(QUser.user.id.ne(modifiedUser.getId()));
+			} else if (options) {
+				Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				if (principal instanceof JpaUserDetails) {
+					bb.and(QUser.user.userName.ne(((JpaUserDetails) principal).getUsername()));
+				}
 			}
+
 			if (userRepository.count(bb) > 0) {
 				result.rejectValue("email", null, messageSource.getMessage("user_emailtaken", null, locale));
 			}
@@ -150,13 +158,13 @@ public class UserService {
 					userRepository.save(modifiedUser);
 				}
 			} else {
-				if (modifiedUser.getId() != null) {
-					User dbUser = userRepository.findOne(modifiedUser.getId());
+				Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				if (principal instanceof JpaUserDetails) {
+					User dbUser = userRepository.findByUserName(((JpaUserDetails) principal).getUsername());
 					if (dbUser != null) {
 						dbUser.update(modifiedUser, true);
 					}
-				} 
-			
+				}
 			}
 		}
 
@@ -166,10 +174,9 @@ public class UserService {
 
 	}
 
-	
 	@ExtDirectMethod
 	@PreAuthorize("isAuthenticated()")
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public User getLoggedOnUserObject() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof JpaUserDetails) {

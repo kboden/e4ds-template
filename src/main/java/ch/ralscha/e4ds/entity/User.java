@@ -17,7 +17,6 @@ import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.util.StringUtils;
 
 @Entity
@@ -63,7 +62,7 @@ public class User extends AbstractPersistable<Long> {
 			this.userName = modifiedUser.getUserName();
 			this.enabled = modifiedUser.isEnabled();
 		}
-		
+
 		this.name = modifiedUser.getName();
 		this.firstName = modifiedUser.getFirstName();
 		this.email = modifiedUser.getEmail();
@@ -73,7 +72,6 @@ public class User extends AbstractPersistable<Long> {
 			this.passwordHash = modifiedUser.getPasswordHash();
 		}
 	}
-	
 
 	public String getUserName() {
 		return userName;
@@ -147,7 +145,5 @@ public class User extends AbstractPersistable<Long> {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
-
 
 }

@@ -6,8 +6,9 @@
 <%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
 <html>
 <head>
-    <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="utf-8">	
+	<link rel="shortcut icon" href="<c:url value="/favicon.ico"/>" /> 	
     <title>e4ds-template</title>
     
     <link rel="stylesheet" type="text/css" href="http://cdn.sencha.io/ext-4.0.7-gpl/resources/css/ext-all.css">
