@@ -17,6 +17,7 @@ import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.util.StringUtils;
 
 @Entity
