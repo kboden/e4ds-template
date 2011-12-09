@@ -101,14 +101,15 @@ public class UserService {
 	@PreAuthorize("isAuthenticated()")
 	public ExtDirectResponse userFormPost(HttpServletRequest request, Locale locale,
 			@RequestParam(required = false, defaultValue = "false") boolean options,
-			@RequestParam(required = false) String roleIds, @Valid User modifiedUser, BindingResult result) {
+			@RequestParam(required = false) String roleIds, @RequestParam(value = "id", required = false) Long userId,
+			@Valid User modifiedUser, BindingResult result) {
 
 		//Check uniqueness of userName and email
 		if (!result.hasErrors()) {
 			if (!options) {
 				BooleanBuilder bb = new BooleanBuilder(QUser.user.userName.equalsIgnoreCase(modifiedUser.getUserName()));
-				if (modifiedUser.getId() != null) {
-					bb.and(QUser.user.id.ne(modifiedUser.getId()));
+				if (userId != null) {
+					bb.and(QUser.user.id.ne(userId));
 				}
 				if (userRepository.count(bb) > 0) {
 					result.rejectValue("userName", null, messageSource.getMessage("user_usernametaken", null, locale));
@@ -116,8 +117,8 @@ public class UserService {
 			}
 
 			BooleanBuilder bb = new BooleanBuilder(QUser.user.email.equalsIgnoreCase(modifiedUser.getEmail()));
-			if (modifiedUser.getId() != null && !options) {
-				bb.and(QUser.user.id.ne(modifiedUser.getId()));
+			if (userId != null && !options) {
+				bb.and(QUser.user.id.ne(userId));
 			} else if (options) {
 				Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				if (principal instanceof JpaUserDetails) {
@@ -145,8 +146,8 @@ public class UserService {
 					}
 				}
 
-				if (modifiedUser.getId() != null) {
-					User dbUser = userRepository.findOne(modifiedUser.getId());
+				if (userId != null) {
+					User dbUser = userRepository.findOne(userId);
 					if (dbUser != null) {
 						dbUser.getRoles().clear();
 						dbUser.getRoles().addAll(roles);

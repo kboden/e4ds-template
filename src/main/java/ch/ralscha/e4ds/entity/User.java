@@ -16,11 +16,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.util.StringUtils;
 
 @Entity
 @Table(name = "`User`")
+@JsonIgnoreProperties("new")
 public class User extends AbstractPersistable<Long> {
 
 	private static final long serialVersionUID = 1L;
