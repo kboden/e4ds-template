@@ -1045,7 +1045,7 @@ Ext.define('Ext.ux.form.field.BoxSelect', {
 
                 me.lastValue = newValue;
                 me.fireEvent('change', me, newValue, lastValue);
-                me.onChange(newValue, lastValue)
+                me.onChange(newValue, lastValue);
             }
         }
     },

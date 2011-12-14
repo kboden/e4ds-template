@@ -7,11 +7,11 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<spring.version>3.1.0.RC2</spring.version>
+		<spring.version>3.1.0.RELEASE</spring.version>
 		<spring.security.version>3.1.0.RELEASE</spring.security.version>
 
 		<hibernate.version>4.0.0.CR7</hibernate.version>
-		<querydsl.version>2.2.5</querydsl.version>
+		<querydsl.version>2.3.0</querydsl.version>
 
 		<slf4j.version>1.6.4</slf4j.version>
 		<logback.version>1.0.0</logback.version>
@@ -140,6 +140,10 @@
 					<artifactId>cglib</artifactId>
 					<groupId>cglib</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>jsr305</artifactId>
+					<groupId>net.sourceforge.findbugs</groupId>
+				</exclusion>				
 			</exclusions>
 		</dependency>
 
@@ -191,7 +195,6 @@
 			<version>10.0.1</version>
 		</dependency>
 
-		<!-- <dependency> <groupId>resources</groupId> <artifactId>extjs</artifactId> <version>${extjs.version}</version> </dependency> -->
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
@@ -217,6 +220,14 @@
 			<artifactId>bonecp</artifactId>
 			<version>0.7.1.RELEASE</version>
 		</dependency>
+
+        <!-- 
+		<dependency>
+			<groupId>resources</groupId>
+			<artifactId>extjs</artifactId>
+			<version>${extjs.version}</version>
+		</dependency>
+         -->
 
 		<dependency>
 			<groupId>ro.isdc.wro4j</groupId>
@@ -344,7 +355,12 @@
 			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
 		</repository>
 
-		<!-- <repository> <id>ralscha</id> <name>My Private Repository</name> <url>http://ralscha.ch/repository</url> </repository> -->
+		<repository>
+			<id>ralscha</id>
+			<name>My Private Repository</name>
+			<url>http://ralscha.ch/repository</url>
+		</repository>
+
 	</repositories>
 
 	<build>
