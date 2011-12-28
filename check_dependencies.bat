@@ -1,2 +1,2 @@
-call mvn -U versions:display-dependency-updates
-call mvn -U versions:display-plugin-updates
+call mvn versions:display-dependency-updates
+call mvn versions:display-plugin-updates
