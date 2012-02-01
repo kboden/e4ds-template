@@ -4,6 +4,7 @@ import static com.mysema.query.types.PathMetadataFactory.forVariable;
 
 import javax.annotation.Generated;
 
+import com.mysema.query.types.Path;
 import com.mysema.query.types.PathMetadata;
 import com.mysema.query.types.path.BeanPath;
 import com.mysema.query.types.path.NumberPath;
@@ -27,7 +28,7 @@ public class QLoggingEventExceptionId extends BeanPath<LoggingEventExceptionId> 
 		super(LoggingEventExceptionId.class, forVariable(variable));
 	}
 
-	public QLoggingEventExceptionId(BeanPath<? extends LoggingEventExceptionId> entity) {
+	public QLoggingEventExceptionId(Path<? extends LoggingEventExceptionId> entity) {
 		super(entity.getType(), entity.getMetadata());
 	}
 
