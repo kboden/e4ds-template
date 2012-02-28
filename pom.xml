@@ -307,6 +307,8 @@
 		</dependency>
 
 	</dependencies>
+	
+	<!-- 
 	<repositories>
 		<repository>
 			<id>ralscha</id>
@@ -314,7 +316,8 @@
 			<url>http://ralscha.ch/repository</url>
 		</repository>
 	</repositories>
-
+ 	-->
+ 	
 	<build>
 		<resources>
 
@@ -355,7 +358,6 @@
 						</systemProperty>
 					</systemProperties>
 				</configuration>
-
 			</plugin>
 
 			<plugin>
